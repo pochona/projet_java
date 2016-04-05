@@ -5,7 +5,6 @@ import java.io.IOException;
 import application.Avion;
 
 public class test {
-
 	/**
 	 * @param args
 	 */
