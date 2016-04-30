@@ -1,0 +1,16 @@
+P1 10A Papa
+P2 10B Papa
+P4 10C Papa
+R1 20 Romeo
+R2 21 Romeo
+S4 22 Sierra
+S5 23 Sierra
+T3 24 Tango
+T7 30 Tango
+U4 31 Uniform
+V6 32 Victor
+V7 33 Victor
+M1 40 Mike
+M2 41 Mike
+M3 42 Mike
+M4 43 Mike
