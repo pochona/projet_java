@@ -117,5 +117,17 @@ public class Hall {
 		this.lesPortes.add(p);
 	}
 	
+	/**
+	 * Méthode toString.
+	 * Cette méthode permet d'afficher le hall courant
+	 * @author ap
+	 * @return : la chaine de caractère a afficher
+	 * @version 1.0 - 01/05/2016
+	 * @return String
+	 */
+	public String toString(){
+		return "Le hall " + this.getNom();
+	}
+	
 }
 
