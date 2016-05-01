@@ -7,8 +7,23 @@ public class ParkingContact extends Parking {
 	
 private static ArrayList<ParkingContact> lesParkingsContact = new ArrayList<ParkingContact>();
 	
+	/**
+	 * Constructeur de parking contact
+	 * @param n : nom du parking
+	 */
 	public ParkingContact(String n){
 		super(n);
+		lesParkingsContact.add(this);
+	}
+	
+	/**
+	 * Constructeur de parking contact
+	 * @param n : nom du parking
+	 * @param z : Zone associée
+	 * @param p : Porte associée
+	 */
+	public ParkingContact(String n, Zone z, Porte p){
+		super(n, z, p);
 		lesParkingsContact.add(this);
 	}
 	

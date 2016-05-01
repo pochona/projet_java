@@ -7,8 +7,22 @@ public class PorteContact extends Porte {
 	
 	private static ArrayList<PorteContact> lesPortesContact = new ArrayList<PorteContact>();
 	
+	/**
+	 * Constructeur de porte contact 
+	 * @param n : nom de la porte
+	 */
 	public PorteContact(String n){
 		super(n);
+		lesPortesContact.add(this);
+	}
+	
+	/**
+	 * Constructeur de porte contact
+	 * @param n : nom de la porte
+	 * @param h : hall associé
+	 */
+	public PorteContact(String n, Hall h){
+		super(n, h);
 		lesPortesContact.add(this);
 	}
 	

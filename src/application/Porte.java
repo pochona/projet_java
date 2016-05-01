@@ -18,13 +18,37 @@ public class Porte {
 	private String nom ;
 	
 	/**
+	 * parking associé
+	 */
+	private Parking parking;
+	
+	/**
+	 * Hall associé
+	 */
+	private Hall hall;
+	
+	/**
 	 * ArrayList qui contient toutes les portes 
 	 */
 	private static ArrayList<Porte> lesPortes = new ArrayList<Porte>();
 
-	
+	/**
+	 * Constructeur de porte
+	 * @param n : nom de la porte
+	 */
 	public Porte(String n){
 		this.nom = n;
+		lesPortes.add(this);
+	}
+	
+	/**
+	 * Constructeur de porte
+	 * @param n : nom de la porte
+	 * @param h : hall associé
+	 */
+	public Porte(String n, Hall h){
+		this.nom = n;
+		this.hall = h;
 		lesPortes.add(this);
 	}
 	
@@ -54,12 +78,15 @@ public class Porte {
 					nom = st.nextToken();
 					type = Integer.parseInt(st.nextToken());	
 					hall = st.nextToken();
-					
+					// On recupère le Hall avec son ID
+					Hall leHall = Hall.find(hall);
+					Porte laPorte = null;
 					if(type == PORTE_CONTACT){
-						new PorteContact(nom);
+						laPorte = new PorteContact(nom, leHall);
 					} else if(type == PORTE_SANS_CONTACT){
-						new PorteSansContact(nom);
+						laPorte = new PorteSansContact(nom, leHall);
 					}
+					leHall.ajouterPorte(laPorte);
 				}
 			}
 			// je ferme mon fichier
@@ -141,5 +168,34 @@ public class Porte {
 	 */
 	public String toString(){
 		return "La porte " + this.getNom();
+	}
+	
+	/**
+	 * Méthode find.
+	 * Cette méthode permet de retourner la porte ayant le nom passé en paramètre.
+	 * @author ap
+	 * @param String n : nom de la porte
+	 * @version 1.0 - 01/05/2016
+	 * @return Porte laPorte
+	 */
+	public static Porte find(String n){
+		Porte laPorte = null;
+		for (Porte maPorte : lesPortes) {
+			if(maPorte.getNom().equals(n)){
+				laPorte = maPorte;
+			}
+		}
+		return laPorte;
+	}
+	
+	/**
+	 * Méthode ajouterParking.
+	 * Cette méthode permet d'ajouter le parking a la porte courante (assoc 1-1)
+	 * @author ap
+	 * @param Porte p : la porte à ajouter
+	 * @version 1.0 - 01/05/2016
+	 */
+	public void ajouterParking(Parking p){
+		this.parking = p;
 	}
 }

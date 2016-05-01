@@ -7,8 +7,22 @@ public class PorteSansContact extends Porte {
 	
 	private static ArrayList<PorteSansContact> lesPortesSansContact = new ArrayList<PorteSansContact>();
 	
+	/**
+	 * Constructeur de parking contact
+	 * @param n : nom du parking
+	 */
 	public PorteSansContact(String n){
 		super(n);
+		lesPortesSansContact.add(this);
+	}
+	
+	/**
+	 * Constructeur de porte sans contact
+	 * @param n : nom de la porte
+	 * @param h : hall associé
+	 */
+	public PorteSansContact(String n, Hall h){
+		super(n, h);
 		lesPortesSansContact.add(this);
 	}
 	

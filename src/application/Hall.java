@@ -12,16 +12,24 @@ public class Hall {
 	 * désignation
 	 */
 	private String nom ;
-	private ArrayList lesZones;
+	
+	/**
+	 * Liste des portes associées
+	 */
+	private ArrayList<Porte> lesPortes;
 	
 	/**
 	 * ArrayList qui contient tous les halls 
 	 */
-	private static ArrayList lesHalls = new ArrayList();
+	private static ArrayList<Hall> lesHalls = new ArrayList<Hall>();
 
+	/**
+	 * Constructeur de Hall
+	 * @param n : nom du hall
+	 */
 	public Hall(String n){
 		this.nom = n;
-		this.lesZones = new ArrayList();
+		this.lesPortes = new ArrayList<Porte>();
 		lesHalls.add(this);
 	}
 	
@@ -79,5 +87,35 @@ public class Hall {
 	public String getNom(){
 		return this.nom;
 	}
+	
+	/**
+	 * Méthode find.
+	 * Cette méthode permet de retourner la hall ayant le nom passé en paramètre.
+	 * @author ap
+	 * @param String n : nom du hall
+	 * @version 1.0 - 01/05/2016
+	 * @return Hall leHall
+	 */
+	public static Hall find(String n){
+		Hall leHall = null;
+		for (Hall monHall : lesHalls) {
+			if(monHall.getNom().equals(n)){
+				leHall = monHall;
+			}
+		}
+		return leHall;
+	}
+	
+	/**
+	 * Méthode ajouterPorte.
+	 * Cette méthode permet d'ajouter une porte a la liste des portes du hall courant
+	 * @author ap
+	 * @param Porte p : la porte à ajouter
+	 * @version 1.0 - 01/05/2016
+	 */
+	public void ajouterPorte(Porte p){
+		this.lesPortes.add(p);
+	}
+	
 }
 

@@ -36,9 +36,16 @@ public class test {
 		//	System.out.println(PorteSansContact.afficherLesPortesSansContact());
 			
 			Parking.initialise();
-			System.out.println(Parking.afficherLesParkings());
-			System.out.println(ParkingContact.afficherLesParkingsContact());
-			System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
+		
+		//	System.out.println(Parking.afficherLesParkings());
+		//	System.out.println(ParkingContact.afficherLesParkingsContact());
+		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
+			
+			Hall leHall = Hall.find("3");
+			Porte laPorte = Porte.find("10C");
+			Parking leParking = Parking.find("S4");
+			Zone laZone = Zone.find("Sierra");
+			System.out.println("breakpoint");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

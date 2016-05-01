@@ -11,15 +11,24 @@ public class Zone {
 	 * désignation
 	 */
 	private String nom ;
-	private ArrayList<Porte> lesPortes;
+	
+	/**
+	 * liste des parkings associées
+	 */
+	private ArrayList<Parking> lesParkings;
+	
 	/**
 	 * ArrayList qui contient toutes les zones 
 	 */
 	private static ArrayList<Zone> lesZones = new ArrayList<Zone>();
 
+	/**
+	 * Constructeur de zone
+	 * @param n : nom de la zone
+	 */
 	public Zone(String n){
 		this.nom = n;
-		this.lesPortes = new ArrayList<Porte>();
+		this.lesParkings = new ArrayList<Parking>();
 		lesZones.add(this);
 	}
 	
@@ -76,5 +85,46 @@ public class Zone {
 	 */
 	public String getNom(){
 		return this.nom;
+	}
+	
+	/**
+	 * Méthode find.
+	 * Cette méthode permet de retourner la zone ayant le nom passé en paramètre.
+	 * @author ap
+	 * @param String n : nom de la zone
+	 * @version 1.0 - 01/05/2016
+	 * @return Hall leHall
+	 */
+	public static Zone find(String n){
+		Zone laZone = null;
+		for (Zone maZone : lesZones) {
+			if(maZone.getNom().equals(n)){
+				laZone = maZone;
+			}
+		}
+		return laZone;
+	}
+	
+	/**
+	 * Méthode ajouterParking.
+	 * Cette méthode permet d'ajouter le parking a la liste des parking de la zone
+	 * @author ap
+	 * @param Porte p : la porte à ajouter
+	 * @version 1.0 - 01/05/2016
+	 */
+	public void ajouterParking(Parking p){
+		this.lesParkings.add(p);
+	}
+	
+	/**
+	 * Méthode toString.
+	 * Cette méthode permet d'afficher la zone courante
+	 * @author ap
+	 * @return : la chaine de caractère a afficher
+	 * @version 1.0 - 01/05/2016
+	 * @return String
+	 */
+	public String toString(){
+		return "La zone " + this.getNom();
 	}
 }

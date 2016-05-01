@@ -15,16 +15,42 @@ public class Parking {
 	private String nom ;
 	
 	/**
+	 * zone associée au parking
+	 */
+	private Zone zone;
+	
+	/**
+	 * porte associée au parking
+	 */
+	private Porte porte;
+	
+	/**
 	 * ArrayList qui contient toutes les parkings 
 	 */
-	private static ArrayList lesParkings = new ArrayList();
+	private static ArrayList<Parking> lesParkings = new ArrayList<Parking>();
 	
 	public static final int PARKING_CONTACT = 1;
 	public static final int PARKING_SANS_CONTACT = 2;
 
-	
+	/**
+	 * Constructeur de parking
+	 * @param n : nom du parking
+	 */
 	public Parking(String n){
 		this.nom = n;
+		lesParkings.add(this);
+	}
+	
+	/**
+	 * Constructeur de parking 
+	 * @param n : nom du parking
+	 * @param z : Zone associée
+	 * @param p : Porte associée
+	 */
+	public Parking(String n, Zone z, Porte p){
+		this.nom = n;
+		this.zone = z;
+		this.porte = p;
 		lesParkings.add(this);
 	}
 	
@@ -43,6 +69,9 @@ public class Parking {
 			String nom;
 			String porte;
 			String zone;
+			Zone laZone = null;
+			Porte laPorte = null;
+			Parking leParking = null;
 			StringTokenizer st;
 			// je parcours chaque ligne de mon fichier
 			while ((line = entree.readLine()) != null) {
@@ -50,17 +79,22 @@ public class Parking {
 				st = new StringTokenizer(line);
 				// je vérifie que ma ligne soit bien égale à 3 pour être sur de mon fichier d'entrée
 
+				
 				if(st.countTokens() == 3){
 					nom = st.nextToken();
 					porte = st.nextToken();	
 					zone = st.nextToken();
+					laZone = Zone.find(zone);
+					laPorte = Porte.find(porte);
 					// je check si la porte associée au parking est une porte contact ou sans contact
 					// cela permettra de determiner si je dois faire un parking contact ou sans contact
 					if(Porte.getType(porte) == Porte.PORTE_CONTACT){
-						new ParkingContact(nom);
+						leParking = new ParkingContact(nom, laZone, laPorte);
 					} else {
-						new ParkingSansContact(nom);
+						leParking = new ParkingSansContact(nom, laZone, laPorte);
 					}
+					laPorte.ajouterParking(leParking);
+					laZone.ajouterParking(leParking);
 				}
 			}
 			// je ferme mon fichier
@@ -99,5 +133,35 @@ public class Parking {
 	 */
 	public String getNom(){
 		return this.nom;
+	}
+	
+	/**
+	 * Méthode find.
+	 * Cette méthode permet de retourner le parking ayant le nom passé en paramètre.
+	 * @author ap
+	 * @param String n : nom du parking
+	 * @version 1.0 - 01/05/2016
+	 * @return Parking leParking
+	 */
+	public static Parking find(String n){
+		Parking leParking = null;
+		for (Parking monParking : lesParkings) {
+			if(monParking.getNom().equals(n)){
+				leParking = monParking;
+			}
+		}
+		return leParking;
+	}
+	
+	/**
+	 * Méthode toString.
+	 * Cette méthode permet d'afficher le parking courant
+	 * @author ap
+	 * @return : la chaine de caractère a afficher
+	 * @version 1.0 - 01/05/2016
+	 * @return String
+	 */
+	public String toString(){
+		return "Le parking " + this.getNom();
 	}
 }
