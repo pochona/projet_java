@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -25,6 +26,10 @@ public class Avion {
 	 */
 	private static HashMap<String, Avion> lesAvions = new HashMap<String, Avion>();
 
+	private static ArrayList<String> grandeTaille = new ArrayList<String>(){{
+		grandeTaille.add("AIRBUS-A380");
+	}};
+	
 	/**
 	 * Constructeur d'un avion.
 	 * 
@@ -116,5 +121,29 @@ public class Avion {
 		return str;
 	}
 
-
+	/**
+	 * Méthode isGrandeTaille.
+	 * Cette méthode permet de retourner vrai ou faux si l'avion est de type grande taille ou pas
+	 * @author ap
+	 * @version 1.0 - 09/05/2016
+	 * @return bool true or false
+	 */
+	public boolean isGrandeTaille(){
+		return grandeTaille.contains(this.type);
+	}
+	
+	/**
+	 * Méthode find.
+	 * Cette méthode permet de retourner l'avion ayant le nom passé en paramètre.
+	 * @author ap
+	 * @param String n : nom de l'avion
+	 * @version 1.0 - 09/05/2016
+	 * @return Avion lAvion
+	 */
+	public static Avion find(String n){
+		Avion lAvion = null;
+		lAvion = lesAvions.get(n);
+		return lAvion;
+	}
+	
 }
