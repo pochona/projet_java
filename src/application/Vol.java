@@ -142,14 +142,17 @@ public abstract class Vol {
 	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols.
 	 * @return
 	 */
-	public static String afficherLesVols(){
+	public static String toStriing(){
 		Iterator<Vol> val = lesVols.values().iterator();
 		String str = "------ Les vols  ------" + " \n";
 		while(val.hasNext()){
 			Vol monVol = val.next();
-			str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : " + monVol.getVolAnnule() +", Porte :"+ monVol.getLaPorte() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() + " \n";
-		}
+			if (monVol.getVolAnnule()==true) {str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLaPorte() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() + " \n";
+			}else{str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLaPorte() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() + " \n";
+			}
+			}
 		return str;
 	}
-
+	public static void afficherLesVols(){
+	System.out.println(Vol.toStriing());}
 }

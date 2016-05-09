@@ -7,11 +7,11 @@ public class ErreurLignesSuccessivesVols extends Exception {
 	}
 	
 	public String afficherManqueDepart(String numAvion) {
-		return "Attention il manque le départ de l'avion" + numAvion;
+		return "Attention il manque le départ de l'avion : " + numAvion;
 	}
 	
 	public String afficherManqueArrivee(String numAvion) {
-		return "Attention la ligne qui suit le départ de l'avion " + numAvion+ " n'est pas correcte.";
+		return "Attention la ligne qui suit le départ de l'avion : " + numAvion+ " n'est pas correcte.";
 	}
 	
 }
