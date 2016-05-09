@@ -3,13 +3,11 @@ package test;
 import java.io.IOException;
 
 import application.Avion;
-import application.ErreurLignesSuccessivesVols;
 import application.Parking;
 import application.ParkingContact;
 import application.ParkingSansContact;
 import application.PorteContact;
 import application.PorteSansContact;
-import application.Vol;
 import application.Zone;
 import application.Hall;
 import application.Porte;
@@ -18,7 +16,7 @@ public class test {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws ErreurLignesSuccessivesVols{
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -43,8 +41,6 @@ public class test {
 		//	System.out.println(Parking.afficherLesParkings());
 		//	System.out.println(ParkingContact.afficherLesParkingsContact());
 		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
-			
-			Vol.initialise();
 			
 			Hall leHall = Hall.find("3");
 			Porte laPorte = Porte.find("10C");
