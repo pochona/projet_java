@@ -27,7 +27,7 @@ public class Avion {
 	private static HashMap<String, Avion> lesAvions = new HashMap<String, Avion>();
 
 	private static ArrayList<String> grandeTaille = new ArrayList<String>(){{
-		grandeTaille.add("AIRBUS-A380");
+		add("AIRBUS-A380");
 	}};
 	
 	/**
