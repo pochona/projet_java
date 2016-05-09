@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import utilitaires.Horaire;
+
 public class Parking {
 
 	/**
@@ -159,9 +161,47 @@ public class Parking {
 	 * @author ap
 	 * @return : la chaine de caractère a afficher
 	 * @version 1.0 - 01/05/2016
-	 * @return String
 	 */
 	public String toString(){
 		return "Le parking " + this.getNom();
+	}
+	
+	/**
+	 * Méthode getParkingDispo.
+	 * Cette méthode static permet de retrourner un parking dispo aux horaires communiquées
+	 * @author ap
+	 * @return : un parking dispo
+	 * @version 1.0 - 09/05/2016
+	 */
+	public static Parking getParkingDispo(Horaire deb, Horaire fin, Avion a){
+		Parking leParking = null;
+		/* On checkera après le trairement grande taille ou non 
+		 if(a.isGrandeTaille()){
+			
+		} else {
+			
+		}*/
+		boolean find = false;
+		
+		Iterator it = lesParkings.iterator();
+		while(!find){
+			Parking monParking = (Parking) it.next();
+			if(monParking.isDispo(deb, fin)){
+				leParking = monParking;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Méthode isDispo.
+	 * Cette méthode permet de verifier si un parking est dispo aux horaires communiquées ou non.
+	 * @author ap
+	 * @return true or false.
+	 * @version 1.0 - 09/05/2016
+	 */
+	public boolean isDispo(Horaire deb, Horaire fin){
+		return false;
 	}
 }
