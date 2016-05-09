@@ -10,6 +10,8 @@ import application.ParkingSansContact;
 import application.PorteContact;
 import application.PorteSansContact;
 import application.Vol;
+import application.VolArrivee;
+import application.VolDepart;
 import application.Zone;
 import application.Hall;
 import application.Porte;
@@ -45,6 +47,9 @@ public class test {
 		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
 			
 			Vol.initialise();
+			System.out.println(VolArrivee.afficherLesVolsArrivee());
+			System.out.println(VolDepart.afficherLesVolsDepart());
+			System.out.println(Vol.afficherLesVols());
 			
 			Hall leHall = Hall.find("3");
 			Porte laPorte = Porte.find("10C");

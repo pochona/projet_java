@@ -1,11 +1,10 @@
 package application;
 
 import java.util.HashMap;
-
+import java.util.Iterator;
 import utilitaires.Horaire;
 
 public class VolArrivee extends Vol {
-	
 	/**
 	 * Ville de provenance du vol
 	 */
@@ -47,6 +46,22 @@ public class VolArrivee extends Vol {
 		this.provenance=v;
 		lesVolsArrivee.put(num, this);
 	}
+	/**
+	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols d'arrivée
+	 * @return
+	 */
+	public static String afficherLesVolsArrivee(){
+		Iterator<VolArrivee> val = lesVolsArrivee.values().iterator();
+		String str = "------ Les vols arrivés ------" + " \n";
+		while(val.hasNext()){
+			VolArrivee monVolArrivee = val.next();
+			str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : " + monVolArrivee.getVolAnnule() +", Porte : "+ monVolArrivee.getLaPorte() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
+		}
+		return str;
+	}
+
+	public Horaire getHeureArrivee(){return this.heureArrivee;}
+	public String getProvenance(){return this.provenance;}
 	
 	
 }
