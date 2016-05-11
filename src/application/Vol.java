@@ -19,38 +19,19 @@ public abstract class Vol {
 	 */
 	private boolean estAnnule;
 	/**
-	 * La porte associée au vol
-	 */
-	private Parking leParking;
-	/**
-	 * Le hall associé au vol
-	 */
-	private Hall leHall;
-	/**
 	 * Le numéro de l'avion
 	 */
 	private Avion lAvion;
+	/**
+	 * Passage associé au vol0
+	 */
+	private Passage lePassage;
 	/**
 	 * Toutes les instances des vols 
 	 */
 	private static HashMap<String, Vol> lesVols = new HashMap<String, Vol>();
 	/**
-	 * 
-	 * @param num : string numero du vol
-	 * @param p : porte
-	 * @param ha : hall
-	 * @param avion : string numéro de l'avion
-	 */
-	public Vol(String num, Parking p, Hall ha, Avion avion){
-		this.numVol =num;
-		this.estAnnule=false;
-		this.leParking=p;
-		this.leHall=ha;	
-		this.lAvion=avion;
-		lesVols.put(num, this);
-	}
-	/**
-	 * 
+	 * Constructeur de vol 
 	 * @param num : string numero du vol
 	 * @param p : porte
 	 * @param ha : hall
@@ -131,13 +112,26 @@ public abstract class Vol {
 			System.out.println(e);
 		}
 	}
-
+	/**
+	 * 
+	 * @return le numéro du vol
+	 */
 	public String getNumVol(){return this.numVol;}
+	/**
+	 * 
+	 * @return le boolean  qui indique si le vol est annulé (true ) ou pas (false)
+	 */
 	public boolean getVolAnnule(){return estAnnule;}
-	public Parking getLeParking(){return leParking;}
-	public Hall getLeHall(){return leHall;}
+	/**
+	 * 
+	 * @return l'avion associé au vol
+	 */
 	public Avion getLAvion(){return lAvion;}
-	
+	/**
+	 * 
+	 * @return le passage associé au vol
+	 */
+	public Passage getLePassage(){return lePassage;}
 	/**
 	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols.
 	 * @return
@@ -148,13 +142,20 @@ public abstract class Vol {
 		while(val.hasNext()){
 			Vol monVol = val.next();
 			if (monVol.getVolAnnule()==true){
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
+			} else {
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
+			}
+			/*if (monVol.getVolAnnule()==true){
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
 			} else {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
-			}
+			}*/
 		}
 		return str;
 	}
-	
+	/**
+	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
+	 */
 	public static void afficherLesVols(){System.out.println(Vol.builtChaineVols());}
 }

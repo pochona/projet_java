@@ -46,9 +46,9 @@ public class test {
 		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
 			
 			Vol.initialise();
-			VolArrivee.afficherLesVolsArrivee();
-			VolDepart.afficherLesVolsDepart();
-			Vol.afficherLesVols();
+		//	VolArrivee.afficherLesVolsArrivee();
+		//	VolDepart.afficherLesVolsDepart();
+		//	Vol.afficherLesVols();
 			
 			Hall leHall = Hall.find("3");
 			Porte laPorte = Porte.find("10C");
