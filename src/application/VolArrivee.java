@@ -26,7 +26,7 @@ public class VolArrivee extends Vol {
 	 * @param h : Horaires heures
 	 * @param avion : string numéro de l'avion
 	 */
-	public VolArrivee(String num, Porte p, Hall ha, Horaire ho, String v, Avion avion){
+	public VolArrivee(String num, Parking p, Hall ha, Horaire ho, String v, Avion avion){
 		super(num, p, ha, avion);
 		this.heureArrivee=ho;
 		this.provenance=v;
@@ -50,17 +50,17 @@ public class VolArrivee extends Vol {
 	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols d'arrivée
 	 * @return
 	 */
-	public static String toStriing(){
+	public static String builtChaineVolsArrivee(){
 		Iterator<VolArrivee> val = lesVolsArrivee.values().iterator();
 		String str = "------ Les vols arrivés ------" + " \n";
 		while(val.hasNext()){
 			VolArrivee monVolArrivee = val.next();
-			if (monVolArrivee.getVolAnnule()==true) {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Porte : "+ monVolArrivee.getLaPorte() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
-		}else {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Porte : "+ monVolArrivee.getLaPorte() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
+			if (monVolArrivee.getVolAnnule()==true) {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
+		}else {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
 			}
 		return str;
 	}
-	public static void afficherLesVolsArrivee(){System.out.println(VolArrivee.toStriing());}
+	public static void afficherLesVolsArrivee(){System.out.println(VolArrivee.builtChaineVolsArrivee());}
 
 	public Horaire getHeureArrivee(){return this.heureArrivee;}
 	public String getProvenance(){return this.provenance;}
