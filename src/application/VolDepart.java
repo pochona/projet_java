@@ -27,7 +27,7 @@ public class VolDepart extends Vol {
 	 * @param m : int minutes
 	 * @param avion : string numéro de l'avion
 	 */
-	public VolDepart(String num, Porte p, Hall ha, Horaire ho, String v, Avion avion){
+	public VolDepart(String num, Parking p, Hall ha, Horaire ho, String v, Avion avion){
 		super(num, p, ha, avion);
 		this.heureDepart=ho;
 		this.destination=v;
@@ -51,19 +51,19 @@ public class VolDepart extends Vol {
 	 * Cette méthode permet de retourner sous forme de string les vols de départ pour les afficher.
 	 * @return
 	 */
-	public static String toStriing(){
+	public static String builtChaineVolsDepart(){
 		Iterator<VolDepart> val = lesVolsDepart.values().iterator();
 		String str = "------ Les vols départ ------" + " \n";
 		while(val.hasNext()){
 			VolDepart monVolDepart = val.next();
 			if (monVolDepart.getVolAnnule()==true) {
-			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : oui, Porte :"+ monVolDepart.getLaPorte() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";
-		}else {str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Porte :"+ monVolDepart.getLaPorte() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";}
+			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : oui, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";
+		}else {str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";}
 		}	
 			
 		return str;
 	}
-	public static void afficherLesVolsDepart(){System.out.println(VolDepart.toStriing());}
+	public static void afficherLesVolsDepart(){System.out.println(VolDepart.builtChaineVolsDepart());}
 
 	public Horaire getHeureDepart(){return this.heureDepart;}
 	public String getDestination(){return this.destination;}
