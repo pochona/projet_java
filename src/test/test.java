@@ -22,7 +22,6 @@ public class test {
 	 */
 	public static void main(String[] args) throws ErreurLignesSuccessivesVols{
 		// TODO Auto-generated method stub
-// test
 		try {
 			
 			Avion.initialise();
