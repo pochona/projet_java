@@ -28,9 +28,9 @@ public class Parking {
 	private Porte porte;
 	
 	/**
-	 * ArrayList qui contient le planning 
+	 * ArrayList qui contient les passages 
 	 */
-	private HashMap<Vol, Horaire> lesHoraires;
+	private ArrayList<Passage> lesPassages;
 	
 	/**
 	 * ArrayList qui contient toutes les parkings 
@@ -46,7 +46,7 @@ public class Parking {
 	 */
 	public Parking(String n){
 		this.nom = n;
-		this.lesHoraires = new HashMap<Vol, Horaire>();
+		this.lesPassages = new ArrayList<Passage>();
 		lesParkings.add(this);
 		
 	}
@@ -61,7 +61,7 @@ public class Parking {
 		this.nom = n;
 		this.zone = z;
 		this.porte = p;
-		this.lesHoraires = new HashMap<Vol, Horaire>();
+		this.lesPassages = new ArrayList<Passage>();
 		lesParkings.add(this);
 	}
 	
@@ -212,11 +212,8 @@ public class Parking {
 	 */
 	public boolean isDispo(Horaire deb, Horaire fin){
 		boolean dispo = false;
-		Iterator ikey = lesHoraires.keySet().iterator();
-		while (!dispo){
-		   Vol monVol = (Vol) ikey.next();
-		   Horaire mesHoraires = (Horaire) lesHoraires.get(monVol);
-		}
+
+
 		return dispo;
 	}
 	
