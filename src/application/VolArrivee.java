@@ -55,14 +55,26 @@ public class VolArrivee extends Vol {
 		String str = "------ Les vols arrivés ------" + " \n";
 		while(val.hasNext()){
 			VolArrivee monVolArrivee = val.next();
-			if (monVolArrivee.getVolAnnule()==true) {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
-		}else {str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
+			if (monVolArrivee.getVolAnnule()==true) {
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
+			} else {
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
 			}
 		return str;
 	}
+	/**
+	 * Affiche tout les vols arrivé.
+	 */
 	public static void afficherLesVolsArrivee(){System.out.println(VolArrivee.builtChaineVolsArrivee());}
-
+	/**
+	 * 
+	 * @return l'heure d'arrivée du vol.
+	 */
 	public Horaire getHeureArrivee(){return this.heureArrivee;}
+	/**
+	 * 
+	 * @return la provenance du vol
+	 */
 	public String getProvenance(){return this.provenance;}
 	
 	

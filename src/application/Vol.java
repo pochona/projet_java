@@ -147,12 +147,14 @@ public abstract class Vol {
 		String str = "------ Les vols  ------" + " \n";
 		while(val.hasNext()){
 			Vol monVol = val.next();
-			if (monVol.getVolAnnule()==true) {str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
-			}else{str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
+			if (monVol.getVolAnnule()==true){
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
+			} else {
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
 			}
-			}
+		}
 		return str;
 	}
-	public static void afficherLesVols(){
-	System.out.println(Vol.builtChaineVols());}
+	
+	public static void afficherLesVols(){System.out.println(Vol.builtChaineVols());}
 }
