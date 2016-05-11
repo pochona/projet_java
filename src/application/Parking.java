@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import utilitaires.Horaire;
+import utilitaires.TrancheHoraire;
 
 public class Parking {
 
@@ -179,10 +180,11 @@ public class Parking {
 	 * Méthode getParkingDispo.
 	 * Cette méthode static permet de retrourner un parking dispo aux horaires communiquées
 	 * @author ap
+	 * @param TrancheHoraire th : horaire du vol depart et arrivé
 	 * @return : un parking dispo
-	 * @version 1.0 - 09/05/2016
+	 * @version 1.0 - 11/05/2016
 	 */
-	public static Parking getParkingDispo(Horaire deb, Horaire fin, Avion a){
+	public static Parking getParkingDispo(TrancheHoraire th){
 		Parking leParking = null;
 		/* On checkera après le trairement grande taille ou non 
 		 if(a.isGrandeTaille()){
@@ -195,7 +197,7 @@ public class Parking {
 		Iterator it = lesParkings.iterator();
 		while(!find){
 			Parking monParking = (Parking) it.next();
-			if(monParking.isDispo(deb, fin)){
+			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
 		}
@@ -208,9 +210,9 @@ public class Parking {
 	 * Cette méthode permet de verifier si un parking est dispo aux horaires communiquées ou non.
 	 * @author ap
 	 * @return true or false.
-	 * @version 1.0 - 09/05/2016
+	 * @version 1.0 - 11/05/2016
 	 */
-	public boolean isDispo(Horaire deb, Horaire fin){
+	public boolean isDispo(TrancheHoraire th){
 		boolean dispo = false;
 
 

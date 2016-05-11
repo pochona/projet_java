@@ -1,6 +1,7 @@
 package application;
 
 import utilitaires.Duree;
+import utilitaires.TrancheHoraire;
 
 public class Passage {
 	
@@ -17,10 +18,11 @@ public class Passage {
 	/**
 	 * parking associé au passage 
 	 */
-	private Parking leParking;
+	private Parking parking;
 	
 	/**
 	 * Constructeur de Passage.
+	 * Construit le passage et trouve un parking dispo
 	 * 
 	 * @author ap
 	 * @params a : Vol d'arrivée
@@ -30,6 +32,19 @@ public class Passage {
 	public Passage(Vol a, Vol d){
 		this.volDepart = d;
 		this.volArrivee = a;
+		this.parking = Parking.getParkingDispo(this.getTrancheHoraire());
+	}
+	
+	/**
+	 * getTrancheHoraire
+	 * Permet de retourner la tranche horaire d'un passage (entre le vol arrivée et le vol départ)
+	 * 
+	 * @author np
+	 * @return TrancheHoraire : la tranche horaire entre les deux vols
+	 * @version 1.0 - 11/05/2016
+	 */
+	public TrancheHoraire getTrancheHoraire(){
+		return null;
 	}
 	
 /**
