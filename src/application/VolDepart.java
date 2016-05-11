@@ -58,13 +58,24 @@ public class VolDepart extends Vol {
 			VolDepart monVolDepart = val.next();
 			if (monVolDepart.getVolAnnule()==true) {
 			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : oui, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";
-		}else {str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";}
+			} else {
+			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " \n";}
 		}	
 			
 		return str;
 	}
+	/**
+	 * Affiche tout les vols départ.
+	 */
 	public static void afficherLesVolsDepart(){System.out.println(VolDepart.builtChaineVolsDepart());}
-
+	/**
+	 * 
+	 * @return l'heure de départ
+	 */
 	public Horaire getHeureDepart(){return this.heureDepart;}
+	/**
+	 * 
+	 * @return la destination
+	 */
 	public String getDestination(){return this.destination;}
 }
