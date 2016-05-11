@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -27,6 +28,11 @@ public class Parking {
 	private Porte porte;
 	
 	/**
+	 * ArrayList qui contient le planning 
+	 */
+	private HashMap<Vol, Horaire> lesHoraires;
+	
+	/**
 	 * ArrayList qui contient toutes les parkings 
 	 */
 	private static ArrayList<Parking> lesParkings = new ArrayList<Parking>();
@@ -40,7 +46,9 @@ public class Parking {
 	 */
 	public Parking(String n){
 		this.nom = n;
+		this.lesHoraires = new HashMap<Vol, Horaire>();
 		lesParkings.add(this);
+		
 	}
 	
 	/**
@@ -53,6 +61,7 @@ public class Parking {
 		this.nom = n;
 		this.zone = z;
 		this.porte = p;
+		this.lesHoraires = new HashMap<Vol, Horaire>();
 		lesParkings.add(this);
 	}
 	
@@ -202,6 +211,14 @@ public class Parking {
 	 * @version 1.0 - 09/05/2016
 	 */
 	public boolean isDispo(Horaire deb, Horaire fin){
-		return false;
+		boolean dispo = false;
+		Iterator ikey = lesHoraires.keySet().iterator();
+		while (!dispo){
+		   Vol monVol = (Vol) ikey.next();
+		   Horaire mesHoraires = (Horaire) lesHoraires.get(monVol);
+		}
+		return dispo;
 	}
+	
+	
 }
