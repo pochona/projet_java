@@ -219,5 +219,7 @@ public class Parking {
 		return dispo;
 	}
 	
+	public Porte getLaPorte(){return this.porte;}
+
 	
 }

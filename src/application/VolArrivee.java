@@ -41,17 +41,24 @@ public class VolArrivee extends Vol {
 		while(val.hasNext()){
 			VolArrivee monVolArrivee = val.next();
 			if (monVolArrivee.getVolAnnule()==true) {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";}
 			}
 			/*if (monVolArrivee.getVolAnnule()==true) {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : oui, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " \n";}
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHeureArrivee() + ", Vol Annulé : non, Parking : "+ monVolArrivee.getLeParking() + ", Hall : "+monVolArrivee.getLeHall() + ", Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";}
 			}*/
 		return str;
 	}
+	/**
+	 * return la chaine qui contient l'affichage d'un vol arrivée
+	 */
+	public String toString(){
+		return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHeureArrivee() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
+	}
+	
 	/**
 	 * Affiche tout les vols arrivé.
 	 */
@@ -66,6 +73,5 @@ public class VolArrivee extends Vol {
 	 * @return la provenance du vol
 	 */
 	public String getProvenance(){return this.provenance;}
-	
 	
 }

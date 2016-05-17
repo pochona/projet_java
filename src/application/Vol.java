@@ -14,22 +14,27 @@ public abstract class Vol {
 	 * Référence du vol
 	 */
 	private String numVol;
+	
 	/**
 	 * Indique si le vol est annulé (true), false sinon.
 	 */
 	private boolean estAnnule;
+	
 	/**
 	 * Le numéro de l'avion
 	 */
 	private Avion lAvion;
+	
 	/**
 	 * Passage associé au vol0
 	 */
 	private Passage lePassage;
+	
 	/**
 	 * Toutes les instances des vols 
 	 */
 	private static HashMap<String, Vol> lesVols = new HashMap<String, Vol>();
+	
 	/**
 	 * Constructeur de vol 
 	 * @param num : string numero du vol
@@ -43,6 +48,7 @@ public abstract class Vol {
 		this.lAvion=avion;
 		lesVols.put(num, this);
 	}
+	
 	/**
 	 * Cette méthode static permet d'ouvrir le fichier des volset d'initialiser les vols, volsdeparts et volsArrivé.
 	 * @throws IOException
@@ -62,6 +68,9 @@ public abstract class Vol {
 			Horaire heureDepart;
 			String tempNumAvion="";
 			StringTokenizer st;
+			VolDepart monVolDepart=null;
+			VolArrivee monVolArrivee=null;
+			Passage monPassage;
 			// je parcours chaque ligne de mon fichier
 			while ((line = entree.readLine()) != null) {
 				//J'incrémente le compteur de vol qui va me servir à déterminer si c'est un vol de départ ou d'arrivé
@@ -80,7 +89,7 @@ public abstract class Vol {
 						if (tempNumAvion != numAvion) {
 							//on stocke l'heure d'arrivée pour vérifier les horaires d'écart
 							heureArrivee=new Horaire(heures,minutes);
-							new VolArrivee(numVol, heureArrivee, ville, Avion.find(numAvion));
+							monVolArrivee = new VolArrivee(numVol, heureArrivee, ville, Avion.find(numAvion));
 						} else {
 							//la ligne qui suit le départ de l'avion numAvion n'est pas correcte.
 							throw new ErreurLignesSuccessivesVols(2, numAvion);	
@@ -89,7 +98,12 @@ public abstract class Vol {
 					}else{ 
 					if (tempNumAvion.equals(numAvion)) {
 							heureDepart=new Horaire(heures,minutes);
-								new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
+								monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
+								//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
+								monPassage = new Passage(monVolArrivee, monVolDepart);
+								//On rajoute le passage dans vol arrivée et vol départ
+								monVolDepart.setLePassage(monPassage);
+								monVolArrivee.setLePassage(monPassage);		
 								//On vérifie l'écart de temps entre 2 avions
 								if (heureDepart.retrait(Passage.getDuree()).compareTo(heureArrivee)<0) {
 								System.out.println("L'écart minimum entre l'heure d'arrivée et de départ du vol '"+ numVol +"' n'est pas suffisant!") ;}
@@ -101,8 +115,7 @@ public abstract class Vol {
 							}	
 						}
 					tempNumAvion=numAvion;
-				}
-			
+					}
 			// je ferme mon fichier
 			entree.close();
 		} 
@@ -112,26 +125,37 @@ public abstract class Vol {
 			System.out.println(e);
 		}
 	}
+	
 	/**
 	 * 
 	 * @return le numéro du vol
 	 */
 	public String getNumVol(){return this.numVol;}
+	
 	/**
 	 * 
 	 * @return le boolean  qui indique si le vol est annulé (true ) ou pas (false)
 	 */
-	public boolean getVolAnnule(){return estAnnule;}
+	public boolean getVolAnnule(){return this.estAnnule;}
+	
 	/**
 	 * 
 	 * @return l'avion associé au vol
 	 */
-	public Avion getLAvion(){return lAvion;}
+	public Avion getLAvion(){return this.lAvion;}
+	
 	/**
 	 * 
 	 * @return le passage associé au vol
 	 */
-	public Passage getLePassage(){return lePassage;}
+	public Passage getLePassage(){return this.lePassage;}
+	
+	/**
+	 * Rempli le passage de l'avion
+	 * @param p lePassage associé au vol
+	 */
+	public void setLePassage(Passage p){lePassage=p;}
+	
 	/**
 	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols.
 	 * @return
@@ -142,20 +166,52 @@ public abstract class Vol {
 		while(val.hasNext()){
 			Vol monVol = val.next();
 			if (monVol.getVolAnnule()==true){
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			}
 			/*if (monVol.getVolAnnule()==true){
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " \n";
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " \n";
+				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			}*/
 		}
 		return str;
 	}
 	/**
+	 * Retourne la chaine qui contient l'affichage d'un vol
+	 */
+	public String toString(){
+		return  "Numéro du vol : " + this.getNumVol() + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+	}
+	
+	/**
 	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
 	 */
 	public static void afficherLesVols(){System.out.println(Vol.builtChaineVols());}
+	
+	/**
+	 * 
+	 * @return le parking associé au passage 
+	 */
+	public Parking getLeParking(){return this.getLePassage().getLeParking();}
+	
+	/***
+	 * 
+	 * @return String le nom du parking associé au passage
+	 */
+	public String getLeNomDuParking(){return this.getLeParking().getNom();}
+	
+	/**
+	 * 
+	 * @return la porte associée au vol
+	 */
+	public Porte getLaPorte(){return this.getLeParking().getLaPorte();}
+	
+	/**
+	 * 
+	 * @return le nom associé à la porte
+	 */
+	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
+	
 }

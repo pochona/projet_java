@@ -56,5 +56,8 @@ public class Passage {
 		return ecart;
 	}
 
+	public Vol getMonVolArrivee(){return volArrivee;}
+	public Vol getMonVolDepart(){return volDepart;}
+	public Parking getLeParking(){return parking;}
 	
 }
