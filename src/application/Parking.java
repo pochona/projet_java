@@ -131,7 +131,7 @@ public class Parking {
 		String str = "------ Les parkings ------" + " \n";
 		while(it.hasNext()){
 			Parking monParking = it.next();
-			str += "Parking :" + monParking.getNom() + " \n";
+			str += monParking.toString() + " \n";
 		}
 		return str;
 	}
@@ -173,7 +173,7 @@ public class Parking {
 	 * @version 1.0 - 01/05/2016
 	 */
 	public String toString(){
-		return "Le parking " + this.getNom();
+		return "Le parking " + this.getNom() + (this.getClass().equals(ParkingSansContact.class)?", Parking sans contact":", Parking contact");
 	}
 	
 	/**

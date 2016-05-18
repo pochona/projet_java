@@ -111,7 +111,7 @@ public class Porte {
 		String str = "------ Les portes ------" + " \n";
 		while(it.hasNext()){
 			Porte maPorte = it.next();
-			str += "Porte : " + maPorte.getNom() + (maPorte.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact") + " \n";
+			str += maPorte.toString() + " \n";
 		}
 		return str;
 	}
@@ -167,7 +167,7 @@ public class Porte {
 	 * @return String
 	 */
 	public String toString(){
-		return "La porte " + this.getNom();
+		return "La porte : " + this.getNom() + (this.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact");
 	}
 	
 	/**

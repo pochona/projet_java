@@ -38,7 +38,7 @@ public class PorteSansContact extends Porte {
 		String str = "------ Les portes sans contact ------" + " \n";
 		while(it.hasNext()){
 			Porte maPorte = it.next();
-			str += "Porte : " + maPorte.getNom() + " \n";
+			str += maPorte.toString() + " \n";
 		}
 		return str;
 	}

@@ -72,7 +72,7 @@ public class Hall {
 		String str = "------ Les halls ------" + " \n";
 		while(it.hasNext()){
 			Hall monHall = it.next();
-			str += "Hall : " + monHall.getNom() + " \n";
+			str += monHall.toString() + " \n";
 		}
 		return str;
 	}

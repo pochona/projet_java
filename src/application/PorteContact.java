@@ -38,7 +38,7 @@ public class PorteContact extends Porte {
 		String str = "------ Les portes avec contact ------" + " \n";
 		while(it.hasNext()){
 			Porte maPorte = it.next();
-			str += "Porte : " + maPorte.getNom() + " \n";
+			str += maPorte.toString() + " \n";
 		}
 		return str;
 	}

@@ -71,7 +71,7 @@ public class Zone {
 		String str = "------ Les zones ------" + " \n";
 		while(it.hasNext()){
 			Zone maZone = it.next();
-			str += "Zone : " + maZone.getNom() + " \n";
+			str += maZone.toString() + " \n";
 		}
 		return str;
 	}

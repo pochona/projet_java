@@ -39,7 +39,7 @@ private static ArrayList<ParkingContact> lesParkingsContact = new ArrayList<Park
 		String str = "------ Les parkings avec contact ------" + " \n";
 		while(it.hasNext()){
 			Parking monParking = it.next();
-			str += "Parking :" + monParking.getNom() + " \n";
+			str += monParking.toString() + " \n";
 		}
 		return str;
 	}

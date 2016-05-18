@@ -39,7 +39,7 @@ public class ParkingSansContact extends Parking {
 		String str = "------ Les parkings sans contact ------" + " \n";
 		while(it.hasNext()){
 			Parking monParking = it.next();
-			str += "Parking :" + monParking.getNom() + " \n";
+			str += monParking.toString() + " \n";
 		}
 		return str;
 	}
