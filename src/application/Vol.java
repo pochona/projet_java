@@ -14,27 +14,27 @@ public abstract class Vol {
 	 * Référence du vol
 	 */
 	private String numVol;
-	
+
 	/**
 	 * Indique si le vol est annulé (true), false sinon.
 	 */
 	private boolean estAnnule;
-	
+
 	/**
 	 * Le numéro de l'avion
 	 */
 	private Avion lAvion;
-	
+
 	/**
 	 * Passage associé au vol0
 	 */
 	private Passage lePassage;
-	
+
 	/**
 	 * Toutes les instances des vols 
 	 */
 	private static HashMap<String, Vol> lesVols = new HashMap<String, Vol>();
-	
+
 	/**
 	 * Constructeur de vol 
 	 * @param num : string numero du vol
@@ -48,7 +48,7 @@ public abstract class Vol {
 		this.lAvion=avion;
 		lesVols.put(num, this);
 	}
-	
+
 	/**
 	 * Cette méthode static permet d'ouvrir le fichier des volset d'initialiser les vols, volsdeparts et volsArrivé.
 	 * @throws IOException
@@ -92,30 +92,31 @@ public abstract class Vol {
 							monVolArrivee = new VolArrivee(numVol, heureArrivee, ville, Avion.find(numAvion));
 						} else {
 							//la ligne qui suit le départ de l'avion numAvion n'est pas correcte.
-							throw new ErreurLignesSuccessivesVols(2, numAvion);	
+							throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_ARRIVEE, numAvion);	
 						}
-					//actuellement il manque la porte et le hall
-					}else{ 
-					if (tempNumAvion.equals(numAvion)) {
+						//actuellement il manque la porte et le hall
+					} else { 
+						if (tempNumAvion.equals(numAvion)) {
 							heureDepart=new Horaire(heures,minutes);
-								monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
-								//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
-								monPassage = new Passage(monVolArrivee, monVolDepart);
-								//On rajoute le passage dans vol arrivée et vol départ
-								monVolDepart.setLePassage(monPassage);
-								monVolArrivee.setLePassage(monPassage);		
-								//On vérifie l'écart de temps entre 2 avions
-								if (heureDepart.retrait(Passage.getDuree()).compareTo(heureArrivee)<0) {
-								System.out.println("L'écart minimum entre l'heure d'arrivée et de départ du vol '"+ numVol +"' n'est pas suffisant!") ;}
-							}else{
-								//il manque le départ de l'avion 
-								throw new ErreurLignesSuccessivesVols(1, numAvion);
-								}
-									
-							}	
+							monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
+							//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
+							monPassage = new Passage(monVolArrivee, monVolDepart);
+							//On rajoute le passage dans vol arrivée et vol départ
+							monVolDepart.setLePassage(monPassage);
+							monVolArrivee.setLePassage(monPassage);		
+							//On vérifie l'écart de temps entre 2 avions
+							if (heureDepart.retrait(Passage.getDuree()).compareTo(heureArrivee)<0) {
+								System.out.println("L'écart minimum entre l'heure d'arrivée et de départ du vol '"+ numVol +"' n'est pas suffisant!") ;
+							}
+						} else {
+							//il manque le départ de l'avion 
+							throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
 						}
-					tempNumAvion=numAvion;
-					}
+
+					}	
+				}
+				tempNumAvion=numAvion;
+			}
 			// je ferme mon fichier
 			entree.close();
 		} 
@@ -125,37 +126,37 @@ public abstract class Vol {
 			System.out.println(e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return le numéro du vol
 	 */
 	public String getNumVol(){return this.numVol;}
-	
+
 	/**
 	 * 
 	 * @return le boolean  qui indique si le vol est annulé (true ) ou pas (false)
 	 */
 	public boolean getVolAnnule(){return this.estAnnule;}
-	
+
 	/**
 	 * 
 	 * @return l'avion associé au vol
 	 */
 	public Avion getLAvion(){return this.lAvion;}
-	
+
 	/**
 	 * 
 	 * @return le passage associé au vol
 	 */
 	public Passage getLePassage(){return this.lePassage;}
-	
+
 	/**
 	 * Rempli le passage de l'avion
 	 * @param p lePassage associé au vol
 	 */
 	public void setLePassage(Passage p){lePassage=p;}
-	
+
 	/**
 	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols.
 	 * @return
@@ -184,34 +185,34 @@ public abstract class Vol {
 	public String toString(){
 		return  "Numéro du vol : " + this.getNumVol() + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
 	}
-	
+
 	/**
 	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
 	 */
 	public static void afficherLesVols(){System.out.println(Vol.builtChaineVols());}
-	
+
 	/**
 	 * 
 	 * @return le parking associé au passage 
 	 */
 	public Parking getLeParking(){return this.getLePassage().getLeParking();}
-	
+
 	/***
 	 * 
 	 * @return String le nom du parking associé au passage
 	 */
 	public String getLeNomDuParking(){return this.getLeParking().getNom();}
-	
+
 	/**
 	 * 
 	 * @return la porte associée au vol
 	 */
 	public Porte getLaPorte(){return this.getLeParking().getLaPorte();}
-	
+
 	/**
 	 * 
 	 * @return le nom associé à la porte
 	 */
 	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
-	
+
 }

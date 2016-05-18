@@ -20,7 +20,7 @@ public class test {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws ErreurLignesSuccessivesVols{
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
 			
@@ -58,6 +58,8 @@ public class test {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ErreurLignesSuccessivesVols e){
+			System.out.println(e);
 		}
 	}
 
