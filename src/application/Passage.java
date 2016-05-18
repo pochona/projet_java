@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import utilitaires.Duree;
 import utilitaires.TrancheHoraire;
 
@@ -21,6 +23,11 @@ public class Passage {
 	private Parking parking;
 	
 	/**
+	 * ArrayList qui contient tous les passages
+	 */
+	public static ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+
+	/**
 	 * Constructeur de Passage.
 	 * Construit le passage et trouve un parking dispo
 	 * 
@@ -33,6 +40,7 @@ public class Passage {
 		this.volDepart = d;
 		this.volArrivee = a;
 		this.parking = Parking.getParkingDispo(this.getTrancheHoraire());
+		lesPassages.add(this);
 	}
 	
 	/**

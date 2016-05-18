@@ -24,10 +24,10 @@ public class ErreurLignesSuccessivesVols extends Exception {
 	/**
 	 * Constructeur de ErreurLignesSuccessivesVols.
 	 * 
-	 * @author np, ap
+	 * @author np
 	 * @param mode : mode de l'erreur (voir les int constantes)
 	 * @param numAvion : numéro de l'avion en erreur
-	 * @version 1.0 - 09/05/2016 by np 
+	 * @version 1.0 - 09/05/2016
 	 * @version 2.0 - 18/05/2016 by ap : correction du constructeur
 	 */
 	public ErreurLignesSuccessivesVols (int mode, String numAvion) {
@@ -39,8 +39,8 @@ public class ErreurLignesSuccessivesVols extends Exception {
 	 * toString
 	 * Affichage de l'erreur
 	 * 
-	 * @author np, ap
-	 * @version 1.0 - 09/05/2016 by np 
+	 * @author np
+	 * @version 1.0 - 09/05/2016
 	 * @version 2.0 - 18/05/2016 by ap : correction de l'affichage en une méthode toString
 	 */
 	public String toString(){

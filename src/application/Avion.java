@@ -116,7 +116,7 @@ public class Avion {
 		String str = "------ Les avions ------" + " \n";
 		while(val.hasNext()){
 			Avion monAvion = val.next();
-			str += "Numéro : " + monAvion.getImmat() + " Type : " + monAvion.getType() + " \n";
+			str += monAvion.toString() + " \n";
 		}
 		return str;
 	}
@@ -144,6 +144,17 @@ public class Avion {
 		Avion lAvion = null;
 		lAvion = lesAvions.get(n);
 		return lAvion;
+	}
+	
+	/**
+	 * Méthode toString.
+	 * Cette méthode permet d'afficher l'avion
+	 * @author ap
+	 * @return : la chaine de caractère a afficher
+	 * @version 1.0 - 18/05/2016
+	 */
+	public String toString(){
+		return "Numéro : " + this.getImmat() + " Type : " + this.getType();
 	}
 	
 }
