@@ -1,12 +1,14 @@
 package test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.Avion;
 import application.ErreurLignesSuccessivesVols;
 import application.Parking;
 import application.ParkingContact;
 import application.ParkingSansContact;
+import application.Passage;
 import application.PorteContact;
 import application.PorteSansContact;
 import application.Vol;
@@ -41,9 +43,9 @@ public class test {
 			
 			Parking.initialise();
 		
-		//	System.out.println(Parking.afficherLesParkings());
-		//	System.out.println(ParkingContact.afficherLesParkingsContact());
-		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
+			System.out.println(Parking.afficherLesParkings());
+			System.out.println(ParkingContact.afficherLesParkingsContact());
+			System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
 			
 			Vol.initialise();
 		//	VolArrivee.afficherLesVolsArrivee();
@@ -54,6 +56,9 @@ public class test {
 			Porte laPorte = Porte.find("10C");
 			Parking leParking = Parking.find("S4");
 			Zone laZone = Zone.find("Sierra");
+		/*	Test
+		 * ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+			lesPassages = Passage.lesPassages;*/
 			System.out.println("breakpoint");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
