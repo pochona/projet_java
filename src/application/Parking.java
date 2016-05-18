@@ -193,7 +193,7 @@ public class Parking {
 			
 		}*/
 		boolean find = false;
-		
+		/*
 		Iterator it = lesParkings.iterator();
 		while(!find){
 			Parking monParking = (Parking) it.next();
@@ -201,7 +201,7 @@ public class Parking {
 				leParking = monParking;
 			}
 		}
-		
+		*/
 		return null;
 	}
 	
