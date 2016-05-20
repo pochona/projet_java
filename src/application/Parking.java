@@ -183,16 +183,18 @@ public class Parking {
 	 * @param TrancheHoraire th : horaire du vol depart et arrivé
 	 * @return : un parking dispo
 	 * @version 1.0 - 11/05/2016
+	 * @version 2.0 - 20/05/2016 by ap : Modif de la version de base
 	 */
 	public static Parking getParkingDispo(TrancheHoraire th){
 		Parking leParking = null;
+		boolean find = false;
 		/* On checkera après le trairement grande taille ou non 
 		 if(a.isGrandeTaille()){
 			
 		} else {
 			
 		}*/
-		boolean find = false;
+
 		/*
 		Iterator it = lesParkings.iterator();
 		while(!find){
@@ -200,17 +202,18 @@ public class Parking {
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
-		}
-		*/
-		return null;
+		}*/
+		
+		return leParking;
 	}
 	
 	/**
 	 * Méthode isDispo.
 	 * Cette méthode permet de verifier si un parking est dispo aux horaires communiquées ou non.
 	 * @author ap
+	 * @param TrancheHoraire th : la tranche horaire qu'on veut placer
 	 * @return true or false.
-	 * @version 1.0 - 11/05/2016
+	 * @version 1.0 - 20/05/2016
 	 */
 	public boolean isDispo(TrancheHoraire th){
 		boolean dispo = false;
@@ -222,6 +225,7 @@ public class Parking {
 		while (dispo == false && it.hasNext()){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
+
 			maTh = monPassage.getTrancheHoraire();
 		}
 		
