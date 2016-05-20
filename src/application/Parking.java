@@ -214,8 +214,17 @@ public class Parking {
 	 */
 	public boolean isDispo(TrancheHoraire th){
 		boolean dispo = false;
-
-
+		Passage monPassage;
+		TrancheHoraire maTh;
+		// Je vais devoir parcourir la liste des passages du parking
+		Iterator it = this.lesPassages.iterator();
+		// Je continue tant que j'ai pas prouvé que le parking était dispo, et que j'ai des horaires passages suivant
+		while (dispo == false && it.hasNext()){
+			// Je recupere la trancheHoraire de mon passage courant
+			monPassage = (Passage) it.next();
+			maTh = monPassage.getTrancheHoraire();
+		}
+		
 		return dispo;
 	}
 	
