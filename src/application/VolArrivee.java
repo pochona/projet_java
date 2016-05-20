@@ -5,6 +5,7 @@ import java.util.Iterator;
 import utilitaires.Horaire;
 
 public class VolArrivee extends Vol {
+	
 	/**
 	 * Ville de provenance du vol
 	 */
@@ -77,4 +78,14 @@ public class VolArrivee extends Vol {
 	 */
 	public String getProvenance(){return this.provenance;}
 	
+	/**
+	 * Methode getlesVolsA
+	 * getter de la liste des vols arrivée.
+	 * @return hashmap
+	 * @author lb
+	 * @version 1.0 - 20/05/2016
+	 */
+	public static HashMap<String, VolArrivee> getlesVolsA(){
+		return lesVolsArrivee;
+	}
 }

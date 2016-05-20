@@ -75,4 +75,17 @@ public class VolDepart extends Vol {
 	 * @return la destination
 	 */
 	public String getDestination(){return this.destination;}
+	
+	
+	/**
+	 * Methode getlesVolsD
+	 * getter de la liste des vols depart.
+	 * @return hashmap
+	 * @author lb
+	 * @version 1.0 - 20/05/2016
+	 */
+	
+	public static HashMap<String, VolDepart> getlesVolsD(){
+		return lesVolsDepart;
+	}
 }

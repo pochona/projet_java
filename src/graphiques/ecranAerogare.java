@@ -2,6 +2,9 @@ package graphiques;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -30,7 +33,7 @@ public class ecranAerogare extends JFrame{
 	 * @
 	 */
 	public ecranAerogare(){
-	init();
+		init();
 	}
 
 	/**
@@ -45,16 +48,37 @@ public class ecranAerogare extends JFrame{
 				
 	//Instancie les panels
 	jpane0 = new JPanel();
-	//jlistArrivees= new JList(lesVols.keySet().toArray());
-	jlistDeparts= new JList();
+	this.getContentPane().add(jpane0);
+	jpane0.setLayout(new BorderLayout(0 ,0));
 
+	
+	JPanel jpane1 = new JPanel();
+	jpane0.add(jpane1, BorderLayout.EAST);
+/*	
+	ArrayList ar = new ArrayList();
+	ar.add("1111");
+	ar.add("2222");
+	ar.add("33333");
+	
+	JList jl = new JList(ar.toArray());
+	*/
+	jlistArrivees= new JList(VolArrivee.getlesVolsA().values().toArray());
 
+	jlistDeparts= new JList(VolDepart.getlesVolsD().values().toArray());
+jpane1.add(jlistArrivees);
+jpane1.add(jlistDeparts);
 			 
 	//ScrollPanes et disposition de type BorderLayout
+
+	/*
 	scrollPane1 = new JScrollPane(jlistArrivees);
 	add(scrollPane1, BorderLayout.EAST);
 	scrollPane2 = new JScrollPane(jlistDeparts);
 	add(scrollPane2, BorderLayout.WEST);
-	add(jpane0, BorderLayout.SOUTH);
+	add(jpane0, BorderLayout.SOUTH);*/
+
+	
+	
+	
 	}
 }
