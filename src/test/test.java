@@ -3,6 +3,7 @@ package test;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import utilitaires.Horaire;
 import utilitaires.TrancheHoraire;
 import application.Avion;
 import application.ErreurLignesSuccessivesVols;
@@ -51,17 +52,20 @@ public class test {
 			Vol.initialise();
 		//	VolArrivee.afficherLesVolsArrivee();
 		//	VolDepart.afficherLesVolsDepart();
-			Vol.afficherLesVols();
+		//	Vol.afficherLesVols();
 			
 			Hall leHall = Hall.find("3");
 			Porte laPorte = Porte.find("10C");
 			Parking leParking = Parking.find("S4");
 			Zone laZone = Zone.find("Sierra");
-		/*	Test */
-		  ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+			
+		/*	Test Amaury */
+			ArrayList<Passage> lesPassages = new ArrayList<Passage>();
 			lesPassages = Passage.lesPassages;
 			Passage monPassage = lesPassages.get(5);
 			TrancheHoraire math = monPassage.getTrancheHoraire();
+			TrancheHoraire math2 = new TrancheHoraire(new Horaire(10, 00), new Horaire(11, 30));
+			System.out.println(math2.getFinTrancheHoraire().compareTo(math.getDebutTrancheHoraire()));
 			System.out.println("breakpoint");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
