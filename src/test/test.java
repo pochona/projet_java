@@ -3,8 +3,7 @@ package test;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
+import utilitaires.TrancheHoraire;
 import application.Avion;
 import application.ErreurLignesSuccessivesVols;
 import application.Parking;
@@ -17,7 +16,6 @@ import application.Vol;
 import application.VolArrivee;
 import application.VolDepart;
 import application.Zone;
-import graphiques.ecranAerogare;
 import application.Hall;
 import application.Porte;
 
@@ -53,12 +51,17 @@ public class test {
 			Vol.initialise();
 		//	VolArrivee.afficherLesVolsArrivee();
 		//	VolDepart.afficherLesVolsDepart();
-		//	Vol.afficherLesVols();
+			Vol.afficherLesVols();
 			
 			Hall leHall = Hall.find("3");
 			Porte laPorte = Porte.find("10C");
 			Parking leParking = Parking.find("S4");
 			Zone laZone = Zone.find("Sierra");
+		/*	Test */
+		  ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+			lesPassages = Passage.lesPassages;
+			Passage monPassage = lesPassages.get(5);
+			TrancheHoraire math = monPassage.getTrancheHoraire();
 			System.out.println("breakpoint");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -66,5 +69,8 @@ public class test {
 		} catch (ErreurLignesSuccessivesVols e){
 			System.out.println(e);
 		}
-	}	
+	}
+	
+	/*test commit*/
+
 }
