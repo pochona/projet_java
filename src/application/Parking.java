@@ -187,7 +187,6 @@ public class Parking {
 	 */
 	public static Parking getParkingDispo(TrancheHoraire th){
 		Parking leParking = null;
-		boolean find = false;
 		/* On checkera après le trairement grande taille ou non 
 		 if(a.isGrandeTaille()){
 			
@@ -195,15 +194,14 @@ public class Parking {
 			
 		}*/
 
-		/*
+
 		Iterator it = lesParkings.iterator();
-		while(!find){
+		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
-		}*/
-		
+		}
 		return leParking;
 	}
 	
@@ -217,22 +215,84 @@ public class Parking {
 	 */
 	public boolean isDispo(TrancheHoraire th){
 		boolean dispo = false;
-		Passage monPassage;
+		Passage monPassage, lastPassage = null;
 		TrancheHoraire maTh;
 		// Je vais devoir parcourir la liste des passages du parking
 		Iterator it = this.lesPassages.iterator();
+		// si la liste de mes passages est vide, je peux directement prendre le parking
+		if(!it.hasNext()){
+			System.out.println("dispo direct");
+			dispo = true;
+		}
+
 		// Je continue tant que j'ai pas prouvé que le parking était dispo, et que j'ai des horaires passages suivant
 		while (dispo == false && it.hasNext()){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
-
-			maTh = monPassage.getTrancheHoraire();
+System.out.println(monPassage.getHeureDepart());
+System.out.println(th.getDebutTrancheHoraire());
+System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
+			// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
+			if(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()) >= 0){
+				// Si je le trouve, je fais une tranche horaire entre la départ du last, et l'arrivée du courant
+				
+				// Pour ca, je regade d'abord si mon dernier passage est bien rempli
+				if(lastPassage != null){
+					maTh = new TrancheHoraire(monPassage.getHeureDepart(), lastPassage.getHeureArrivee());
+					// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
+					// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
+					if(maTh.contient(th)){
+						dispo = true;
+					}
+				} else {
+					// S'il est nul c'est que le premier passage a au moins l'arrivé après le départ du courant
+					// Je regarde donc si l'arrivée de mon courant est avant l'arrivé de ce passage
+					System.out.println(monPassage.getHeureArrivee());
+					System.out.println(th.getFinTrancheHoraire());
+					System.out.println(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()));
+					if(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()) <= 0){
+						System.out.println("ok");
+						dispo = true;
+					}
+				}
+			} else {
+				// je n'ai rien ensuite, et mon arrivée courante est après le départ du dernier testé
+				// donc je vérifie si j'en ai ensuite
+				if(!it.hasNext()){
+					// je n'ai rien ensuite, donc mon vol peut etre placé
+					System.out.println("dispo after");
+					dispo = true;
+				}
+			}
+			
+			// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
+			lastPassage = monPassage;
 		}
-		
+		System.out.println(this + " est dispo ? " + dispo);
 		return dispo;
 	}
 	
+	
+	/**
+	 * Méthode addPassage.
+	 * Cette méthode permet d'ajouter un passage dans la liste des passages du parking
+	 * @author ap
+	 * @param Passage p : le passage à ajouter
+	 * @version 1.0 - 21/05/2016
+	 * @version 2.0 - /05/2016 by ap : l'ajout s'effectue maintenant dans l'ordre
+	 */
+	public void addPassage(Passage p){
+		this.lesPassages.add(p);
+	}
+	
+	
+	/**
+	 * @todo : la doc
+	 * @return
+	 */
 	public Porte getLaPorte(){return this.porte;}
 
+	
+	
 	
 }

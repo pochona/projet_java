@@ -45,9 +45,9 @@ public class test {
 			
 			Parking.initialise();
 		
-			System.out.println(Parking.afficherLesParkings());
-			System.out.println(ParkingContact.afficherLesParkingsContact());
-			System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
+		//	System.out.println(Parking.afficherLesParkings());
+		//	System.out.println(ParkingContact.afficherLesParkingsContact());
+		//	System.out.println(ParkingSansContact.afficherLesParkingsSansContact());
 			
 			Vol.initialise();
 		//	VolArrivee.afficherLesVolsArrivee();
@@ -61,11 +61,20 @@ public class test {
 			
 		/*	Test Amaury */
 			ArrayList<Passage> lesPassages = new ArrayList<Passage>();
-			lesPassages = Passage.lesPassages;
+			lesPassages = Passage.getlesPassages();
 			Passage monPassage = lesPassages.get(5);
 			TrancheHoraire math = monPassage.getTrancheHoraire();
-			TrancheHoraire math2 = new TrancheHoraire(new Horaire(10, 00), new Horaire(11, 30));
-			System.out.println(math2.getFinTrancheHoraire().compareTo(math.getDebutTrancheHoraire()));
+			
+			
+			
+			TrancheHoraire math2 = new TrancheHoraire(new Horaire(18, 00), new Horaire(19, 30));
+			
+			TrancheHoraire mathparam = new TrancheHoraire(new Horaire(10, 00), new Horaire(11, 30));
+
+			System.out.println(mathparam.getFinTrancheHoraire().compareTo(math2.getDebutTrancheHoraire()));
+			
+			
+			
 			System.out.println("breakpoint");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

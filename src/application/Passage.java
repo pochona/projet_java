@@ -26,12 +26,17 @@ public class Passage {
 	/**
 	 * ArrayList qui contient tous les passages
 	 */
-	public static ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+	private static ArrayList<Passage> lesPassages = new ArrayList<Passage>();
 
 	/**
 	 * Duree de temps entre le départ et l'arrivée d'un avion 
 	 */
 	private static Duree ecart=new Duree(20);
+	
+	/**
+	 * int compteur de passage (ap : principalement utilisé pour des tests)
+	 */
+	private static int nbPassage = 0;
 	
 	/**
 	 * Constructeur de Passage.
@@ -45,8 +50,12 @@ public class Passage {
 	public Passage(VolArrivee a, VolDepart d){
 		this.volDepart = d;
 		this.volArrivee = a;
+		nbPassage++;
+		System.out.println(nbPassage);
 		this.parking = Parking.getParkingDispo(this.getTrancheHoraire());
+		this.parking.addPassage(this);
 		lesPassages.add(this);
+
 	}
 	
 	/**
@@ -128,4 +137,15 @@ public class Passage {
 		return this.getMonVolDepart().getHeureDepart();
 	}
 	
+	/**
+	 * getHeureDepart
+	 * Permet de retourner la liste static des passages 
+	 * 
+	 * @author ap
+	 * @return ArrayList : tous les passages
+	 * @version 1.0 - 21/05/2016
+	 */
+	public static ArrayList<Passage> getlesPassages(){
+		return lesPassages;
+	}
 }

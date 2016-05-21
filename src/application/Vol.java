@@ -97,7 +97,7 @@ public abstract class Vol {
 						//actuellement il manque la porte et le hall
 					} else { 
 						if (tempNumAvion.equals(numAvion)) {
-							heureDepart=new Horaire(heures,minutes);
+							heureDepart = new Horaire(heures,minutes);
 							monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
 							//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
 							monPassage = new Passage(monVolArrivee, monVolDepart);
