@@ -2,6 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utilitaires.Horaire;
 import utilitaires.TrancheHoraire;
@@ -60,18 +61,17 @@ public class test {
 			Zone laZone = Zone.find("Sierra");
 			
 		/*	Test Amaury */
-			ArrayList<Passage> lesPassages = new ArrayList<Passage>();
+		/*	ArrayList<Passage> lesPassages = new ArrayList<Passage>();
 			lesPassages = Passage.getlesPassages();
 			Passage monPassage = lesPassages.get(5);
 			TrancheHoraire math = monPassage.getTrancheHoraire();
-			
-			
-			
+	
 			TrancheHoraire math2 = new TrancheHoraire(new Horaire(18, 00), new Horaire(19, 30));
 			
 			TrancheHoraire mathparam = new TrancheHoraire(new Horaire(10, 00), new Horaire(11, 30));
 
 			System.out.println(mathparam.getFinTrancheHoraire().compareTo(math2.getDebutTrancheHoraire()));
+			*/
 			
 			
 			

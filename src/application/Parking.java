@@ -198,7 +198,7 @@ public class Parking {
 		Iterator it = lesParkings.iterator();
 		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
-			monParking.afficherLesPassages();
+		//	monParking.afficherLesPassages();
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
@@ -215,53 +215,66 @@ public class Parking {
 	 * @version 1.0 - 20/05/2016
 	 */
 	public boolean isDispo(TrancheHoraire th){
+		System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
 		boolean dispo = false;
+		boolean stop = false;
 		Passage monPassage, lastPassage = null;
 		TrancheHoraire maTh;
 		// Je vais devoir parcourir la liste des passages du parking
 		Iterator it = this.lesPassages.iterator();
 		// si la liste de mes passages est vide, je peux directement prendre le parking
 		if(!it.hasNext()){
-			System.out.println("dispo direct");
+//System.out.println("dispo direct");
 			dispo = true;
 		}
 
-		// Je continue tant que j'ai pas prouvé que le parking était dispo, et que j'ai des horaires passages suivant
-		while (dispo == false && it.hasNext()){
+		// Je continue tant que j'ai pas prouvé que le parking était dispo, et que j'ai des passages suivant
+		while (dispo == false && it.hasNext() && stop == false){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
-System.out.println(monPassage.getHeureDepart());
-System.out.println(th.getDebutTrancheHoraire());
-System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
+//System.out.println(monPassage.getHeureDepart());
+//System.out.println(th.getDebutTrancheHoraire());
+//System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
 			// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
 			if(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()) >= 0){
+				// je suis dans le bon créneaux, donc même si j'arrive pas a caser mon parking
+				// , je peux arreter ma boucle
+				stop = true;
+//System.out.println("if 1");
 				// Si je le trouve, je fais une tranche horaire entre la départ du last, et l'arrivée du courant
 				
 				// Pour ca, je regade d'abord si mon dernier passage est bien rempli
 				if(lastPassage != null){
-					maTh = new TrancheHoraire(monPassage.getHeureDepart(), lastPassage.getHeureArrivee());
+//System.out.println("if 2");
+					maTh = new TrancheHoraire(lastPassage.getHeureDepart(), monPassage.getHeureArrivee());
 					// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
 					// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
+//System.out.println("maTh : " + maTh);
+//System.out.println("th : " + th);
+//System.out.println("contient : " + maTh.contient(th));
 					if(maTh.contient(th)){
+//System.out.println("if 3");
 						dispo = true;
 					}
 				} else {
+//System.out.println("else 2");
 					// S'il est nul c'est que le premier passage a au moins l'arrivé après le départ du courant
 					// Je regarde donc si l'arrivée de mon courant est avant l'arrivé de ce passage
-					System.out.println(monPassage.getHeureArrivee());
-					System.out.println(th.getFinTrancheHoraire());
-					System.out.println(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()));
+ //System.out.println(monPassage.getHeureArrivee());
+ //System.out.println(th.getFinTrancheHoraire());
+ //System.out.println(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()));
 					if(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()) <= 0){
-						System.out.println("ok");
+//System.out.println("ok if 4");
 						dispo = true;
 					}
 				}
 			} else {
+//System.out.println("else 1");
 				// je n'ai rien ensuite, et mon arrivée courante est après le départ du dernier testé
 				// donc je vérifie si j'en ai ensuite
 				if(!it.hasNext()){
 					// je n'ai rien ensuite, donc mon vol peut etre placé
-					System.out.println("dispo after");
+//System.out.println("dispo after if 5");
 					dispo = true;
 				}
 			}
@@ -269,7 +282,7 @@ System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHorai
 			// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
 			lastPassage = monPassage;
 		}
-		System.out.println(this + " est dispo ? " + dispo);
+System.out.println(this + " est dispo ? " + dispo);
 		return dispo;
 	}
 	
@@ -280,10 +293,32 @@ System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHorai
 	 * @author ap
 	 * @param Passage p : le passage à ajouter
 	 * @version 1.0 - 21/05/2016
-	 * @version 2.0 - /05/2016 by ap : l'ajout s'effectue maintenant dans l'ordre
+	 * @version 2.0 - 22/05/2016 by ap : l'ajout s'effectue maintenant dans l'ordre
 	 */
 	public void addPassage(Passage p){
-		this.lesPassages.add(p);
+	
+		int cpt = 0;
+		boolean find = false;
+		
+		Iterator it = this.lesPassages.iterator();
+		Horaire monHoraire = p.getHeureArrivee();
+		Passage lePassage;
+		Horaire testHoraire;
+
+		while(it.hasNext() && !find){
+			
+			lePassage = (Passage) it.next();
+			testHoraire = lePassage.getHeureArrivee();
+
+			if(testHoraire.compareTo(monHoraire) > 0){
+				find = true;
+			} else {
+				cpt++;
+			}
+		}
+		this.lesPassages.add(cpt, p);
+		System.out.println("Apres tri : ");
+		this.afficherLesPassages();
 	}
 	
 	
