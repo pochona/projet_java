@@ -198,6 +198,7 @@ public class Parking {
 		Iterator it = lesParkings.iterator();
 		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
+			monParking.afficherLesPassages();
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
@@ -293,6 +294,20 @@ System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHorai
 	public Porte getLaPorte(){return this.porte;}
 
 	
-	
+	/**
+	 * Méthode afficherLesPassages.
+	 * Cette méthode permet d'afficher tous les passages d'un parking
+	 * @author ap
+	 * @version 1.0 - 22/05/2016
+	 */
+	public void afficherLesPassages(){
+		System.out.println("Parking : " + this.getNom());
+		Iterator it = this.lesPassages.iterator();
+		Passage monPassage;
+		while(it.hasNext()){
+			monPassage = (Passage) it.next();
+			System.out.println(monPassage);
+		}
+	}
 	
 }

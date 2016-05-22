@@ -148,4 +148,16 @@ public class Passage {
 	public static ArrayList<Passage> getlesPassages(){
 		return lesPassages;
 	}
+
+	/**
+	 * toString
+	 * Méthode d'affichage d'un passage
+	 * 
+	 * @author ap
+	 * @return String : la chaine à afficher
+	 * @version 1.0 - 22/05/2016
+	 */
+	public String toString(){
+		return "Vol de " + this.volArrivee.getHeureArrivee() + " à " + this.volDepart.getHeureDepart() + " (" + this.volArrivee.getLAvion() + ")" +". \n";
+	}
 }
