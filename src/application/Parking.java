@@ -213,6 +213,7 @@ public class Parking {
 	 * @param TrancheHoraire th : la tranche horaire qu'on veut placer
 	 * @return true or false.
 	 * @version 1.0 - 20/05/2016
+	 * @version 1.2 - 22/05/2016 by ap : correction de la création de la tranche horaire, petite erreur 
 	 */
 	public boolean isDispo(TrancheHoraire th){
 		System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
