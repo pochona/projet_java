@@ -53,6 +53,9 @@ public abstract class Vol {
 	 * Cette méthode static permet d'ouvrir le fichier des volset d'initialiser les vols, volsdeparts et volsArrivé.
 	 * @throws IOException
 	 * @throws ErreurLignesSuccessivesVols
+	 * 
+	 * @author np
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static void initialise() throws IOException, ErreurLignesSuccessivesVols{
 		try {
@@ -71,10 +74,9 @@ public abstract class Vol {
 			VolDepart monVolDepart=null;
 			VolArrivee monVolArrivee=null;
 			Passage monPassage;
+			
 			// je parcours chaque ligne de mon fichier
 			while ((line = entree.readLine()) != null) {
-				//J'incrémente le compteur de vol qui va me servir à déterminer si c'est un vol de départ ou d'arrivé
-				compteurVols++;
 				// je stocke les mots de la ligne 
 				st = new StringTokenizer(line);
 				// je vérifie que ma ligne soit bien égale à 5 pour être sur de mon fichier d'entrée
@@ -84,48 +86,58 @@ public abstract class Vol {
 					minutes = Integer.parseInt(st.nextToken());
 					ville = st.nextToken();	
 					numAvion = st.nextToken();
-					//si le compteur du vol est impair c'est un vol d'arrivée, sinon c'est un vol de départ
-					if (compteurVols%2 != 0){
-						if (tempNumAvion != numAvion) {
-							//on stocke l'heure d'arrivée pour vérifier les horaires d'écart
-							heureArrivee=new Horaire(heures,minutes);
-							monVolArrivee = new VolArrivee(numVol, heureArrivee, ville, Avion.find(numAvion));
-						} else {
-							//la ligne qui suit le départ de l'avion numAvion n'est pas correcte.
-							throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_ARRIVEE, numAvion);	
-						}
-						//actuellement il manque la porte et le hall
-					} else { 
-						if (tempNumAvion.equals(numAvion)) {
-							heureDepart = new Horaire(heures,minutes);
-							monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
-							//Contructeur du passage (seuleument après que l'on est construit le vol arrivee et le vol départ
-							monPassage = new Passage(monVolArrivee, monVolDepart);
-							//On rajoute le passage dans vol arrivée et vol départ
-							monVolDepart.setLePassage(monPassage);
-							monVolArrivee.setLePassage(monPassage);		
-							//On vérifie l'écart de temps entre 2 avions
-							if (heureDepart.retrait(Passage.getDuree()).compareTo(heureArrivee)<0) {
-								System.out.println("L'écart minimum entre l'heure d'arrivée et de départ du vol '"+ numVol +"' n'est pas suffisant!") ;
+					//on stocke l'heure d'arrivée pour vérifier les horaires d'écart
+					heureArrivee=new Horaire(heures,minutes);
+					monVolArrivee = new VolArrivee(numVol, heureArrivee, ville, Avion.find(numAvion));
+					//je stocke le nom de l'avion pour pouvoir vérifier que son vol départ est présent
+					tempNumAvion=numAvion;
+					//On lit la ligne suivante, qui doit être un vol départ
+					//On vérifie que la ligne suivante n'est pas vide
+					if((line = entree.readLine()) != null) {
+						// je stocke les mots de la ligne 
+						st = new StringTokenizer(line);
+						// je vérifie que ma ligne soit bien égale à 5 pour être sur de mon fichier d'entrée
+						if(st.countTokens() == 5){
+							numVol = st.nextToken();
+							heures = Integer.parseInt(st.nextToken());	
+							minutes = Integer.parseInt(st.nextToken());
+							ville = st.nextToken();	
+							numAvion = st.nextToken();
+							//je Vérifie que c'est bien le départ du vol précédant
+							if (tempNumAvion.equals(numAvion)) {
+								heureDepart = new Horaire(heures,minutes);
+								monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
+								//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
+								monPassage = new Passage(monVolArrivee, monVolDepart);
+								//On rajoute le passage dans vol arrivée et vol départ
+								monVolDepart.setLePassage(monPassage);
+								monVolArrivee.setLePassage(monPassage);		
+								//On vérifie l'écart de temps entre 2 avions
+								if (heureDepart.retrait(Passage.getDuree()).compareTo(heureArrivee)<0) {
+									System.out.println("L'écart minimum entre l'heure d'arrivée et de départ du vol '"+ numVol +"' n'est pas suffisant!") ;
+								}
+							} else {
+								//il manque le départ de l'avion 
+								throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
 							}
-						} else {
-							//il manque le départ de l'avion 
-							throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
 						}
-
-					}	
+					} else {
+					//il manque le départ du dernier avion
+					throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
+					}
+					
 				}
-				tempNumAvion=numAvion;
 			}
 			// je ferme mon fichier
 			entree.close();
-		} 
-		// erreur catché si le fichier n'existe pas
-		catch (java.io.FileNotFoundException e){
-			System.out.println("Fichier des vols introuvable");
-			System.out.println(e);
+			}
+			// erreur catché si le fichier n'existe pas
+			catch (java.io.FileNotFoundException e){
+				System.out.println("Fichier des vols introuvable");
+				System.out.println(e);
+			}
 		}
-	}
+
 
 	/**
 	 * 
