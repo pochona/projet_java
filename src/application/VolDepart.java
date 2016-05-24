@@ -42,24 +42,26 @@ public class VolDepart extends Vol {
 			VolDepart monVolDepart = val.next();
 			if (monVolDepart.getVolAnnule()==true) {
 				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";
-				} else {
+			} else {
 				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";}
-				}	
-			/*if (monVolDepart.getVolAnnule()==true) {
+		}	
+		/*if (monVolDepart.getVolAnnule()==true) {
 			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : oui, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";
 			} else {
 			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHeureDepart() + ", Vol Annulé : non, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";}
 			}	*/
-			return str;
+		return str;
 	}
 	/**
 	 * @todo 20/05/2016 : Remettre la bon affichage
 	 * return la chaine qui contient l'affichage d'un vol arrivée
 	 */
 	public String toString(){
-		return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHeureDepart() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() +". \n";
-		
+		//return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHeureDepart() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() +". \n";
 		//return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHeureDepart() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+
+		//version du toString pour le graphique Aerogare
+		return this.getNumVol() + "----Vol arrivée----" + this.getDestination() + "----" + this.getHeureDepart() + "----"+ this.getLeNomDeLaPorte()+"----" + this.getLeNomDuHall() +"----" + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") +"\n";
 	}
 	/**
 	 * Affiche tout les vols départ.
@@ -75,8 +77,8 @@ public class VolDepart extends Vol {
 	 * @return la destination
 	 */
 	public String getDestination(){return this.destination;}
-	
-	
+
+
 	/**
 	 * Methode getlesVolsD
 	 * getter de la liste des vols depart.
@@ -84,7 +86,7 @@ public class VolDepart extends Vol {
 	 * @author lb
 	 * @version 1.0 - 20/05/2016
 	 */
-	
+
 	public static HashMap<String, VolDepart> getlesVolsD(){
 		return lesVolsDepart;
 	}

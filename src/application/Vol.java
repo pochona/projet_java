@@ -99,7 +99,7 @@ public abstract class Vol {
 						if (tempNumAvion.equals(numAvion)) {
 							heureDepart = new Horaire(heures,minutes);
 							monVolDepart = new VolDepart(numVol, heureDepart, ville,  Avion.find(numAvion));
-							//Contructeur du passage (seuleument apèrs que l'on est construit le vol arrivee et le vol départ
+							//Contructeur du passage (seuleument après que l'on est construit le vol arrivee et le vol départ
 							monPassage = new Passage(monVolArrivee, monVolDepart);
 							//On rajoute le passage dans vol arrivée et vol départ
 							monVolDepart.setLePassage(monPassage);
@@ -173,7 +173,7 @@ public abstract class Vol {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			}*/
 			if (monVol.getVolAnnule()==true){
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+". \n";
+				str += " Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+". \n";
 			} else {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+". \n";
 			}
@@ -221,4 +221,21 @@ public abstract class Vol {
 	 */
 	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
 
+	/**
+	 * Méthode getLeHall.
+	 * Cette méthode récupère le hall associé à la porte
+	 * @return le hall associé à la porte
+	 * @author lb
+	 * @version 1.0 - 23/05/2016
+	 */
+	public Hall getLeHall(){return this.getLaPorte().getLeHall();}
+
+	/**
+	 * Méthode getLeNomDuHall.
+	 * Cette méthode récupère le nom du hall
+	 * @return le nom du hall associé à la porte
+	 * @author lb
+	 * @version 1.0 - 23/05/2016
+	 */
+	public String getLeNomDuHall(){return this.getLeHall().getNom();}
 }

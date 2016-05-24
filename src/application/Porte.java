@@ -198,4 +198,13 @@ public class Porte {
 	public void ajouterParking(Parking p){
 		this.parking = p;
 	}
+	
+	/**
+	 * Méthode getLeHall.
+	 * Cette méthode récupère le hall associé à la porte courante
+	 * @return le hall associé à la porte
+	 * @author lb
+	 * @version 1.0 - 23/05/2016
+	 */
+	public Hall getLeHall(){return this.hall;}
 }
