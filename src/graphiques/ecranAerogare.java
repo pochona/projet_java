@@ -86,7 +86,13 @@ public class ecranAerogare extends JFrame{
 		add(addNorthPanel(),"North");
 	}
 
-
+	/**
+	 * 
+	 * Cette m�thode retourne le Jpanel avec les titres des listes
+	 * @author lb
+	 * @version 1.0 - 18/05/2016
+	 * @
+	 */
 	JPanel addNorthPanel()
 	{
 		JPanel p = new JPanel();
