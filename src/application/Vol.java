@@ -251,4 +251,39 @@ public abstract class Vol {
 	public static HashMap<String, Vol> getlesVols(){
 		return lesVols;
 	}
+	
+	/**
+	 * M�thode getVolsByHall.
+	 * Cette m�thode retourner hashMap des vols filtr� selon le nom du hall pass� en param�tre
+	 * @author ap
+	 * @params String n : le nom du hall, en string
+	 * @return : la map des vols filtr�s
+	 * @version 1.0 - 24/05/2016
+	 */
+	public static HashMap<String, Vol> getVolsByHall(String n){
+		Hall monHall = Hall.find(n);
+		return getVolsByHall(monHall);
+	}
+	
+	/**
+	 * M�thode getVolsByHall.
+	 * Cette m�thode retourner hashMap des vols filtr� selon le hall pass� en param�tre
+	 * @author ap
+	 * @params Hall h : l'objet hall sur lequel on filtre
+	 * @return : la map des vols filtr�s
+	 * @version 1.0 - 24/05/2016
+	 */
+	public static HashMap<String, Vol> getVolsByHall(Hall h){
+		HashMap maHashMap = new HashMap<String, Vol>();
+		Iterator it = lesVols.keySet().iterator();
+		Vol monVol;
+		while(it.hasNext()){
+			Object key = it.next();
+			monVol = lesVols.get(key);
+			if(monVol.getLeHall().equals(h)){
+				maHashMap.put(key, monVol);
+			}
+		}
+		return maHashMap;
+	}
 }
