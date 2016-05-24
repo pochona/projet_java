@@ -233,6 +233,8 @@ public abstract class Vol {
 	 * @return le nom associé à la porte
 	 */
 	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
+	
+
 
 	/**
 	 * Méthode getLeHall.

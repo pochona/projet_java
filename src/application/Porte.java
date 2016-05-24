@@ -164,10 +164,12 @@ public class Porte {
 	 * @author ap
 	 * @return : la chaine de caractère a afficher
 	 * @version 1.0 - 30/04/2016
+	 * @version 1.1 - 24/05/2016 par lb pour suppression du String "contact/sans contact" pour soucis d'affichage dans ecranAerogare 
 	 * @return String
 	 */
 	public String toString(){
-		return "La porte : " + this.getNom() + (this.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact");
+		//return "La porte : " + this.getNom() + (this.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact");
+		return this.getNom();
 	}
 	
 	/**

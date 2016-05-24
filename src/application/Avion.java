@@ -152,9 +152,11 @@ public class Avion {
 	 * @author ap
 	 * @return : la chaine de caractère a afficher
 	 * @version 1.0 - 18/05/2016
+	 * @version 1.1 - 24/05/2016 par lb pour suppression du String "num:...Type..." pour soucis d'affichage dans ecranHall1 
 	 */
 	public String toString(){
-		return "Numéro : " + this.getImmat() + " Type : " + this.getType();
+		//return "Numéro : " + this.getImmat() + " Type : " + this.getType();
+		return this.getImmat() ;
 	}
 	
 }

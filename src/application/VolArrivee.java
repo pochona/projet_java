@@ -59,10 +59,7 @@ public class VolArrivee extends Vol {
 	 */
 	public String toString(){
 		//	return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHeureArrivee() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + ". \n";
-		//	return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHeureArrivee() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
-
-		//version du toString pour le graphique Aerogare
-		return this.getNumVol() + "----Vol arrivée----" + this.getProvenance() + "----" + this.getHeureArrivee() + "----"+ this.getLeNomDeLaPorte()+"----" + this.getLeNomDuHall() +"----" + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") +"\n";
+			return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHeureArrivee() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
 
 	}
 

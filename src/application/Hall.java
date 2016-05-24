@@ -123,10 +123,12 @@ public class Hall {
 	 * @author ap
 	 * @return : la chaine de caractère a afficher
 	 * @version 1.0 - 01/05/2016
+	 * @version 1.1 - 24/05/2016 par lb pour suppression du String "Le Hall" pour soucis d'affichage dans ecranAerogare 
 	 * @return String
 	 */
 	public String toString(){
-		return "Le hall " + this.getNom();
+		//return "Le hall " + this.getNom();
+		return this.getNom();
 	}
 	
 }

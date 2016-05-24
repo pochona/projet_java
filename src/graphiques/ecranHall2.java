@@ -1,32 +1,21 @@
 package graphiques;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 
-import application.Hall;
 import application.Vol;
-import application.VolArrivee;
-import application.VolDepart;
 
-public class ecranHall1 extends JFrame{
-
+public class ecranHall2 extends JFrame{
 
 	/**
-	 * Constructeur ecranHall1.
+	 * Constructeur ecranHall2.
 	 * Ce constructeur appel la méthode init()
 	 * @author lb
 	 * @version 1.0 - 24/05/2016
 	 * @
 	 */
-	public ecranHall1(){
+	public ecranHall2(){
 		init();
 	}
 
@@ -41,13 +30,13 @@ public class ecranHall1 extends JFrame{
 	public void init() {
 
 		
-		Object[][] tableHall = new Object[Vol.getVolsByHall("1").keySet().size()][4];
+		Object[][] tableHall = new Object[Vol.getVolsByHall("2").keySet().size()][4];
 
 
 		int index = 0;
-		for (String keyH : Vol.getVolsByHall("1").keySet())
+		for (String keyH : Vol.getVolsByHall("2").keySet())
 		{
-			Vol vol = Vol.getVolsByHall("1").get(keyH);
+			Vol vol = Vol.getVolsByHall("2").get(keyH);
 			tableHall[index][0] = vol.getLaPorte();
 			tableHall[index][1] = vol.getLAvion();
 			tableHall[index][2] = vol.getLAvion().getType();
@@ -66,6 +55,3 @@ public class ecranHall1 extends JFrame{
 
 
 }
-
-
-
