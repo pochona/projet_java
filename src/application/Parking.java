@@ -216,7 +216,7 @@ public class Parking {
 	 * @version 1.2 - 22/05/2016 by ap : correction de la création de la tranche horaire, petite erreur 
 	 */
 	public boolean isDispo(TrancheHoraire th){
-//System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
+		System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
 		boolean dispo = false;
 		boolean stop = false;
 		Passage monPassage, lastPassage = null;
@@ -283,7 +283,7 @@ public class Parking {
 			// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
 			lastPassage = monPassage;
 		}
-//System.out.println(this + " est dispo ? " + dispo);
+System.out.println(this + " est dispo ? " + dispo);
 		return dispo;
 	}
 	
@@ -318,8 +318,8 @@ public class Parking {
 			}
 		}
 		this.lesPassages.add(cpt, p);
-//System.out.println("Apres tri : ");
-//this.afficherLesPassages();
+		System.out.println("Apres tri : ");
+		this.afficherLesPassages();
 	}
 	
 	
