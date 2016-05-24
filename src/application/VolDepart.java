@@ -61,7 +61,7 @@ public class VolDepart extends Vol {
 		//return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHeureDepart() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
 
 		//version du toString pour le graphique Aerogare
-		return this.getNumVol() + "----Vol arrivée----" + this.getDestination() + "----" + this.getHeureDepart() + "----"+ this.getLeNomDeLaPorte()+"----" + this.getLeNomDuHall() +"----" + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") +"\n";
+		return this.getNumVol() + "----Vol départ----" + this.getDestination() + "----" + this.getHeureDepart() + "----"+ this.getLeNomDeLaPorte()+"----" + this.getLeNomDuHall() +"----" + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") +"\n";
 	}
 	/**
 	 * Affiche tout les vols départ.

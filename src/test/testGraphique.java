@@ -14,6 +14,7 @@ import application.Porte;
 import application.Vol;
 import application.Zone;
 import graphiques.ecranAerogare;
+import graphiques.ecranHall1;
 
 public class testGraphique {
 	
@@ -42,13 +43,20 @@ public class testGraphique {
 	
 		
 		//Gestion de l'ecran de l'aerogare
-		ecranAerogare frame = new ecranAerogare();
-		frame.setVisible(true);
-		frame.setSize(800,800);
-		frame.setLocationRelativeTo(null);
-		frame.setTitle("Ecran Aerogare");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-		frame.setVisible(true);
+	/*	ecranAerogare aerogare = new ecranAerogare();
+		aerogare.setSize(800,800);
+		aerogare.setLocationRelativeTo(null);
+		aerogare.setTitle("Ecran Aerogare");
+		aerogare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		aerogare.setVisible(true);*/
+		
+		ecranHall1 ecranhall1 = new ecranHall1();
+		ecranhall1.setVisible(true);
+		ecranhall1.setSize(800,800);
+		ecranhall1.setLocationRelativeTo(null);
+		ecranhall1.setTitle("Ecran Hall 1");
+		ecranhall1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+
 	}
 
 

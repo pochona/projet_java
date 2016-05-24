@@ -190,7 +190,9 @@ public abstract class Vol {
 	 */
 	public String toString(){
 		return  "Numéro du vol : " + this.getNumVol() + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+		
 	}
+	
 
 	/**
 	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
@@ -238,4 +240,15 @@ public abstract class Vol {
 	 * @version 1.0 - 23/05/2016
 	 */
 	public String getLeNomDuHall(){return this.getLeHall().getNom();}
+	
+	/**
+	 * Methode getlesVols
+	 * getter de la liste des vols.
+	 * @return hashmap
+	 * @author lb
+	 * @version 1.0 - 20/05/2016
+	 */
+	public static HashMap<String, Vol> getlesVols(){
+		return lesVols;
+	}
 }
