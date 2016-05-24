@@ -257,7 +257,7 @@ public abstract class Vol {
 	 * @author ap
 	 * @params String n : le nom du hall, en string
 	 * @return : la map des vols filtrés
-	 * @version 1.0 - 18/05/2016
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static HashMap<String, Vol> getVolsByHall(String n){
 		Hall monHall = Hall.find(n);
@@ -270,7 +270,7 @@ public abstract class Vol {
 	 * @author ap
 	 * @params Hall h : l'objet hall sur lequel on filtre
 	 * @return : la map des vols filtrés
-	 * @version 1.0 - 18/05/2016
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static HashMap<String, Vol> getVolsByHall(Hall h){
 		HashMap maHashMap = new HashMap<String, Vol>();
