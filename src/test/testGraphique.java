@@ -47,7 +47,7 @@ public class testGraphique {
 	
 		
 		//Gestion de l'ecran de l'aerogare
-		/*EcranAerogare aerogare = new EcranAerogare();
+		EcranAerogare aerogare = new EcranAerogare();
 		aerogare.setSize(700,700);
 		aerogare.setLocationRelativeTo(null);
 		aerogare.setTitle("Ecran Aerogare");
@@ -56,32 +56,20 @@ public class testGraphique {
 		
 		EcranHall1 ecranhall1 = new EcranHall1();
 		ecranhall1.setVisible(true);
-		ecranhall1.setSize(400,200);
 		ecranhall1.setLocation(0,0);
-		ecranhall1.setTitle("Ecran Hall 1");
-		ecranhall1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 		
 
 		EcranHall2 ecranhall2 = new EcranHall2();
 		ecranhall2.setVisible(true);
-		ecranhall2.setSize(400,200);
 		ecranhall2.setLocation(0,200);
-		ecranhall2.setTitle("Ecran Hall 2");
-		ecranhall2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		EcranHall3 ecranhall3 = new EcranHall3();
 		ecranhall3.setVisible(true);
-		ecranhall3.setSize(400,200);
 		ecranhall3.setLocation(0,400);
-		ecranhall3.setTitle("Ecran Hall 3");
-		ecranhall3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		EcranHall4 ecranhall4 = new EcranHall4();
 		ecranhall4.setVisible(true);
-		ecranhall4.setSize(400,200);
 		ecranhall4.setLocation(0,600);
-		ecranhall4.setTitle("Ecran Hall 4");
-		ecranhall4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		
 		EcranMisAJour ecranMisAJour = new EcranMisAJour();
 		ecranMisAJour.setVisible(true);

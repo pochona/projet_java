@@ -1,22 +1,7 @@
 package graphiques;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-
-import application.Hall;
-import application.Vol;
-import application.VolArrivee;
-import application.VolDepart;
-
-public class ecranHall1 extends JFrame{
+public class EcranHall1 extends EcranHall{
 
 
 	/**
@@ -24,47 +9,13 @@ public class ecranHall1 extends JFrame{
 	 * Ce constructeur appel la méthode init()
 	 * @author lb
 	 * @version 1.0 - 24/05/2016
-	 * @
-	 */
-	public ecranHall1(){
-		init();
-	}
-
-	/**
-	 * Méthode qui initialise
+	 * @version 2.0 - 25/05/2016 - reprise du constructeur avec la classe mère
 	 * 
-	 * Cette méthode instancie tous les composants de la fenêtre.
-	 * @author lb
-	 * @version 1.0 - 24/05/2016
-	 * @
 	 */
-	public void init() {
-
-		
-		Object[][] tableHall = new Object[Vol.getVolsByHall("1").keySet().size()][4];
-
-
-		int index = 0;
-		for (String keyH : Vol.getVolsByHall("1").keySet())
-		{
-			Vol vol = Vol.getVolsByHall("1").get(keyH);
-			tableHall[index][0] = vol.getLaPorte();
-			tableHall[index][1] = vol.getLAvion();
-			tableHall[index][2] = vol.getLAvion().getType();
-			tableHall[index][3] = vol.getLePassage();
-			
-		
-			index++;
-		}
-
-		//Les titres des colonnes
-		String  titre[] = {"Porte","Avion","Type","heure"};
-		JTable tableau = new JTable(tableHall, titre);
-		//ajout d'un contentPane dans un scroll
-		this.getContentPane().add(new JScrollPane(tableau));
-	}   
-
-
+	public EcranHall1(){
+		this.leHall = "1";
+		super.init();
+	}
 }
 
 

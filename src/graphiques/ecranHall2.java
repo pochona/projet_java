@@ -1,57 +1,17 @@
 package graphiques;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
-import application.Vol;
-
-public class ecranHall2 extends JFrame{
+public class EcranHall2 extends EcranHall{
 
 	/**
 	 * Constructeur ecranHall2.
 	 * Ce constructeur appel la méthode init()
 	 * @author lb
 	 * @version 1.0 - 24/05/2016
-	 * @
+	 * @version 2.0 - 25/05/2016 - reprise du constructeur avec la classe mère
 	 */
-	public ecranHall2(){
-		init();
+	public EcranHall2(){
+		this.leHall = "2";
+		super.init();
 	}
-
-	/**
-	 * Méthode qui initialise
-	 * 
-	 * Cette méthode instancie tous les composants de la fenêtre.
-	 * @author lb
-	 * @version 1.0 - 24/05/2016
-	 * @
-	 */
-	public void init() {
-
-		
-		Object[][] tableHall = new Object[Vol.getVolsByHall("2").keySet().size()][4];
-
-
-		int index = 0;
-		for (String keyH : Vol.getVolsByHall("2").keySet())
-		{
-			Vol vol = Vol.getVolsByHall("2").get(keyH);
-			tableHall[index][0] = vol.getLaPorte();
-			tableHall[index][1] = vol.getLAvion();
-			tableHall[index][2] = vol.getLAvion().getType();
-			tableHall[index][3] = vol.getLePassage();
-			
-		
-			index++;
-		}
-
-		//Les titres des colonnes
-		String  titre[] = {"Porte","Avion","Type","heure"};
-		JTable tableau = new JTable(tableHall, titre);
-		//ajout d'un contentPane dans un scroll
-		this.getContentPane().add(new JScrollPane(tableau));
-	}   
-
-
 }
