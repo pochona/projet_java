@@ -122,7 +122,7 @@ public class Passage {
 	 * @version 1.0 - 20/05/2016
 	 */
 	public Horaire getHeureArrivee(){
-		return this.getMonVolArrivee().getHeureArrivee();
+		return this.getMonVolArrivee().getHoraire();
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public class Passage {
 	 * @version 1.0 - 20/05/2016
 	 */
 	public Horaire getHeureDepart(){
-		return this.getMonVolDepart().getHeureDepart();
+		return this.getMonVolDepart().getHoraire();
 	}
 	
 	/**
@@ -156,18 +156,9 @@ public class Passage {
 	 * @author ap
 	 * @return String : la chaine à afficher
 	 * @version 1.0 - 22/05/2016
-	 * @version 1.1 - 24/05/2016 modif du return pour ecranHall1 par lb
 	 */
 	public String toString(){
-		//return "Vol de " + this.volArrivee.getHeureArrivee() + " à " + this.volDepart.getHeureDepart() + " (" + this.volArrivee.getLAvion() + ")" +". \n";
-		
-		String str ="";
-
-		if (this.getClass().equals(VolArrivee.class)) {
-			str =""+ this.volArrivee.getHeureArrivee();
-		}
-		else str =""+this.volDepart.getHeureDepart();
-		return str;
+		return "Vol de " + this.volArrivee.getHoraire() + " à " + this.volDepart.getHoraire() + " (" + this.volArrivee.getLAvion() + ")" +". \n";
 	}
 	
 }

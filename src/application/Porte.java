@@ -168,8 +168,7 @@ public class Porte {
 	 * @return String
 	 */
 	public String toString(){
-		//return "La porte : " + this.getNom() + (this.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact");
-		return this.getNom();
+		return "La porte : " + this.getNom() + (this.getClass().equals(PorteSansContact.class)?", Porte sans contact":", Porte contact");
 	}
 	
 	/**

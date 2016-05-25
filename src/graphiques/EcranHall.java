@@ -38,7 +38,7 @@ public class EcranHall extends JFrame{
 			tableHall[index][0] = this.lesVols.get(key).getLaPorte().getNom();
 			tableHall[index][1] = this.lesVols.get(key).getLAvion().getImmat();
 			tableHall[index][2] = this.lesVols.get(key).getLAvion().getType();
-			tableHall[index][3] = this.lesVols.get(key).getLePassage();
+			tableHall[index][3] = this.lesVols.get(key).getHoraire();
 			
 		
 			index++;

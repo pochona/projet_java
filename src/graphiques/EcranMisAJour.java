@@ -53,10 +53,10 @@ public class EcranMisAJour extends JFrame{
 		for (String keyH : Vol.getlesVols().keySet())
 		{
 			Vol vol = Vol.getlesVols().get(keyH);
-			tableVols[index][0] = vol.getLaPorte();
-			tableVols[index][1] = vol.getLAvion();
+			tableVols[index][0] = vol.getLaPorte().getNom();
+			tableVols[index][1] = vol.getLAvion().getImmat();
 			tableVols[index][2] = vol.getLAvion().getType();
-			tableVols[index][3] = vol.getLePassage();
+			tableVols[index][3] = vol.getHoraire();
 			
 		
 			index++;

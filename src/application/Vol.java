@@ -299,4 +299,17 @@ public abstract class Vol {
 		}
 		return maHashMap;
 	}
+
+	public Horaire getHoraire() {
+		Horaire h = null;
+		if(this.getClass().equals(VolArrivee.class)){
+			VolArrivee v = (VolArrivee) this;
+			h = v.getHoraire();
+		} else {
+			VolDepart v = (VolDepart) this;
+			h = v.getHoraire();
+		}
+		return h;
+		
+	}
 }
