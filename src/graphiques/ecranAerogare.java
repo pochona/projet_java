@@ -19,7 +19,7 @@ import application.VolArrivee;
 import application.VolDepart;
 
 
-public class ecranAerogare extends JFrame{
+public class EcranAerogare extends JFrame{
 
 
 	//declarations
@@ -36,7 +36,7 @@ public class ecranAerogare extends JFrame{
 	 * @version 1.0 - 18/05/2016
 	 * @
 	 */
-	public ecranAerogare(){
+	public EcranAerogare(){
 		init();
 	}
 
