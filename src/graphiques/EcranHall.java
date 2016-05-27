@@ -51,6 +51,6 @@ public class EcranHall extends JFrame{
 		this.getContentPane().add(new JScrollPane(tableau));
 		this.setTitle("Ecran Hall "+this.leHall);
 		this.setSize(400,200);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

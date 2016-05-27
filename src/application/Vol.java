@@ -315,7 +315,7 @@ public abstract class Vol {
 	
 	/**
 	 * Méthode supprimerVol.
-	 * Cette méthode supprime le vol par la clé passé en parametre
+	 * Cette méthode supprime le vol par la clé passée en parametre
 	 * @author lb
 	 * @params Object key : la clé du vol à supprimer
 	 * @version 1.0 - 27/05/2016
@@ -323,10 +323,15 @@ public abstract class Vol {
 	public static void supprimerVol(Object key) {
 	
 		//System.out.println("DEBUT*************************");
-		System.out.println(getlesVols());
+		//System.out.println(getlesVols());
 		lesVols.remove(key);
 		//System.out.println("EFFACE***********************");
 		//System.out.println(getlesVols());
+	}
+	
+	public static void ModifierHeure(String m, Object key){
+		int minutes = Integer.parseInt(m);
+		System.out.println("Minutes: "+minutes+" Clé: "+key);
 	}
 	
 	

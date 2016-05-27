@@ -4,30 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.TableModel;
 
 import application.Vol;
 
 
-public class EcranSupprimer extends JFrame{
+public class EcranModif extends JFrame{
 
-	private static final EcranAerogare EcranAerogare = null;
 	//Déclaration
 	private JTable tableau;
-	private JButton boutonValider;
+	private JButton boutonModifier;
 	private TabModel tabModel;
 	protected HashMap<String, Vol> vol;
 
@@ -39,9 +32,9 @@ public class EcranSupprimer extends JFrame{
 	 * @version 1.0 - 25/05/2016
 	 * 
 	 */
-	public EcranSupprimer(){
+	public EcranModif(){
 		init();
-		
+
 	}
 
 	/**
@@ -62,7 +55,7 @@ public class EcranSupprimer extends JFrame{
 		int index = 0;
 		while(it.hasNext()){
 			String key = (String) it.next();
-			
+
 			tableVols[index][0] = this.vol.get(key).getNumVol();
 			tableVols[index][1] = this.vol.get(key).getLaPorte().getNom();
 			tableVols[index][2] = this.vol.get(key).getLAvion().getImmat();
@@ -82,24 +75,24 @@ public class EcranSupprimer extends JFrame{
 
 		//instancie le panel "choisir vol" 
 		Font font = new Font("Arial",Font.BOLD,16);
-		Label texte= new Label("Choisir un vol à supprimer:");
+		Label texte= new Label("Choisir un vol à Modifier:");
 		texte.setFont(font);
 		texte.setBackground(Color.WHITE);
 
 		// instance bouton valider
-		boutonValider = new JButton("Supprimer");
+		boutonModifier = new JButton("Modifier");
 		//ajout image au bouton
-		boutonValider.setIcon(new ImageIcon(getClass().getResource("/images/supprimer.png")));
+		boutonModifier.setIcon(new ImageIcon(getClass().getResource("/images/valider.png")));
 		//j'associe une action a mon bouton valider (fais reference a la classe ActionValider)
-		ActionSupprimer ecouteurValider = new ActionSupprimer(this);
-		boutonValider.addActionListener(ecouteurValider);
+		ActionModif ecouteurModifier = new ActionModif(this);
+		boutonModifier.addActionListener(ecouteurModifier);
 
 		//disposition des composants dans la fenetre
 		this.setLayout(new BorderLayout());
 		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
 		this.getContentPane().add(texte,BorderLayout.NORTH);
-		this.getContentPane().add(boutonValider,BorderLayout.SOUTH);
-		
+		this.getContentPane().add(boutonModifier,BorderLayout.SOUTH);
+
 		//On recharge la fenetre (modif, suppression)
 		//this.revalidate();
 
@@ -145,18 +138,9 @@ public class EcranSupprimer extends JFrame{
 	public TabModel getModel() {
 		return tabModel;
 	}
-	
-	/**
-	 * Méthode recharge()
-	 * Appel la methode removeRow de TabModel afin de supprimer la ligne passée en parametre et recharger la list model
-	 * @author lb
-	 * @version 1.0 - 27/05/2016
-	 * 
-	 */
 
-	public void recharge(int key) {
-		// TODO Auto-generated method stub
-	tabModel.removeRow(key);
-		
-	}
+
+
 }
+
+

@@ -3,7 +3,7 @@ package graphiques;
 import javax.swing.table.AbstractTableModel;
 
 public class TabModel extends AbstractTableModel{
-	
+
 	private Object[][] data;
 	private String[] title;
 
@@ -14,10 +14,10 @@ public class TabModel extends AbstractTableModel{
 	 * @version 1.0 - 27/05/2016
 	 * 
 	 */
-    public TabModel(Object[][] data, String[] title){
-      this.data = data;
-      this.title = title;
-    }
+	public TabModel(Object[][] data, String[] title){
+		this.data = data;
+		this.title = title;
+	}
 
 	/**
 	 * Méthode getColumnCount()
@@ -52,7 +52,7 @@ public class TabModel extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return this.data[rowIndex][columnIndex];
 	}
-	
+
 	/**
 	 * Méthode getColumnName()
 	 * Retourne le nom de la colonne (indispensable sinon on perd le nom)
@@ -60,11 +60,11 @@ public class TabModel extends AbstractTableModel{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public String getColumnName(int col) {
-	  return this.title[col];
-	  
+		return this.title[col];
+
 	}
-	
-	
+
+
 	/**
 	 * Méthode isCellEditable()
 	 * Rend toutes les cellule de a*la table model insaisissable
@@ -72,26 +72,30 @@ public class TabModel extends AbstractTableModel{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {return false;}
-	
-	  //Méthode permettant de retirer une ligne du tableau
-	  public void removeRow(int position){
-	       
-	      int indice = 0, indice2 = 0;
-	      int nbRow = this.getRowCount()-1, nbCol = this.getColumnCount();
-	      Object temp[][] = new Object[nbRow][nbCol];
-	       
-	      for(Object[] value : this.data){
-	         if(indice != position){
-	            temp[indice2++] = value;
-	         }
-	         //System.out.println("Indice = " + indice);
-	         indice++;
-	      }
-	      this.data = temp;
-	      temp = null;
-	      //Cette méthode permet d'avertir le tableau que les données
-	      //ont été modifiées, ce qui permet une mise à jour complète du tableau
-	      this.fireTableDataChanged();
-	   }
+
+	/**
+	 * Méthode removeRow()
+	 * Méthode qui supprime la ligne passée en parametre
+	 * @author lb
+	 * @version 1.0 - 27/05/2016
+	 */
+	public void removeRow(int position){
+
+		int indice = 0, indice2 = 0;
+		int nbRow = this.getRowCount()-1, nbCol = this.getColumnCount();
+		Object temp[][] = new Object[nbRow][nbCol];
+
+		for(Object[] value : this.data){
+			if(indice != position){
+				temp[indice2++] = value;
+			}
+
+			indice++;
+		}
+		this.data = temp;
+		temp = null;
+		//On informe le tableau que les données on été changées
+		this.fireTableDataChanged();
+	}
 
 }
