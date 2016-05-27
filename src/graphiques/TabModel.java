@@ -61,6 +61,7 @@ public class TabModel extends AbstractTableModel{
 	 */
 	public String getColumnName(int col) {
 	  return this.title[col];
+	  
 	}
 	
 	
@@ -71,5 +72,26 @@ public class TabModel extends AbstractTableModel{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public boolean isCellEditable(int rowIndex, int columnIndex) {return false;}
+	
+	  //Méthode permettant de retirer une ligne du tableau
+	  public void removeRow(int position){
+	       
+	      int indice = 0, indice2 = 0;
+	      int nbRow = this.getRowCount()-1, nbCol = this.getColumnCount();
+	      Object temp[][] = new Object[nbRow][nbCol];
+	       
+	      for(Object[] value : this.data){
+	         if(indice != position){
+	            temp[indice2++] = value;
+	         }
+	         //System.out.println("Indice = " + indice);
+	         indice++;
+	      }
+	      this.data = temp;
+	      temp = null;
+	      //Cette méthode permet d'avertir le tableau que les données
+	      //ont été modifiées, ce qui permet une mise à jour complète du tableau
+	      this.fireTableDataChanged();
+	   }
 
 }

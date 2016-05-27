@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -99,7 +100,7 @@ public class EcranSupprimer extends JFrame{
 		this.getContentPane().add(boutonValider,BorderLayout.SOUTH);
 		
 		//On recharge la fenetre (modif, suppression)
-		this.revalidate();
+		//this.revalidate();
 
 	}
 
@@ -144,7 +145,9 @@ public class EcranSupprimer extends JFrame{
 		return tabModel;
 	}
 
-
-
-
+	public void recharge(int key) {
+		// TODO Auto-generated method stub
+	tabModel.removeRow(key);
+		
+	}
 }

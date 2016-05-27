@@ -312,4 +312,22 @@ public abstract class Vol {
 		return h;
 		
 	}
+	
+	/**
+	 * Méthode supprimerVol.
+	 * Cette méthode supprime le vol par la clé passé en parametre
+	 * @author lb
+	 * @params Object key : la clé du vol à supprimer
+	 * @version 1.0 - 27/05/2016
+	 */
+	public static void supprimerVol(Object key) {
+	
+		//System.out.println("DEBUT*************************");
+		System.out.println(getlesVols());
+		lesVols.remove(key);
+		//System.out.println("EFFACE***********************");
+		//System.out.println(getlesVols());
+	}
+	
+	
 }
