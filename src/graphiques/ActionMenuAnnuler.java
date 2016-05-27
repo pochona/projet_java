@@ -10,10 +10,23 @@ public class ActionMenuAnnuler extends AbstractAction{
 	//Declaration
 	EcranMenu ecranMenu;
 	
+	/**
+	 * Constructeur ActionMenuAnnuler.
+	 * @author lb
+	 * @params EcranMenu ecranMenu
+	 * @version 1.0 - 27/05/2016
+	 */
 	public ActionMenuAnnuler(EcranMenu ecranMenu) {
 		this.ecranMenu=ecranMenu;
 	}
 
+	/**
+	 * Méthode actionPerformed.
+	 * Cette méthode se déclenche au click de l'utilisateur et ouvre une nouvelle fenetre, celle des annulations vols
+	 * @author lb
+	 * @params ActionEvent arg0 : l'action de cliquer
+	 * @version 1.0 - 27/05/2016
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		EcranSupprimer ecranSupprimer = new EcranSupprimer();
 		ecranSupprimer.setVisible(true);

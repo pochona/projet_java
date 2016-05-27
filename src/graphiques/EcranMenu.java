@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,8 +28,11 @@ public class EcranMenu extends JFrame{
 		
 		//instancie les boutons
 		boutonAnnuler = new JButton("Annuler vol");
+		boutonAnnuler.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
 		boutonModifier = new JButton("Modifier vol");
+		boutonModifier.setIcon(new ImageIcon(getClass().getResource("/images/clock.png")));
 		boutonRefresh = new JButton("Rafraîchir écrans");
+		boutonRefresh.setIcon(new ImageIcon(getClass().getResource("/images/refresh.png")));
 		
 		
 		ActionMenuAnnuler ecouteurAnnuler = new ActionMenuAnnuler(this);
@@ -45,6 +49,7 @@ public class EcranMenu extends JFrame{
 		Label texte= new Label("Que voulez-vous faire ?");
 		texte.setFont(font);
 		texte.setBackground(Color.WHITE);
+		
 		
 		//disposition des composants dans la fenetre
 		this.setLayout(new BorderLayout());

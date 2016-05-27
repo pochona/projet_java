@@ -329,9 +329,18 @@ public abstract class Vol {
 		//System.out.println(getlesVols());
 	}
 	
+	
+	/**
+	 * Méthode ModifierHeure.
+	 * Cette méthode supprime le vol par la clé passée en parametre
+	 * @author lb
+	 * @params String m les minutes de retard, Object key la clé du vol a retarder
+	 * @version 1.0 - 27/05/2016
+	 */
 	public static void ModifierHeure(String m, Object key){
 		int minutes = Integer.parseInt(m);
 		System.out.println("Minutes: "+minutes+" Clé: "+key);
+		//TODO 
 	}
 	
 	
