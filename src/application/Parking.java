@@ -346,4 +346,36 @@ System.out.println(this + " est dispo ? " + dispo);
 		}
 	}
 	
+	/**
+	 * 
+	 * @return ArrayList<Passage> : retourne les passages d'un parking 
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 */
+	public ArrayList<Passage> getLesPassages(){
+		return lesPassages;
+	}
+	/**
+	 * 
+	 * @return boolean : Ce booléen indique si, après avoir modifié les horaires d'un passage, il n'y a pas de conflits avec le passage suivant du parking
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 */
+	public boolean parkingTjrsOk(Passage monPassage){
+		boolean ok=true;
+		int position, temp=0;
+		position=lesPassages.indexOf(monPassage);
+		if (lesPassages.size()>position+1){
+			//alors ce n'est pas le dernier passage du parking, il faut donc vérifier
+			//sinon c'etait le dernier passage, donc pas de soucis 
+			Passage passageSuivant=lesPassages.get(position+1);
+			Horaire heureArriveDuSuivant=passageSuivant.getMonVolArrivee().getHoraire();
+			temp = heureArriveDuSuivant.horaireEnMinutes()-monPassage.getMonVolDepart().getHoraire().horaireEnMinutes();
+		  if (temp<=0){
+			//l'horaire du vol départ est après l'heure d'arrivée du suivant --> Parking n'est plus OK !
+			  ok = false;
+		  } 
+		}
+		return ok;
+	}
 }

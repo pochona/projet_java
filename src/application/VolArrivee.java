@@ -88,4 +88,14 @@ public class VolArrivee extends Vol {
 	public static HashMap<String, VolArrivee> getlesVolsA(){
 		return lesVolsArrivee;
 	}
+	
+	/**
+	 * 
+	 * @param newHeureArr : Horaire, nouvelle heure d'arrivée du vol
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 */
+	public void decalerHeureArrivee(Horaire newHeureArr){
+		this.heureArrivee=newHeureArr;
+	}
 }

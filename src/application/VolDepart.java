@@ -88,4 +88,13 @@ public class VolDepart extends Vol {
 	public static HashMap<String, VolDepart> getlesVolsD(){
 		return lesVolsDepart;
 	}
+	/**
+	 * 
+	 * @param newHeureDep : Horaire, nouvelle heure de départ du vol
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 */
+	public void decalerHeureDepart(Horaire newHeureDep){
+		this.heureDepart=newHeureDep;
+	}
 }

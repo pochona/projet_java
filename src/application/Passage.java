@@ -160,5 +160,22 @@ public class Passage {
 	public String toString(){
 		return "Vol de " + this.volArrivee.getHoraire() + " à " + this.volDepart.getHoraire() + " (" + this.volArrivee.getLAvion() + ")" +". \n";
 	}
-	
+	/**
+	 * 
+	 * @author np
+	 * @return Duree : l'ecart min entre vol arrrivée et vol départ
+	 * @version 1.0 - 25/05/2016
+	 */
+	public static Duree getEcart(){
+		return ecart;
+	}
+	/**
+	 * On met un nouveau parking dans le passage
+	 * @param p Parking
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 */
+	public void setLeParking(Parking p){
+		this.parking=p;
+	}
 }

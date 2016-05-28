@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import utilitaires.Duree;
 import utilitaires.Horaire;
 
 public abstract class Vol {
@@ -343,5 +344,79 @@ public abstract class Vol {
 		//TODO 
 	}
 	
+	/**
+	 * 
+	 * @param temps : Duree de retard du vol
+	 * @throws RetardTropTard (indique un msg d'erreur qui dit qu'un avion ne peux pas partir apres 23h59
+	 * @author np
+	 * @version 1.0 - 28/05/2016
+	 */
+	public void Retarder(Duree temps) throws RetardTropTard{
+		int m;
+		Parking parkingLibre;
+		if(this.getClass().equals(VolArrivee.class)==true){
+			// c'est un vol d'arrivée
+			Horaire monHeureDepart = this.getLePassage().getMonVolDepart().getHoraire();
+			Horaire monHeureArrivee = this.getLePassage().getMonVolArrivee().getHoraire();
+			Horaire nouvelleHArrivee=monHeureArrivee.ajout(temps);
+			Duree ecartnew = nouvelleHArrivee.retrait(monHeureDepart);
+			m=monHeureDepart.horaireEnMinutes()-nouvelleHArrivee.horaireEnMinutes();
+			
+			if (m>=this.getLePassage().getEcart().dureeEnMinutes()){
+				//l'écart est suffisant (VOIR AVEC LAURA ET AMAURY si on dit que c'est ok si ecart = 0)
+				// on décale juste l'heure d'arrivee
+				this.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
+			} else {
+				// l'ecart n'est pas suffisant, il faut alors décaler les heures des vols arrivée + départ
+				//mais d'abord on regarde que le départ ne dépasse pas 23h59
+				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
+						this.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
+						this.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
+						//On regarde si le parking est toujours OK
+						if (this.getLePassage().getLeParking().parkingTjrsOk(this.getLePassage())==false){
+							//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
+							parkingLibre = Parking.getParkingDispo(getLePassage().getTrancheHoraire());
+							//On met ce parking dans le passage
+							this.getLePassage().setLeParking(parkingLibre);
+							//on stocke le passage sur ce parking
+							parkingLibre.addPassage(this.getLePassage());
+						}
+				} else {
+					//sinon on déclanche l'exception qui dit que le vol depart est trop tard
+					throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
+				}
+		
+			}
+		} else {
+		//c'est un vol départ
+		Horaire monHeureDepart = this.getLePassage().getMonVolDepart().getHoraire();
+		Horaire nouvelleHDepart=monHeureDepart.ajout(temps);
+		if (this.getLePassage().getMonVolArrivee().getHoraire().compareTo(nouvelleHDepart)<0){
+			this.getLePassage().getMonVolDepart().decalerHeureDepart(monHeureDepart.ajout(temps));
+			//On regarde si le parking est toujours OK
+			if (this.getLePassage().getLeParking().parkingTjrsOk(this.getLePassage())==false){
+				//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
+				parkingLibre = Parking.getParkingDispo(getLePassage().getTrancheHoraire());
+				//On met ce parking dans le passage
+				this.getLePassage().setLeParking(parkingLibre);
+				//on stocke le passage sur ce parking
+				parkingLibre.addPassage(this.getLePassage());
+			}
+		} else {
+			//sinon on déclanche l'exception qui dit que le vol depart est trop tard
+			throw new RetardTropTard(RetardTropTard.VOL_DEPART);
+		}
+	}
+}
 	
+	/**
+	 * 
+	 * @param num : String qui correspond au numéro de l'avion
+	 * @author np
+	 * @version 1.0 - 25/05/2016
+	 * @return Le vol qui correspond à l'ID passé en paramètres
+	 */
+	public static Vol getLeVol(String num){
+		return lesVols.get(num);
+	}
 }
