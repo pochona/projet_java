@@ -184,24 +184,28 @@ public class Parking {
 	 * @return : un parking dispo
 	 * @version 1.0 - 11/05/2016
 	 * @version 2.0 - 20/05/2016 by ap : Modif de la version de base
+	 * @version 3.0 - 29/05/2016 by np : Traite les avions de grande taille
 	 */
-	public static Parking getParkingDispo(TrancheHoraire th){
+	public static Parking getParkingDispo(TrancheHoraire th, Avion a){
 		Parking leParking = null;
-		/* On checkera après le trairement grande taille ou non 
+		// On checkera après le trairement grande taille ou non 
 		 if(a.isGrandeTaille()){
-			
+				ArrayList<ParkingSansContact> listeParkingSSContact = ParkingSansContact.getLesParkingsSansContact();
+				Iterator iterat = listeParkingSSContact.iterator();
+				while(iterat.hasNext() && leParking == null){
+					Parking monParking = (Parking) iterat.next();
+					if(monParking.isDispo(th)){
+						leParking = monParking;
+					}
+				}
 		} else {
-			
-		}*/
-
-
 		Iterator it = lesParkings.iterator();
 		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
-		//	monParking.afficherLesPassages();
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
+		}
 		}
 		return leParking;
 	}

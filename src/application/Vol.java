@@ -380,7 +380,7 @@ public abstract class Vol {
 						//On regarde si le parking est toujours OK
 						if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
 							//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-							parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire());
+							parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
 							//On met ce parking dans le passage
 							monVol.getLePassage().setLeParking(parkingLibre);
 							//on stocke le passage sur ce parking
@@ -401,7 +401,7 @@ public abstract class Vol {
 			//On regarde si le parking est toujours OK
 			if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
 				//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-				parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire());
+				parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
 				//On met ce parking dans le passage
 				monVol.getLePassage().setLeParking(parkingLibre);
 				//on stocke le passage sur ce parking

@@ -52,7 +52,7 @@ public class Passage {
 		this.volArrivee = a;
 		nbPassage++;
 	//	System.out.println(nbPassage);
-		this.parking = Parking.getParkingDispo(this.getTrancheHoraire());
+		this.parking = Parking.getParkingDispo(this.getTrancheHoraire(), this.getMonVolArrivee().getLAvion());
 		this.parking.addPassage(this);
 		lesPassages.add(this);
 

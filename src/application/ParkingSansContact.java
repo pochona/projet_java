@@ -43,4 +43,14 @@ public class ParkingSansContact extends Parking {
 		}
 		return str;
 	}
+	
+	/**
+	 * 
+	 * @return ArrayList<ParkingSansContact> : la liste des parkings sans contact (pour les avions grande taille)
+	 * @author : np
+	 * @version 1.0 - 29/05/2016 
+	 */
+	public static ArrayList<ParkingSansContact> getLesParkingsSansContact(){
+		return lesParkingsSansContact;
+	}
 }
