@@ -66,7 +66,7 @@ public class ActionModif extends AbstractAction{
 			JOptionPane jop = new JOptionPane();
 			String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard");
 			//Vol.ModifierHeure(minutes, key);
-			Vol.Retarder(minutes, key);
+			Vol.retarder(minutes, key);
 			ecranModif.getModel().fireTableDataChanged();
 			JOptionPane.showMessageDialog(null, "Vol "+key+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
 			

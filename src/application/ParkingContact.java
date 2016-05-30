@@ -44,5 +44,15 @@ private static ArrayList<ParkingContact> lesParkingsContact = new ArrayList<Park
 		return str;
 	}
 	
+	/**
+	 * methode getLesParkingsContact
+	 * @return ArrayList<ParkingSansContact> : la liste des parkings contact
+	 * @author : ap
+	 * @version 1.0 - 30/05/2016 
+	 */
+	public static ArrayList<ParkingContact> getLesParkingsContact(){
+		return lesParkingsContact;
+	}
+	
 }
 

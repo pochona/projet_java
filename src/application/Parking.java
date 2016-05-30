@@ -17,27 +17,27 @@ public class Parking {
 	 * désignation
 	 */
 	private String nom ;
-	
+
 	/**
 	 * zone associée au parking
 	 */
 	private Zone zone;
-	
+
 	/**
 	 * porte associée au parking
 	 */
 	private Porte porte;
-	
+
 	/**
 	 * ArrayList qui contient les passages 
 	 */
 	private ArrayList<Passage> lesPassages;
-	
+
 	/**
 	 * ArrayList qui contient toutes les parkings 
 	 */
 	private static ArrayList<Parking> lesParkings = new ArrayList<Parking>();
-	
+
 	public static final int PARKING_CONTACT = 1;
 	public static final int PARKING_SANS_CONTACT = 2;
 
@@ -49,9 +49,9 @@ public class Parking {
 		this.nom = n;
 		this.lesPassages = new ArrayList<Passage>();
 		lesParkings.add(this);
-		
+
 	}
-	
+
 	/**
 	 * Constructeur de parking 
 	 * @param n : nom du parking
@@ -65,7 +65,7 @@ public class Parking {
 		this.lesPassages = new ArrayList<Passage>();
 		lesParkings.add(this);
 	}
-	
+
 	/**
 	 * Méthode initialise
 	 * 
@@ -91,7 +91,7 @@ public class Parking {
 				st = new StringTokenizer(line);
 				// je vérifie que ma ligne soit bien égale à 3 pour être sur de mon fichier d'entrée
 
-				
+
 				if(st.countTokens() == 3){
 					nom = st.nextToken();
 					porte = st.nextToken();	
@@ -146,7 +146,7 @@ public class Parking {
 	public String getNom(){
 		return this.nom;
 	}
-	
+
 	/**
 	 * Méthode find.
 	 * Cette méthode permet de retourner le parking ayant le nom passé en paramètre.
@@ -164,7 +164,7 @@ public class Parking {
 		}
 		return leParking;
 	}
-	
+
 	/**
 	 * Méthode toString.
 	 * Cette méthode permet d'afficher le parking courant
@@ -175,7 +175,7 @@ public class Parking {
 	public String toString(){
 		return "Le parking " + this.getNom() + (this.getClass().equals(ParkingSansContact.class)?", Parking sans contact":", Parking contact");
 	}
-	
+
 	/**
 	 * Méthode getParkingDispo.
 	 * Cette méthode static permet de retrourner un parking dispo aux horaires communiquées
@@ -185,31 +185,61 @@ public class Parking {
 	 * @version 1.0 - 11/05/2016
 	 * @version 2.0 - 20/05/2016 by ap : Modif de la version de base
 	 * @version 3.0 - 29/05/2016 by np : Traite les avions de grande taille
+	 * @version 4.0 - 30/05/2016 by ap : Correction de la boucle pour caser les "gros avions" sur les autres parkings, si aucun parking sc n'est dispo
 	 */
 	public static Parking getParkingDispo(TrancheHoraire th, Avion a){
 		Parking leParking = null;
-		// On checkera après le trairement grande taille ou non 
-		 if(a.isGrandeTaille()){
-				ArrayList<ParkingSansContact> listeParkingSSContact = ParkingSansContact.getLesParkingsSansContact();
-				Iterator iterat = listeParkingSSContact.iterator();
-				while(iterat.hasNext() && leParking == null){
-					Parking monParking = (Parking) iterat.next();
-					if(monParking.isDispo(th)){
-						leParking = monParking;
-					}
-				}
+		ArrayList<Parking> lesParkingsTries;
+		if(a.isGrandeTaille()){
+			// Grande taille : on recupere les parkings dans l'ordre : Sans contact - Contact
+			lesParkingsTries = Parking.getParkingSansContactFirst();
 		} else {
-		Iterator it = lesParkings.iterator();
+			// Sinon, on recupère les parkings dans l'ordre : Contact - Sans contact
+			lesParkingsTries = Parking.getParkingContactFirst();
+		}
+		
+		Iterator it = lesParkingsTries.iterator();
 		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
 			if(monParking.isDispo(th)){
 				leParking = monParking;
 			}
 		}
-		}
+		
 		return leParking;
 	}
-	
+
+	/**
+	 * Méthode getParkingContactFirst.
+	 * Cette méthode permet de retourner la liste des parkings, avec les parkings contact en premier.
+	 * Cette méthode est utilisée pour associer un parking aux avions, en essayant de laissant libre les parkings sans contact.
+	 * @author ap
+	 * @return ArrayList<Parking> : Liste avec les parking sans contact en premier
+	 * @version 1.0 - 30/05/2016
+	 */
+	public static ArrayList<Parking> getParkingContactFirst() {
+		ArrayList<Parking> laListe = new ArrayList<Parking>();
+		laListe.addAll(ParkingContact.getLesParkingsContact());
+		laListe.addAll(ParkingSansContact.getLesParkingsSansContact());
+		return laListe;
+	}
+
+	/**
+	 * Méthode getParkingSansContactFirst.
+	 * Cette méthode permet de retourner la liste des parkings, avec les parkings sans contact en premier.
+	 * Cette méthode est utilisée pour associer un parking sans contact en priorité aux gros avions.
+	 * @author ap
+	 * @return ArrayList<Parking> : Liste avec les parking sans contact en premier
+	 * @version 1.0 - 30/05/2016
+	 */
+	public static ArrayList<Parking> getParkingSansContactFirst() {
+		ArrayList<Parking> laListe = new ArrayList<Parking>();
+		laListe.addAll(ParkingSansContact.getLesParkingsSansContact());
+		laListe.addAll(ParkingContact.getLesParkingsContact());
+		return laListe;
+
+	}
+
 	/**
 	 * Méthode isDispo.
 	 * Cette méthode permet de verifier si un parking est dispo aux horaires communiquées ou non.
@@ -229,7 +259,7 @@ public class Parking {
 		Iterator it = this.lesPassages.iterator();
 		// si la liste de mes passages est vide, je peux directement prendre le parking
 		if(!it.hasNext()){
-//System.out.println("dispo direct");
+			//System.out.println("dispo direct");
 			dispo = true;
 		}
 
@@ -237,61 +267,61 @@ public class Parking {
 		while (dispo == false && it.hasNext() && stop == false){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
-//System.out.println(monPassage.getHeureDepart());
-//System.out.println(th.getDebutTrancheHoraire());
-//System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
+			//System.out.println(monPassage.getHeureDepart());
+			//System.out.println(th.getDebutTrancheHoraire());
+			//System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
 			// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
 			if(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()) >= 0){
 				// je suis dans le bon créneaux, donc même si j'arrive pas a caser mon parking
 				// , je peux arreter ma boucle
 				stop = true;
-//System.out.println("if 1");
+				//System.out.println("if 1");
 				// Si je le trouve, je fais une tranche horaire entre la départ du last, et l'arrivée du courant
-				
+
 				// Pour ca, je regade d'abord si mon dernier passage est bien rempli
 				if(lastPassage != null){
-//System.out.println("if 2");
+					//System.out.println("if 2");
 					maTh = new TrancheHoraire(lastPassage.getHeureDepart(), monPassage.getHeureArrivee());
 					// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
 					// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
-//System.out.println("maTh : " + maTh);
-//System.out.println("th : " + th);
-//System.out.println("contient : " + maTh.contient(th));
+					//System.out.println("maTh : " + maTh);
+					//System.out.println("th : " + th);
+					//System.out.println("contient : " + maTh.contient(th));
 					if(maTh.contient(th)){
-//System.out.println("if 3");
+						//System.out.println("if 3");
 						dispo = true;
 					}
 				} else {
-//System.out.println("else 2");
+					//System.out.println("else 2");
 					// S'il est nul c'est que le premier passage a au moins l'arrivé après le départ du courant
 					// Je regarde donc si l'arrivée de mon courant est avant l'arrivé de ce passage
- //System.out.println(monPassage.getHeureArrivee());
- //System.out.println(th.getFinTrancheHoraire());
- //System.out.println(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()));
+					//System.out.println(monPassage.getHeureArrivee());
+					//System.out.println(th.getFinTrancheHoraire());
+					//System.out.println(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()));
 					if(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()) <= 0){
-//System.out.println("ok if 4");
+						//System.out.println("ok if 4");
 						dispo = true;
 					}
 				}
 			} else {
-//System.out.println("else 1");
+				//System.out.println("else 1");
 				// je n'ai rien ensuite, et mon arrivée courante est après le départ du dernier testé
 				// donc je vérifie si j'en ai ensuite
 				if(!it.hasNext()){
 					// je n'ai rien ensuite, donc mon vol peut etre placé
-//System.out.println("dispo after if 5");
+					//System.out.println("dispo after if 5");
 					dispo = true;
 				}
 			}
-			
+
 			// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
 			lastPassage = monPassage;
 		}
-System.out.println(this + " est dispo ? " + dispo);
+		System.out.println(this + " est dispo ? " + dispo);
 		return dispo;
 	}
-	
-	
+
+
 	/**
 	 * Méthode addPassage.
 	 * Cette méthode permet d'ajouter un passage dans la liste des passages du parking
@@ -301,17 +331,17 @@ System.out.println(this + " est dispo ? " + dispo);
 	 * @version 2.0 - 22/05/2016 by ap : l'ajout s'effectue maintenant dans l'ordre
 	 */
 	public void addPassage(Passage p){
-	
+
 		int cpt = 0;
 		boolean find = false;
-		
+
 		Iterator it = this.lesPassages.iterator();
 		Horaire monHoraire = p.getHeureArrivee();
 		Passage lePassage;
 		Horaire testHoraire;
 
 		while(it.hasNext() && !find){
-			
+
 			lePassage = (Passage) it.next();
 			testHoraire = lePassage.getHeureArrivee();
 
@@ -325,15 +355,15 @@ System.out.println(this + " est dispo ? " + dispo);
 		System.out.println("Apres tri : ");
 		this.afficherLesPassages();
 	}
-	
-	
+
+
 	/**
 	 * @todo : la doc
 	 * @return
 	 */
 	public Porte getLaPorte(){return this.porte;}
 
-	
+
 	/**
 	 * Méthode afficherLesPassages.
 	 * Cette méthode permet d'afficher tous les passages d'un parking
@@ -349,7 +379,7 @@ System.out.println(this + " est dispo ? " + dispo);
 			System.out.println(monPassage);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @return ArrayList<Passage> : retourne les passages d'un parking 
@@ -375,10 +405,10 @@ System.out.println(this + " est dispo ? " + dispo);
 			Passage passageSuivant=lesPassages.get(position+1);
 			Horaire heureArriveDuSuivant=passageSuivant.getMonVolArrivee().getHoraire();
 			temp = heureArriveDuSuivant.horaireEnMinutes()-monPassage.getMonVolDepart().getHoraire().horaireEnMinutes();
-		  if (temp<=0){
-			//l'horaire du vol départ est après l'heure d'arrivée du suivant --> Parking n'est plus OK !
-			  ok = false;
-		  } 
+			if (temp<=0){
+				//l'horaire du vol départ est après l'heure d'arrivée du suivant --> Parking n'est plus OK !
+				ok = false;
+			} 
 		}
 		return ok;
 	}

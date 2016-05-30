@@ -75,7 +75,7 @@ public abstract class Vol {
 			VolDepart monVolDepart=null;
 			VolArrivee monVolArrivee=null;
 			Passage monPassage;
-			
+
 			// je parcours chaque ligne de mon fichier
 			while ((line = entree.readLine()) != null) {
 				// je stocke les mots de la ligne 
@@ -126,11 +126,11 @@ public abstract class Vol {
 						//il manque le départ du dernier avion
 						throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
 					}
-					
+
 				}
 			}
-		// je ferme mon fichier
-		entree.close();
+			// je ferme mon fichier
+			entree.close();
 		}
 		// erreur catché si le fichier n'existe pas
 		catch (java.io.FileNotFoundException e){
@@ -202,9 +202,9 @@ public abstract class Vol {
 	 */
 	public String toString(){
 		return  "Numéro du vol : " + this.getNumVol() + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
-		
+
 	}
-	
+
 
 	/**
 	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
@@ -234,7 +234,7 @@ public abstract class Vol {
 	 * @return le nom associé à la porte
 	 */
 	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
-	
+
 
 
 	/**
@@ -254,7 +254,7 @@ public abstract class Vol {
 	 * @version 1.0 - 23/05/2016
 	 */
 	public String getLeNomDuHall(){return this.getLeHall().getNom();}
-	
+
 	/**
 	 * Methode getlesVols
 	 * getter de la liste des vols.
@@ -265,7 +265,7 @@ public abstract class Vol {
 	public static HashMap<String, Vol> getlesVols(){
 		return lesVols;
 	}
-	
+
 	/**
 	 * Méthode getVolsByHall.
 	 * Cette méthode retourner hashMap des vols filtré selon le nom du hall passé en paramètre
@@ -278,7 +278,7 @@ public abstract class Vol {
 		Hall monHall = Hall.find(n);
 		return getVolsByHall(monHall);
 	}
-	
+
 	/**
 	 * Méthode getVolsByHall.
 	 * Cette méthode retourner hashMap des vols filtré selon le hall passé en paramètre
@@ -311,9 +311,9 @@ public abstract class Vol {
 			h = v.getHoraire();
 		}
 		return h;
-		
+
 	}
-	
+
 	/**
 	 * Méthode supprimerVol.
 	 * Cette méthode supprime le vol par la clé passée en parametre
@@ -322,28 +322,28 @@ public abstract class Vol {
 	 * @version 1.0 - 27/05/2016
 	 */
 	public static void supprimerVol(Object key) {
-	
+
 		//System.out.println("DEBUT*************************");
 		//System.out.println(getlesVols());
 		lesVols.remove(key);
 		//System.out.println("EFFACE***********************");
 		//System.out.println(getlesVols());
 	}
-	
-	
+
+
 	/**
-	 * Méthode ModifierHeure.
+	 * Méthode modifierHeure.
 	 * Cette méthode retarde le vol par la clé passée en parametre
 	 * @author lb
 	 * @params String m les minutes de retard, Object key la clé du vol a retarder
 	 * @version 1.0 - 27/05/2016
 	 */
-	public static void ModifierHeure(String m, Object key){
+	public static void modifierHeure(String m, Object key){
 		int minutes = Integer.parseInt(m);
 		System.out.println("Minutes: "+minutes+" Clé: "+key);
 		//TODO 
 	}
-	
+
 	/**
 	 * 
 	 * @param temps : Duree de retard du vol
@@ -352,7 +352,7 @@ public abstract class Vol {
 	 * @version 1.0 - 28/05/2016
 	 * @version 1.1 - 29/05/2016 by np : changement des paramètres pris en compte pour le graphique
 	 */
-	public static void Retarder(String min, Object key) throws RetardTropTard{
+	public static void retarder(String min, Object key) throws RetardTropTard{
 		int m;
 		Parking parkingLibre;
 		int minutes = Integer.parseInt(min);
@@ -366,7 +366,7 @@ public abstract class Vol {
 			Horaire nouvelleHArrivee=monHeureArrivee.ajout(temps);
 			Duree ecartnew = nouvelleHArrivee.retrait(monHeureDepart);
 			m=monHeureDepart.horaireEnMinutes()-nouvelleHArrivee.horaireEnMinutes();
-			
+
 			if (m>=monVol.getLePassage().getEcart().dureeEnMinutes()){
 				//l'écart est suffisant (VOIR AVEC LAURA ET AMAURY si on dit que c'est ok si ecart = 0)
 				// on décale juste l'heure d'arrivee
@@ -375,44 +375,43 @@ public abstract class Vol {
 				// l'ecart n'est pas suffisant, il faut alors décaler les heures des vols arrivée + départ
 				//mais d'abord on regarde que le départ ne dépasse pas 23h59
 				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
-						monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
-						monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
-						//On regarde si le parking est toujours OK
-						if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
-							//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-							parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
-							//On met ce parking dans le passage
-							monVol.getLePassage().setLeParking(parkingLibre);
-							//on stocke le passage sur ce parking
-							parkingLibre.addPassage(monVol.getLePassage());
-						}
+					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
+					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
+					//On regarde si le parking est toujours OK
+					if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
+						//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
+						parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
+						//On met ce parking dans le passage
+						monVol.getLePassage().setLeParking(parkingLibre);
+						//on stocke le passage sur ce parking
+						parkingLibre.addPassage(monVol.getLePassage());
+					}
 				} else {
 					//sinon on déclanche l'exception qui dit que le vol depart est trop tard
 					throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
 				}
-		
 			}
 		} else {
-		//c'est un vol départ
-		Horaire monHeureDepart = monVol.getLePassage().getMonVolDepart().getHoraire();
-		Horaire nouvelleHDepart=monHeureDepart.ajout(temps);
-		if (monVol.getLePassage().getMonVolArrivee().getHoraire().compareTo(nouvelleHDepart)<0){
-			monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monHeureDepart.ajout(temps));
-			//On regarde si le parking est toujours OK
-			if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
-				//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-				parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
-				//On met ce parking dans le passage
-				monVol.getLePassage().setLeParking(parkingLibre);
-				//on stocke le passage sur ce parking
-				parkingLibre.addPassage(monVol.getLePassage());
+			//c'est un vol départ
+			Horaire monHeureDepart = monVol.getLePassage().getMonVolDepart().getHoraire();
+			Horaire nouvelleHDepart=monHeureDepart.ajout(temps);
+			if (monVol.getLePassage().getMonVolArrivee().getHoraire().compareTo(nouvelleHDepart)<0){
+				monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monHeureDepart.ajout(temps));
+				//On regarde si le parking est toujours OK
+				if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
+					//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
+					parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
+					//On met ce parking dans le passage
+					monVol.getLePassage().setLeParking(parkingLibre);
+					//on stocke le passage sur ce parking
+					parkingLibre.addPassage(monVol.getLePassage());
+				}
+			} else {
+				//sinon on déclanche l'exception qui dit que le vol depart est trop tard
+				throw new RetardTropTard(RetardTropTard.VOL_DEPART);
 			}
-		} else {
-			//sinon on déclanche l'exception qui dit que le vol depart est trop tard
-			throw new RetardTropTard(RetardTropTard.VOL_DEPART);
 		}
 	}
-}
 
 
 	/**
