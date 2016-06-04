@@ -44,6 +44,7 @@ public class ActionSupprimer extends AbstractAction{
 			Vol.supprimerVol(key);
 			//appel de la methode recharge de la classe ecranSupprimer
 			ecr.recharge(row);
+			
 
 		}
 		JOptionPane.showMessageDialog(null, "Vol "+key+" annulé!", "InfoBox: " + "Annulation", JOptionPane.INFORMATION_MESSAGE);

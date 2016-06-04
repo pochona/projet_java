@@ -159,4 +159,5 @@ public class EcranSupprimer extends JFrame{
 	tabModel.removeRow(key);
 		
 	}
+	
 }
