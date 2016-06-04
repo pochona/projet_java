@@ -13,16 +13,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import application.App;
+
 public class EcranMenu extends JFrame{
 	
 	
 	//Declarations
+	private App application;
 	JButton boutonAnnuler, boutonModifier, boutonRefresh;
 	JPanel jpane0,jpaneBouton1,jpaneBouton2,jpaneBouton3;
 	EcranAerogare ecranAerogare;
 
 
-	public EcranMenu(){
+	public EcranMenu(App a){
+		this.application = a;
 		init();
 	}
 
@@ -43,7 +47,7 @@ public class EcranMenu extends JFrame{
 		ActionMenuModifier ecouteurModifier = new ActionMenuModifier(this);
 		boutonModifier.addActionListener(ecouteurModifier);
 		
-		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this,ecranAerogare);
+		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare());
 		boutonRefresh.addActionListener(ecouteurRefresh);
 		
 		//instancie le panel "Que voulez-vous faire ?" 

@@ -1,8 +1,11 @@
 package graphiques;
 
+import application.App;
+
 
 public class EcranHall1 extends EcranHall{
 
+	private App application;
 
 	/**
 	 * Constructeur ecranHall1.
@@ -12,7 +15,8 @@ public class EcranHall1 extends EcranHall{
 	 * @version 2.0 - 25/05/2016 - reprise du constructeur avec la classe mère
 	 * 
 	 */
-	public EcranHall1(){
+	public EcranHall1(App a){
+		this.application = a;
 		this.leHall = "1";
 		super.init();
 	}

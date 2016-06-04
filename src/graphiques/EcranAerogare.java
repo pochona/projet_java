@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.RootPaneContainer;
 
+import application.App;
 import application.Vol;
 import application.VolArrivee;
 import application.VolDepart;
@@ -24,6 +25,7 @@ import application.VolDepart;
 public class EcranAerogare extends JFrame{
 
 		//declaration
+		private App application;
 		private JTable tableauA;
 		private JTable tableauD;
 		private JScrollPane scrollPaneA;
@@ -38,7 +40,8 @@ public class EcranAerogare extends JFrame{
 		 * @version 1.0 - 24/05/2016
 		 * @
 		 */
-		public EcranAerogare(){
+		public EcranAerogare(App a){
+			this.application = a;
 			init();
 		}
 
