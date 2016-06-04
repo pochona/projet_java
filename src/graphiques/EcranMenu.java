@@ -19,6 +19,7 @@ public class EcranMenu extends JFrame{
 	//Declarations
 	JButton boutonAnnuler, boutonModifier, boutonRefresh;
 	JPanel jpane0,jpaneBouton1,jpaneBouton2,jpaneBouton3;
+	EcranAerogare ecranAerogare;
 
 
 	public EcranMenu(){
@@ -42,7 +43,7 @@ public class EcranMenu extends JFrame{
 		ActionMenuModifier ecouteurModifier = new ActionMenuModifier(this);
 		boutonModifier.addActionListener(ecouteurModifier);
 		
-		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this);
+		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this,ecranAerogare);
 		boutonRefresh.addActionListener(ecouteurRefresh);
 		
 		//instancie le panel "Que voulez-vous faire ?" 

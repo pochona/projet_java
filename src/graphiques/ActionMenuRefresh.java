@@ -18,8 +18,9 @@ public class ActionMenuRefresh extends AbstractAction{
 	 * @params EcranMenu ecranMenu
 	 * @version 1.0 - 27/05/2016
 	 */
-	public ActionMenuRefresh(EcranMenu ecranMenu) {
+	public ActionMenuRefresh(EcranMenu ecranMenu, EcranAerogare ecranAerogare) {
 		this.ecranMenu=ecranMenu;
+		this.ecranAerogare=ecranAerogare;
 	
 	
 	}

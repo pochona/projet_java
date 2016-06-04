@@ -211,7 +211,7 @@ public class EcranAerogare extends JFrame{
 			//Les titres des colonnes
 			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion"};
 			tabModelD = new TabModel(tableVolsD, titresD);
-			//tabModel.isCellEditable(0,0);
+			
 			this.tableauD = new JTable(tabModelD);
 			
 			this.setLayout(new GridLayout(1,1));
