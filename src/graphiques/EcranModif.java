@@ -171,12 +171,7 @@ public class EcranModif extends JFrame{
 
 
 			index++;
-		}/*
-		tableVols[0][0] = "1";
-		tableVols[0][1] = "2";
-		tableVols[0][2] = "3";
-		tableVols[0][3] = "4";
-		tableVols[0][4] = "5";*/
+		}
 		//Les titres des colonnes du tableau
 		String  titre[] = {"Vol","Porte","Avion","Type","Heure"};
 
