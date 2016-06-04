@@ -23,7 +23,7 @@ public class EcranModif extends JFrame{
 	private JButton boutonModifier;
 	private TabModel tabModel;
 	protected HashMap<String, Vol> vol;
-
+	private JScrollPane scrollPane;
 
 	/**
 	 * Constructeur EcranSupprimer.
@@ -42,7 +42,7 @@ public class EcranModif extends JFrame{
 	 * Cette méthode instancie tous les composants de la fenêtre.
 	 * @author lb
 	 * @version 1.0 - 25/05/2016
-	 * 
+	 * @version 1.1 - 04/06/2016 by ap : le scrollpane passe en attribut d'instance pour pouvoir être retrouvé dans le refresh
 	 */
 	public void init() {
 
@@ -89,7 +89,8 @@ public class EcranModif extends JFrame{
 
 		//disposition des composants dans la fenetre
 		this.setLayout(new BorderLayout());
-		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
+		this.scrollPane = new JScrollPane(tableau);
+		this.getContentPane().add(scrollPane,BorderLayout.CENTER);
 		this.getContentPane().add(texte,BorderLayout.NORTH);
 		this.getContentPane().add(boutonModifier,BorderLayout.SOUTH);
 
@@ -147,6 +148,9 @@ public class EcranModif extends JFrame{
 	 * 
 	 */
 	public void actualiserListe(){
+		this.getContentPane().remove(this.scrollPane);
+		this.tabModel =null;
+		this.tableau= null;
 		
 		vol = Vol.getlesVols();
 
@@ -172,6 +176,7 @@ public class EcranModif extends JFrame{
 
 		this.tabModel = new TabModel(tableVols, titre);
 		this.tableau = new JTable(tabModel);
+		
 		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
 		this.getContentPane().revalidate();
 	}
