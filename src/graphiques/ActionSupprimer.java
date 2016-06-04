@@ -43,7 +43,8 @@ public class ActionSupprimer extends AbstractAction{
 			//si l'utilisateur click sur oui on supprime le vol selectionné
 			Vol.supprimerVol(key);
 			//appel de la methode recharge de la classe ecranSupprimer
-			ecr.recharge(row);
+			//ecr.recharge(row);
+			ecr.actualiserListe();
 			
 
 		}

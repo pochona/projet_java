@@ -30,7 +30,7 @@ public class EcranSupprimer extends JFrame{
 	private JButton boutonValider;
 	private TabModel tabModel;
 	protected HashMap<String, Vol> vol;
-
+	private JScrollPane scrollPane;
 
 	/**
 	 * Constructeur EcranSupprimer.
@@ -96,7 +96,8 @@ public class EcranSupprimer extends JFrame{
 
 		//disposition des composants dans la fenetre
 		this.setLayout(new BorderLayout());
-		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
+		this.scrollPane = new JScrollPane(tableau);
+		this.getContentPane().add(scrollPane,BorderLayout.CENTER);
 		this.getContentPane().add(texte,BorderLayout.NORTH);
 		this.getContentPane().add(boutonValider,BorderLayout.SOUTH);
 		
@@ -160,4 +161,51 @@ public class EcranSupprimer extends JFrame{
 		
 	}
 	
+	
+	/**
+	 * Méthode actualiserListe()
+	 * Méthode qui permet d'actualiser la liste après une annulation de vol. Le tableau est rechargé depuis la liste des vols.
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public void actualiserListe(){
+		this.getContentPane().remove(this.scrollPane);
+		this.scrollPane = null;
+		this.tabModel =null;
+		this.tableau= null;
+		
+		vol = Vol.getlesVols();
+
+		Object[][] tableVols = new Object[vol.keySet().size()][5];
+
+		Iterator it = this.vol.keySet().iterator();
+
+		int index = 0;
+		while(it.hasNext()){
+			String key = (String) it.next();
+
+			tableVols[index][0] = this.vol.get(key).getNumVol();
+			tableVols[index][1] = this.vol.get(key).getLaPorte().getNom();
+			tableVols[index][2] = this.vol.get(key).getLAvion().getImmat();
+			tableVols[index][3] = this.vol.get(key).getLAvion().getType();
+			tableVols[index][4] = this.vol.get(key).getHoraire();
+
+
+			index++;
+		}
+		//Les titres des colonnes du tableau
+		String  titre[] = {"Vol","Porte","Avion","Type","Heure"};
+
+		this.tabModel = new TabModel(tableVols, titre);
+		this.tableau = new JTable(tabModel);
+		this.scrollPane = new JScrollPane(tableau);
+		this.getContentPane().add(this.scrollPane,BorderLayout.CENTER);
+		this.getContentPane().revalidate();
+	}
+
+
+
 }
+
+
