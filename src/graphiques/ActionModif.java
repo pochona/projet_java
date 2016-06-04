@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 
+import application.Passage;
 import application.RetardTropTard;
 import application.Vol;
 
@@ -50,6 +51,7 @@ public class ActionModif extends AbstractAction{
 	 * @version 1.0 - 27/05/2016
 	 * @version 1.1 - 29/05/2016 - np - Rajout du try/catch pour remonter le message de l'erreur
 	 * @version 1.2 - 04/06/2016 - ap : Modification de l'actualisation 
+	 * @version 1.3 - 04/06/2016 - ap : Modif du traitement du retour de pop-up (prise en compte de l'annulation/valeur Null)
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		try {
@@ -66,12 +68,14 @@ public class ActionModif extends AbstractAction{
 		
 			JOptionPane jop = new JOptionPane();
 			String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard");
-			//Vol.ModifierHeure(minutes, key);
-			Vol.retarder(minutes, key);
-			//ecranModif.getModel().fireTableDataChanged();
-			ecranModif.actualiserListe();
-			JOptionPane.showMessageDialog(null, "Vol "+key+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
-			
+			if(minutes != null && !minutes.equals("")){
+				//Vol.ModifierHeure(minutes, key);
+				Vol.retarder(minutes, key);
+				//ecranModif.getModel().fireTableDataChanged();
+				ecranModif.actualiserListe();
+				JOptionPane.showMessageDialog(null, "Vol "+key+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
+				//Passage.afficherLesPassages();
+			}
 		} catch (RetardTropTard e){
 			System.out.println(e);
 		}
