@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utilitaires.Duree;
 import utilitaires.Horaire;
@@ -177,5 +178,28 @@ public class Passage {
 	 */
 	public void setLeParking(Parking p){
 		this.parking=p;
+	}
+	
+	/**
+	 * Méthode afficherLesPassages.
+	 * Cette méthode static permet de d'afficher (sur la console) les parkings, avec les passages 
+	 * 
+	 * @author ap
+	 * @version 1.0 - 04/06/2016
+	 */
+	public static void afficherLesPassages(){
+		Iterator<Parking> it = Parking.getLesParkings().iterator();
+		while(it.hasNext()){
+			Parking p = it.next();
+			System.out.println("--------------- " + p.getNom() + " ---------------");
+			Iterator<Passage> itPassage = p.getLesPassages().iterator();
+			while(itPassage.hasNext()){
+				Passage pa = itPassage.next();
+				System.out.println("-- " + pa.getHeureArrivee() + " -- " + pa.getMonVolArrivee().getNumVol());
+				System.out.println("-->");
+				System.out.println("-- " + pa.getHeureDepart() + " -- " + pa.getMonVolDepart().getNumVol());
+				System.out.println('\n');
+			}
+		}
 	}
 }

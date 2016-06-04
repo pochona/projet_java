@@ -250,7 +250,7 @@ public class Parking {
 	 * @version 1.2 - 22/05/2016 by ap : correction de la création de la tranche horaire, petite erreur 
 	 */
 	public boolean isDispo(TrancheHoraire th){
-		System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
+		//System.out.println("+++++ Tranche a caser : " + th + " +++ sur le parking : " + this.getNom() + "++++++");
 		boolean dispo = false;
 		boolean stop = false;
 		Passage monPassage, lastPassage = null;
@@ -317,7 +317,7 @@ public class Parking {
 			// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
 			lastPassage = monPassage;
 		}
-		System.out.println(this + " est dispo ? " + dispo);
+		//System.out.println(this + " est dispo ? " + dispo);
 		return dispo;
 	}
 
@@ -352,7 +352,7 @@ public class Parking {
 			}
 		}
 		this.lesPassages.add(cpt, p);
-		System.out.println("Apres tri : ");
+		//System.out.println("Apres tri : ");
 		this.afficherLesPassages();
 	}
 
@@ -371,16 +371,17 @@ public class Parking {
 	 * @version 1.0 - 22/05/2016
 	 */
 	public void afficherLesPassages(){
-		System.out.println("Parking : " + this.getNom());
+		//System.out.println("Parking : " + this.getNom());
 		Iterator it = this.lesPassages.iterator();
 		Passage monPassage;
 		while(it.hasNext()){
 			monPassage = (Passage) it.next();
-			System.out.println(monPassage);
+			//System.out.println(monPassage);
 		}
 	}
 
 	/**
+	 * Méthode getLesPassages.
 	 * 
 	 * @return ArrayList<Passage> : retourne les passages d'un parking 
 	 * @author np
@@ -389,7 +390,9 @@ public class Parking {
 	public ArrayList<Passage> getLesPassages(){
 		return lesPassages;
 	}
+	
 	/**
+	 * Méthode parkingTjrsOk.
 	 * 
 	 * @return boolean : Ce booléen indique si, après avoir modifié les horaires d'un passage, il n'y a pas de conflits avec le passage suivant du parking
 	 * @author np
@@ -411,5 +414,17 @@ public class Parking {
 			} 
 		}
 		return ok;
+	}
+	
+	/**
+	 * Méthode getLesParkings.
+	 * Cette méthode permet de retourner tous les parkings connus.
+	 * 
+	 * @author ap
+	 * @return ArrayList<Parking> La liste des parkings
+	 * @version 1.0 - 04/06/2016
+	 */
+	public static ArrayList<Parking> getLesParkings(){
+		return lesParkings;
 	}
 }
