@@ -49,6 +49,7 @@ public class ActionModif extends AbstractAction{
 	 * @params ActionEvent arg0 : l'action de cliquer
 	 * @version 1.0 - 27/05/2016
 	 * @version 1.1 - 29/05/2016 - np - Rajout du try/catch pour remonter le message de l'erreur
+	 * @version 1.2 - 04/06/2016 - ap : Modification de l'actualisation 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		try {
@@ -67,7 +68,8 @@ public class ActionModif extends AbstractAction{
 			String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard");
 			//Vol.ModifierHeure(minutes, key);
 			Vol.retarder(minutes, key);
-			ecranModif.getModel().fireTableDataChanged();
+			//ecranModif.getModel().fireTableDataChanged();
+			ecranModif.actualiserListe();
 			JOptionPane.showMessageDialog(null, "Vol "+key+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
 			
 		} catch (RetardTropTard e){

@@ -138,6 +138,43 @@ public class EcranModif extends JFrame{
 	public TabModel getModel() {
 		return tabModel;
 	}
+	
+	/**
+	 * Méthode actualiserListe()
+	 * Méthode qui permet d'actualiser la liste après une modification. Le tableau est rechargé depuis la liste des vols.
+	 * @author ap
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public void actualiserListe(){
+		
+		vol = Vol.getlesVols();
+
+		Object[][] tableVols = new Object[vol.keySet().size()][5];
+
+		Iterator it = this.vol.keySet().iterator();
+
+		int index = 0;
+		while(it.hasNext()){
+			String key = (String) it.next();
+
+			tableVols[index][0] = this.vol.get(key).getNumVol();
+			tableVols[index][1] = this.vol.get(key).getLaPorte().getNom();
+			tableVols[index][2] = this.vol.get(key).getLAvion().getImmat();
+			tableVols[index][3] = this.vol.get(key).getLAvion().getType();
+			tableVols[index][4] = this.vol.get(key).getHoraire();
+
+
+			index++;
+		}
+		//Les titres des colonnes du tableau
+		String  titre[] = {"Vol","Porte","Avion","Type","Heure"};
+
+		this.tabModel = new TabModel(tableVols, titre);
+		this.tableau = new JTable(tabModel);
+		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
+		this.getContentPane().revalidate();
+	}
 
 
 
