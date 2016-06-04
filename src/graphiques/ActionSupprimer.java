@@ -10,7 +10,7 @@ import application.Vol;
 public class ActionSupprimer extends AbstractAction{
 	EcranSupprimer ecr;
 
-	
+
 	/**
 	 * Constructeur ActionSupprimer.
 	 * @author lb
@@ -29,7 +29,6 @@ public class ActionSupprimer extends AbstractAction{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-
 		//récupère la colonne
 		//int col=ecr.getTab().getSelectedColumn();
 		int col = 0;//ecr.getCol();
@@ -43,9 +42,11 @@ public class ActionSupprimer extends AbstractAction{
 		if(option == JOptionPane.OK_OPTION){
 			//si l'utilisateur click sur oui on supprime le vol selectionné
 			Vol.supprimerVol(key);
-			//appel de la methode init de la classe ecranSupprimer
-			ecr.init();
+			//appel de la methode recharge de la classe ecranSupprimer
+			ecr.recharge(row);
+
 		}
+		JOptionPane.showMessageDialog(null, "Vol "+key+" annulé!", "InfoBox: " + "Annulation", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
 
