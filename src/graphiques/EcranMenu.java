@@ -23,6 +23,7 @@ public class EcranMenu extends JFrame{
 	JButton boutonAnnuler, boutonModifier, boutonRefresh;
 	JPanel jpane0,jpaneBouton1,jpaneBouton2,jpaneBouton3;
 	EcranAerogare ecranAerogare;
+	EcranHall2 ecranHall2;
 
 
 	public EcranMenu(App a){
@@ -30,6 +31,14 @@ public class EcranMenu extends JFrame{
 		init();
 	}
 
+	/**
+	 * Méthode init()
+	 * 
+	 * Cette méthode instancie tous les composants de la fenêtre.
+	 * @author lb
+	 * @version 1.0 - 24/05/2016
+	 * @
+	 */
 	public void init(){
 		
 		//instancie les boutons
@@ -47,7 +56,7 @@ public class EcranMenu extends JFrame{
 		ActionMenuModifier ecouteurModifier = new ActionMenuModifier(this);
 		boutonModifier.addActionListener(ecouteurModifier);
 		
-		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare());
+		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare(), this.application.getEcranHall1(),this.application.getEcranHall2(),this.application.getEcranHall3(),this.application.getEcranHall4());
 		boutonRefresh.addActionListener(ecouteurRefresh);
 		
 		//instancie le panel "Que voulez-vous faire ?" 

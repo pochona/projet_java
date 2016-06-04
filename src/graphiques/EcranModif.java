@@ -70,7 +70,6 @@ public class EcranModif extends JFrame{
 		String  titre[] = {"Vol","Porte","Avion","Type","Heure"};
 
 		tabModel = new TabModel(tableVols, titre);
-		//tabModel.isCellEditable(0,0);
 		this.tableau = new JTable(tabModel);
 
 		//instancie le panel "choisir vol" 

@@ -19,6 +19,7 @@ public class EcranHall1 extends EcranHall{
 		this.application = a;
 		this.leHall = "1";
 		super.init();
+		
 	}
 }
 

@@ -190,7 +190,6 @@ public class EcranAerogare extends JFrame{
 		
 			
 			tabModelA = new TabModel(tableVolsA, titresA);
-			//tabModel.isCellEditable(0,0);
 			this.tableauA = new JTable(tabModelA);
 			
 			
@@ -213,8 +212,8 @@ public class EcranAerogare extends JFrame{
 
 			//Les titres des colonnes
 			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion"};
-			tabModelD = new TabModel(tableVolsD, titresD);
 			
+			tabModelD = new TabModel(tableVolsD, titresD);
 			this.tableauD = new JTable(tabModelD);
 			
 			this.setLayout(new GridLayout(1,1));
@@ -226,7 +225,7 @@ public class EcranAerogare extends JFrame{
 			this.getContentPane().add(scrollPaneA);
 			this.getContentPane().add(scrollPaneD);
 			this.getContentPane().revalidate();
-			
+	
 		}
 
 }

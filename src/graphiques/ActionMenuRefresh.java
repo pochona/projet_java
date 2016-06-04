@@ -9,6 +9,10 @@ public class ActionMenuRefresh extends AbstractAction{
 	//Declaration
 	EcranMenu ecranMenu;
 	EcranAerogare ecranAerogare;
+	EcranHall1 ecranHall1;
+	EcranHall2 ecranHall2;
+	EcranHall3 ecranHall3;
+	EcranHall4 ecranHall4;
 	
 	
 	
@@ -18,9 +22,13 @@ public class ActionMenuRefresh extends AbstractAction{
 	 * @params EcranMenu ecranMenu
 	 * @version 1.0 - 27/05/2016
 	 */
-	public ActionMenuRefresh(EcranMenu ecranMenu, EcranAerogare ecranAerogare) {
+	public ActionMenuRefresh(EcranMenu ecranMenu, EcranAerogare ecranAerogare,EcranHall1 ecranHall1, EcranHall2 ecranHall2, EcranHall3 ecranHall3, EcranHall4 ecranHall4) {
 		this.ecranMenu=ecranMenu;
 		this.ecranAerogare=ecranAerogare;
+		this.ecranHall2=ecranHall2;
+		this.ecranHall1=ecranHall1;
+		this.ecranHall3=ecranHall3;
+		this.ecranHall4=ecranHall4;
 	
 	
 	}
@@ -35,6 +43,13 @@ public class ActionMenuRefresh extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Rafraichir lecran Aerogare et les halls
 		ecranAerogare.actualiserListe();
+		ecranHall1.actualiserListe();
+		ecranHall2.actualiserListe();
+		ecranHall3.actualiserListe();
+		ecranHall4.actualiserListe();
+
+
+
 
 	}
 

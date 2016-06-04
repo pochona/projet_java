@@ -82,4 +82,48 @@ public class App {
 		return this.ecranAerogare;
 	}
 	
+	
+	/**
+	 * Méthode getEcranHall1()
+	 * Retourne l'ecran du hall1
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public EcranHall1 getEcranHall1() {
+		return this.ecranhall1;
+	}
+	
+	/**
+	 * Méthode getEcranHall2()
+	 * Retourne l'ecran du hall2
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public EcranHall2 getEcranHall2() {
+		return this.ecranhall2;
+	}
+	
+	/**
+	 * Méthode getEcranHall3()
+	 * Retourne l'ecran du hall3
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public EcranHall3 getEcranHall3() {
+		return this.ecranhall3;
+	}
+	
+	/**
+	 * Méthode getEcranHall4()
+	 * Retourne l'ecran du hall4
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public EcranHall4 getEcranHall4() {
+		return this.ecranhall4;
+	}
 }
