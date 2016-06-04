@@ -8,6 +8,8 @@ public class ActionMenuRefresh extends AbstractAction{
 
 	//Declaration
 	EcranMenu ecranMenu;
+	EcranAerogare ecranAerogare;
+	
 	
 	
 	/**
@@ -18,6 +20,7 @@ public class ActionMenuRefresh extends AbstractAction{
 	 */
 	public ActionMenuRefresh(EcranMenu ecranMenu) {
 		this.ecranMenu=ecranMenu;
+	
 	
 	}
 
@@ -30,7 +33,7 @@ public class ActionMenuRefresh extends AbstractAction{
 	 */
 	public void actionPerformed(ActionEvent e) {
 		// TODO Rafraichir lecran Aerogare et les halls
-		
+		ecranAerogare.actualiserListe();
 
 	}
 

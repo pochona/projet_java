@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 public class EcranMenu extends JFrame{
 	
+	
 	//Declarations
 	JButton boutonAnnuler, boutonModifier, boutonRefresh;
 	JPanel jpane0,jpaneBouton1,jpaneBouton2,jpaneBouton3;

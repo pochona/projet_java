@@ -48,7 +48,7 @@ public class testGraphique {
 	
 		
 		//Gestion de l'ecran de l'aerogare
-		/*EcranAerogare aerogare = new EcranAerogare();
+		EcranAerogare aerogare = new EcranAerogare();
 		aerogare.setSize(700,700);
 		aerogare.setLocationRelativeTo(null);
 		aerogare.setTitle("Ecran Aerogare");
@@ -72,13 +72,7 @@ public class testGraphique {
 		ecranhall4.setVisible(true);
 		ecranhall4.setLocation(0,600);
 		
-		EcranMisAJour ecranMisAJour = new EcranMisAJour();
-		ecranMisAJour.setVisible(true);
-		ecranMisAJour.setSize(700,700);
-		ecranMisAJour.setLocationRelativeTo(null);
-		ecranMisAJour.setTitle("Mis à jour des vols");
-		ecranMisAJour.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
-		
+
 		EcranMenu ecranMenu = new EcranMenu();
 		ecranMenu.setVisible(true);
 		ecranMenu.setSize(700,200);

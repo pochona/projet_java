@@ -33,6 +33,7 @@ public class ActionMenuAnnuler extends AbstractAction{
 		ecranSupprimer.setSize(700,700);
 		ecranSupprimer.setLocationRelativeTo(null);
 		ecranSupprimer.setTitle("Supprimer un vol");
-	}
+		
+		}
 
 }
