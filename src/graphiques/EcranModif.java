@@ -149,6 +149,7 @@ public class EcranModif extends JFrame{
 	 */
 	public void actualiserListe(){
 		this.getContentPane().remove(this.scrollPane);
+		this.scrollPane = null;
 		this.tabModel =null;
 		this.tableau= null;
 		
@@ -170,14 +171,19 @@ public class EcranModif extends JFrame{
 
 
 			index++;
-		}
+		}/*
+		tableVols[0][0] = "1";
+		tableVols[0][1] = "2";
+		tableVols[0][2] = "3";
+		tableVols[0][3] = "4";
+		tableVols[0][4] = "5";*/
 		//Les titres des colonnes du tableau
 		String  titre[] = {"Vol","Porte","Avion","Type","Heure"};
 
 		this.tabModel = new TabModel(tableVols, titre);
 		this.tableau = new JTable(tabModel);
-		
-		this.getContentPane().add(new JScrollPane(tableau),BorderLayout.CENTER);
+		this.scrollPane = new JScrollPane(tableau);
+		this.getContentPane().add(this.scrollPane,BorderLayout.CENTER);
 		this.getContentPane().revalidate();
 	}
 
