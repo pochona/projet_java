@@ -375,16 +375,22 @@ public abstract class Vol {
 				// l'ecart n'est pas suffisant, il faut alors décaler les heures des vols arrivée + départ
 				//mais d'abord on regarde que le départ ne dépasse pas 23h59
 				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
+					// on stocke l'index du passage dans la liste des passage du parking
+					//int indexDuPassageDansParking=monVol.getLePassage().getLeParking().getLesPassages().indexOf(monVol.getLePassage());
 					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
 					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
 					//On regarde si le parking est toujours OK
 					if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
 						//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
 						parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
+						//on supprime le passage de la liste des passages de l'ancien parking 
+						monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
 						//On met ce parking dans le passage
 						monVol.getLePassage().setLeParking(parkingLibre);
 						//on stocke le passage sur ce parking
 						parkingLibre.addPassage(monVol.getLePassage());
+				
+					
 					}
 				} else {
 					//sinon on déclanche l'exception qui dit que le vol depart est trop tard
@@ -399,8 +405,11 @@ public abstract class Vol {
 				monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monHeureDepart.ajout(temps));
 				//On regarde si le parking est toujours OK
 				if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
+					Parking parkTemp=monVol.getLePassage().getLeParking();
 					//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
 					parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
+					//on supprime le passage de la liste des passages de l'ancien parking 
+					monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
 					//On met ce parking dans le passage
 					monVol.getLePassage().setLeParking(parkingLibre);
 					//on stocke le passage sur ce parking

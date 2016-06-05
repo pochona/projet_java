@@ -355,6 +355,10 @@ public class Parking {
 		//System.out.println("Apres tri : ");
 		this.afficherLesPassages();
 	}
+	
+	public void supprimerPassage(Passage p){
+		this.lesPassages.remove(p);
+	}
 
 
 	/**
