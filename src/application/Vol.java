@@ -408,9 +408,9 @@ public abstract class Vol {
 				//mais d'abord on regarde que le départ ne dépasse pas 23h59
 				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
 					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
-					int ddd = m + monVol.getLePassage().getEcart().dureeEnMinutes();
-					Duree cdec=new Duree(ddd);
-					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monVol.getLePassage().getMonVolDepart().getHoraire().ajout(cdec));
+					int tempInt = m + monVol.getLePassage().getEcart().dureeEnMinutes();
+					Duree tempDuree=new Duree(tempInt);
+					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monVol.getLePassage().getMonVolDepart().getHoraire().ajout(tempDuree));
 					//monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
 					//On regarde si le parking est toujours OK
 					if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
