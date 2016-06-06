@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
 import utilitaires.Duree;
 import utilitaires.Horaire;
 
@@ -381,9 +383,15 @@ public abstract class Vol {
 		String numVol = (String) key;
 		Vol monVol = Vol.getLeVol(numVol);
 		monVol.ajouterRetard(minutes);
-		
 		Duree temps = new Duree(minutes);
+	//	System.out.println(monVol.getClass().equals(VolArrivee.class));
+		
+		
+		
+		
+		
 		if(monVol.getClass().equals(VolArrivee.class)==true){
+			System.out.println(monVol.getClass().equals(VolArrivee.class));
 			// c'est un vol d'arrivée
 			Horaire monHeureDepart = monVol.getLePassage().getMonVolDepart().getHoraire();
 			Horaire monHeureArrivee = monVol.getLePassage().getMonVolArrivee().getHoraire();
@@ -400,7 +408,10 @@ public abstract class Vol {
 				//mais d'abord on regarde que le départ ne dépasse pas 23h59
 				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
 					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
-					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
+					int ddd = m + monVol.getLePassage().getEcart().dureeEnMinutes();
+					Duree cdec=new Duree(ddd);
+					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monVol.getLePassage().getMonVolDepart().getHoraire().ajout(cdec));
+					//monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
 					//On regarde si le parking est toujours OK
 					if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
 						//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
@@ -411,9 +422,7 @@ public abstract class Vol {
 						monVol.getLePassage().setLeParking(parkingLibre);
 						//on stocke le passage sur ce parking
 						parkingLibre.addPassage(monVol.getLePassage());
-				
-					
-					}
+						}
 				} else {
 					//sinon on déclanche l'exception qui dit que le vol depart est trop tard
 					throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
