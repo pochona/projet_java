@@ -29,7 +29,7 @@ public class ActionMenuModifier extends AbstractAction{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public void actionPerformed(ActionEvent e) {
-		EcranModif ecranModif = new EcranModif();
+		Zzz_EcranModif ecranModif = new Zzz_EcranModif();
 		ecranModif.setVisible(true);
 		ecranModif.setSize(700,700);
 		ecranModif.setLocationRelativeTo(null);

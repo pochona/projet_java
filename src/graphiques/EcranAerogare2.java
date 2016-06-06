@@ -1,12 +1,21 @@
 package graphiques;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Label;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
+
 import application.App;
 import application.Parking;
 import application.Passage;
@@ -16,9 +25,10 @@ public class EcranAerogare2 extends JFrame{
 
 		//declaration
 		private App application;
-		private JTable tableauA;
-		private JScrollPane scrollPaneA;
-		private TabModel tabModelA;
+		private JTable tableau;
+		private JButton boutonModifier;
+		private JScrollPane scrollPane;
+		private TabModel tabModel;
 	
 	
 		/**
@@ -66,18 +76,37 @@ public class EcranAerogare2 extends JFrame{
 			}
 
 			//Les titres des colonnes
-			String  titresA[] = {"Vol arrivée", "Provenance","Heure","Vol départ","Destination","Heure","Porte","Hall"};
+			String titres[] = {"Vol arrivée", "Provenance","Heure","Vol départ","Destination","Heure","Porte","Hall"};
 		
 			
-			tabModelA = new TabModel(tablePassage, titresA);
+			tabModel = new TabModel(tablePassage, titres);
 			//tabModel.isCellEditable(0,0);
-			this.tableauA = new JTable(tabModelA);
+			this.tableau = new JTable(tabModel);
+			
+			Font font = new Font("Arial",Font.BOLD,16);
+			Label texte= new Label("Séléctionner un passage :");
+			texte.setFont(font);
+			texte.setBackground(Color.WHITE);
+			
+			// instance bouton valider
+			boutonModifier = new JButton("Modifier");
+			//ajout image au bouton
+			boutonModifier.setIcon(new ImageIcon(getClass().getResource("/images/valider.png")));
+			//j'associe une action a mon bouton valider (fais reference a la classe ActionValider)
+			//ActionModif ecouteurModifier = new ActionModif(this);
+			//boutonModifier.addActionListener(ecouteurModifier);
 			
 			this.setLayout(new GridLayout(1,1));
 			//ajout de contentPane dans un scrol
-			this.scrollPaneA = new JScrollPane(tableauA);
-			this.getContentPane().add(scrollPaneA);
+			this.scrollPane = new JScrollPane(tableau);
 			
+			this.setLayout(new BorderLayout());
+			this.scrollPane = new JScrollPane(this.tableau);
+			this.getContentPane().add(this.scrollPane,BorderLayout.CENTER);
+			this.getContentPane().add(texte,BorderLayout.NORTH);
+			this.getContentPane().add(boutonModifier,BorderLayout.SOUTH);
+			
+
 		}   
 
 		/**
@@ -88,7 +117,7 @@ public class EcranAerogare2 extends JFrame{
 		 * 
 		 */
 		public TabModel getModelA() {
-			return tabModelA;
+			return tabModel;
 		}
 		
 
@@ -100,7 +129,7 @@ public class EcranAerogare2 extends JFrame{
 		 * @version 1.0 - 04/06/2016
 		 */
 		public JTable getTabP(){
-			return tableauA;
+			return tableau;
 		}
 	
 		

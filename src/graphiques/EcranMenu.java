@@ -81,7 +81,6 @@ public class EcranMenu extends JFrame{
 	    jpaneBouton2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
 	    jpaneBouton3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
 	    
-	    
 	    jpane0.add(jpaneBouton1);
 	    jpane0.add(jpaneBouton2);
 	    jpane0.add(jpaneBouton3);

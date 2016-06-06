@@ -45,7 +45,6 @@ public class ActionMenuRefresh extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Rafraichir lecran Aerogare et les halls
 		//ecranAerogare.actualiserListe();
-		//ecranAerogare2.actualiserListe();
 		ecranHall1.actualiserListe();
 		ecranHall2.actualiserListe();
 		ecranHall3.actualiserListe();

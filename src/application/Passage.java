@@ -209,16 +209,18 @@ public class Passage {
 	 * @throws Throwable
 	 * @version - 1.0 - 06/06/2016
 	 */
-	public void supprimerLePassage() throws Throwable{
+	public void supprimerLePassage() {
 		int index;
-		System.out.println(this+"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 		//suprimer de l'arraylist
 		index=lesPassages.indexOf(this);
 		lesPassages.remove(index);
 		//ordonner/décaler cette araylist
-		//TODO
-		//suppression du passage
-		this.finalize();
+		try {
+			this.finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

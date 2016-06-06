@@ -331,7 +331,6 @@ public class Parking {
 	 * @version 2.0 - 22/05/2016 by ap : l'ajout s'effectue maintenant dans l'ordre
 	 */
 	public void addPassage(Passage p){
-
 		int cpt = 0;
 		boolean find = false;
 

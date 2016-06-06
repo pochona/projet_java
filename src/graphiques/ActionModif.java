@@ -24,23 +24,24 @@ import javax.swing.table.TableModel;
 import application.Passage;
 import application.RetardTropTard;
 import application.Vol;
+import application.VolArrivee;
+import application.VolDepart;
 
 
 public class ActionModif extends AbstractAction{
 
 	//Declaration
-	EcranModif ecranModif;
+	EcranAerogare ecranAerogare;
 	
 	/**
 	 * Constructeur ActionModif.
 	 * @author lb
 	 * @params EcranModif ecranModif
 	 * @version 1.0 - 27/05/2016
+	 * @version 2.0 - by ap : changement de l'attribution de la frame associé 
 	 */
-
-	public ActionModif(EcranModif ecranModif) {
-		this.ecranModif=ecranModif;
-
+	public ActionModif(EcranAerogare ecranAerogare) {
+		this.ecranAerogare=ecranAerogare;
 	}
 
 	/**
@@ -52,32 +53,22 @@ public class ActionModif extends AbstractAction{
 	 * @version 1.1 - 29/05/2016 - np - Rajout du try/catch pour remonter le message de l'erreur
 	 * @version 1.2 - 04/06/2016 - ap : Modification de l'actualisation 
 	 * @version 1.3 - 04/06/2016 - ap : Modif du traitement du retour de pop-up (prise en compte de l'annulation/valeur Null)
+	 * @version 1.4 - 06/06/2016 - ap : Modif du traitement : affichage d'une frame pour les options 
 	 */
-	public void actionPerformed(ActionEvent arg0) {
-		try {
-			//Ouverture de la fenetre EcranModif2
+	public void actionPerformed(ActionEvent act) {
 
 			//récupère la colonne
 			//int col=ecr.getTab().getSelectedColumn();
 			int col = 0;//ecr.getCol();
 			//récupère la ligne
-			int row = ecranModif.getLine();
+			int row = ecranAerogare.getLine();
 			//affiche la valeur de la cellule selectionnée par l'utilisateur avec en param la ligne et la colonne récupérées avec les getter
-			Object key = ecranModif.getModel().getValueAt(row,col);
-			//ecranModif.modifHoraire(key);
-		
-			JOptionPane jop = new JOptionPane();
-			String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard");
-			if(minutes != null && !minutes.equals("")){
-				//Vol.ModifierHeure(minutes, key);
-				Vol.retarder(minutes, key);
-				//ecranModif.getModel().fireTableDataChanged();
-				ecranModif.actualiserListe();
-				JOptionPane.showMessageDialog(null, "Vol "+key+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
-				//Passage.afficherLesPassages();
+			Object key = ecranAerogare.getTabSelected().getValueAt(row,col);
+
+			if(Vol.getLeVol((String) key).getClass().equals(VolDepart.class)){
+				EcranModifDepart ecran = new EcranModifDepart((String) key, this.ecranAerogare);
+			} else if(Vol.getLeVol((String) key).getClass().equals(VolArrivee.class)){
+				EcranModifArrivee ecran = new EcranModifArrivee((String) key, this.ecranAerogare);
 			}
-		} catch (RetardTropTard e){
-			System.out.println(e);
-		}
-			}
+	}
 }

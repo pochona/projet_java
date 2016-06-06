@@ -28,7 +28,7 @@ public class ActionMenuAnnuler extends AbstractAction{
 	 * @version 1.0 - 27/05/2016
 	 */
 	public void actionPerformed(ActionEvent arg0) {
-		EcranSupprimer ecranSupprimer = new EcranSupprimer();
+		Zzz_EcranSupprimer ecranSupprimer = new Zzz_EcranSupprimer();
 		ecranSupprimer.setVisible(true);
 		ecranSupprimer.setSize(700,700);
 		ecranSupprimer.setLocationRelativeTo(null);

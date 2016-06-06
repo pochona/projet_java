@@ -2,6 +2,7 @@ package application;
 
 import java.util.HashMap;
 import java.util.Iterator;
+
 import utilitaires.Horaire;
 
 public class VolArrivee extends Vol {
@@ -41,7 +42,7 @@ public class VolArrivee extends Vol {
 		String str = "------ Les vols arrivés ------" + " \n";
 		while(val.hasNext()){
 			VolArrivee monVolArrivee = val.next();
-			if (monVolArrivee.getVolAnnule()==true) {
+			if (monVolArrivee.isAnnule()) {
 				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";
 			} else {
 				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";}
@@ -59,7 +60,7 @@ public class VolArrivee extends Vol {
 	 */
 	public String toString(){
 		//	return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHoraire() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + ". \n";
-			return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHoraire() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
+			return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHoraire() + (this.isAnnule()?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
 
 	}
 
@@ -98,4 +99,5 @@ public class VolArrivee extends Vol {
 	public void decalerHeureArrivee(Horaire newHeureArr){
 		this.heureArrivee=newHeureArr;
 	}
+
 }

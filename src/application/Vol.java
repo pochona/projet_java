@@ -30,7 +30,12 @@ public abstract class Vol {
 	 * Passage associé au vol0
 	 */
 	private Passage lePassage;
-
+	
+	/**
+	 * Nombre de minute de retard
+	 */
+	private int retard;
+	
 	/**
 	 * Toutes les instances des vols 
 	 */
@@ -47,6 +52,7 @@ public abstract class Vol {
 		this.numVol =num;
 		this.estAnnule=false;
 		this.lAvion=avion;
+		this.retard=0;
 		lesVols.put(num, this);
 	}
 
@@ -149,7 +155,7 @@ public abstract class Vol {
 	 * 
 	 * @return le boolean  qui indique si le vol est annulé (true ) ou pas (false)
 	 */
-	public boolean getVolAnnule(){return this.estAnnule;}
+	public boolean isAnnule(){return this.estAnnule;}
 
 	/**
 	 * 
@@ -184,7 +190,7 @@ public abstract class Vol {
 			} else {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
 			}*/
-			if (monVol.getVolAnnule()==true){
+			if (monVol.isAnnule()){
 				str += " Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+". \n";
 			} else {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+". \n";
@@ -201,7 +207,7 @@ public abstract class Vol {
 	 * Retourne la chaine qui contient l'affichage d'un vol
 	 */
 	public String toString(){
-		return  "Numéro du vol : " + this.getNumVol() + (this.getVolAnnule()==true?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+		return  "Numéro du vol : " + this.getNumVol() + (this.isAnnule()?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
 
 	}
 
@@ -323,7 +329,7 @@ public abstract class Vol {
 	 * @version 2.0 - 06/06/2016 by np : Suppresion d'un vol - 2 cas : arrivée ou départ, si on annule juste un vol départ, on met l'avion dans un hangar
 	 */
 	public static void supprimerVol(Object key) {
-		try {
+		
 			String numVol = (String) key;
 			Vol monVol = Vol.getLeVol(numVol);
 			//if vol d'arrivée
@@ -341,10 +347,7 @@ public abstract class Vol {
 				//if vol départ on met just le vol départ à annulé, 
 				monVol.annulerLeVol();
 			}
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
 	}
 
 
@@ -357,7 +360,7 @@ public abstract class Vol {
 	 */
 	public static void modifierHeure(String m, Object key){
 		int minutes = Integer.parseInt(m);
-		System.out.println("Minutes: "+minutes+" Clé: "+key);
+		//System.out.println("Minutes: "+minutes+" Clé: "+key);
 		//TODO 
 	}
 
@@ -368,13 +371,17 @@ public abstract class Vol {
 	 * @author np
 	 * @version 1.0 - 28/05/2016
 	 * @version 1.1 - 29/05/2016 by np : changement des paramètres pris en compte pour le graphique
+	 * @throws ParkingIndispo 
 	 */
-	public static void retarder(String min, Object key) throws RetardTropTard{
+	public static void retarder(String min, Object key) throws RetardTropTard, ParkingIndispo{
 		int m;
 		Parking parkingLibre;
 		int minutes = Integer.parseInt(min);
+		
 		String numVol = (String) key;
 		Vol monVol = Vol.getLeVol(numVol);
+		monVol.ajouterRetard(minutes);
+		
 		Duree temps = new Duree(minutes);
 		if(monVol.getClass().equals(VolArrivee.class)==true){
 			// c'est un vol d'arrivée
@@ -427,8 +434,12 @@ public abstract class Vol {
 					monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
 					//On met ce parking dans le passage
 					monVol.getLePassage().setLeParking(parkingLibre);
-					//on stocke le passage sur ce parking
-					parkingLibre.addPassage(monVol.getLePassage());
+					if(parkingLibre != null){
+						//on stocke le passage sur ce parking
+						parkingLibre.addPassage(monVol.getLePassage());
+					} else {
+						throw new ParkingIndispo(monVol);
+					}
 				}
 			} else {
 				//sinon on déclanche l'exception qui dit que le vol depart est trop tard
@@ -456,5 +467,25 @@ public abstract class Vol {
 	 */
 	public void annulerLeVol(){
 		this.estAnnule=true;
+	}
+	
+	/**
+	 * Méthode getRetard.
+	 * Méthode qui retourne le retard du vol
+	 * @author ap
+	 * @version 1.0 - 06/06/2016
+	 */
+	public int getRetard() {
+		return this.retard;
+	}
+	
+	/**
+	 * Méthode ajouterRetard.
+	 * Méthode qui ajoute du retard au vol
+	 * @author ap
+	 * @version 1.0 - 06/06/2016
+	 */
+	public void ajouterRetard(int m) {
+		this.retard = this.retard + m;
 	}
 }

@@ -53,42 +53,16 @@ public class App {
 	
 		
 		//Gestion de l'ecran de l'aerogare
-		/*this.ecranAerogare = new EcranAerogare(this);
-		this.ecranAerogare.setSize(700,700);
-		this.ecranAerogare.setLocationRelativeTo(null);
-		this.ecranAerogare.setTitle("Ecran Aerogare");
-		this.ecranAerogare.setVisible(true);*/
+		this.ecranAerogare = new EcranAerogare(this);
 		
 		this.ecranhall1 = new EcranHall1(this);
-		this.ecranhall1.setVisible(true);
-		this.ecranhall1.setLocation(0,0);
-		
-
+	
 		this.ecranhall2 = new EcranHall2(this);
-		this.ecranhall2.setVisible(true);
-		this.ecranhall2.setLocation(0,200);
-
+	
 		this.ecranhall3 = new EcranHall3(this);
-		this.ecranhall3.setVisible(true);
-		this.ecranhall3.setLocation(0,400);
 		
 		this.ecranhall4 = new EcranHall4(this);
-		this.ecranhall4.setVisible(true);
-		this.ecranhall4.setLocation(0,600);
 		
-
-		this.ecranMenu = new EcranMenu(this);
-		this.ecranMenu.setVisible(true);
-		this.ecranMenu.setSize(700,200);
-		this.ecranMenu.setLocationRelativeTo(null);
-		this.ecranMenu.setTitle("Menu");
-		this.ecranMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		this.ecranAerogare2 = new EcranAerogare2(this);
-		this.ecranAerogare2.setSize(700,700);
-		this.ecranAerogare2.setLocationRelativeTo(null);
-		this.ecranAerogare2.setTitle("Ecran Aerogare 2");
-		this.ecranAerogare2.setVisible(true);
 	}
 
 	

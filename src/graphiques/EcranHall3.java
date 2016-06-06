@@ -15,5 +15,7 @@ public class EcranHall3 extends EcranHall{
 	public EcranHall3(App a){
 		this.leHall = "3";
 		super.init(a);
+		this.setVisible(true);
+		this.setLocation(0,400);
 	}
 }
