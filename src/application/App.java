@@ -20,7 +20,13 @@ public class App {
 	private EcranHall4 ecranhall4;
 	private EcranMenu ecranMenu;
 		
-		
+	/**
+	 * Constructeur app.
+	 * Constructeur de la classe App
+	 * 
+	 * @author ap
+	 * @version 1.0 - 04/06/2016
+	 */
 	public App(){
 		try {
 			Avion.initialise();
@@ -34,6 +40,7 @@ public class App {
 			Parking.initialise();
 			
 			Vol.initialise();
+			Passage.afficherLesPassages();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +84,15 @@ public class App {
 		this.ecranMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-
+	
+	/**
+	 * Méthode getEcranAerogare.
+	 * Retourne l'écran aerogare.
+	 * 
+	 * @author ap
+	 * @return EcranAerogare ecranAerogare.
+	 * @version 1.0 - 04/06/2016
+	 */
 	public EcranAerogare getEcranAerogare() {
 		return this.ecranAerogare;
 	}
