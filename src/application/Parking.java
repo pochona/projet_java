@@ -356,10 +356,6 @@ public class Parking {
 		this.afficherLesPassages();
 	}
 	
-	public void supprimerPassage(Passage p){
-		this.lesPassages.remove(p);
-	}
-
 
 	/**
 	 * @todo : la doc
@@ -431,4 +427,14 @@ public class Parking {
 	public static ArrayList<Parking> getLesParkings(){
 		return lesParkings;
 	}
+	
+/**
+ * Supprime le passage de la liste des passages
+ * @param p : Passage à supprimer
+ */
+	public void supprimerPassage(Passage p){
+		this.lesPassages.remove(p);
+		//TODO : réordonner
+	}
+
 }

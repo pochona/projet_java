@@ -320,14 +320,31 @@ public abstract class Vol {
 	 * @author lb
 	 * @params Object key : la clé du vol à supprimer
 	 * @version 1.0 - 27/05/2016
+	 * @version 2.0 - 06/06/2016 by np : Suppresion d'un vol - 2 cas : arrivée ou départ, si on annule juste un vol départ, on met l'avion dans un hangar
 	 */
 	public static void supprimerVol(Object key) {
-
-		//System.out.println("DEBUT*************************");
-		//System.out.println(getlesVols());
-		lesVols.remove(key);
-		//System.out.println("EFFACE***********************");
-		//System.out.println(getlesVols());
+		try {
+			String numVol = (String) key;
+			Vol monVol = Vol.getLeVol(numVol);
+			//if vol d'arrivée
+			if(monVol.getClass().equals(VolArrivee.class)){
+				// on supprime l'arrive et le depart
+				//supprimer le passage sur la liste des passages d'un parking
+				monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
+				//supprimer le passage
+				monVol.getLePassage().supprimerLePassage();
+				//annuler vol arrivée
+				monVol.annulerLeVol();
+				//annuler vol départ
+				monVol.getLePassage().getMonVolDepart().annulerLeVol();
+			} else {
+				//if vol départ on met just le vol départ à annulé, 
+				monVol.annulerLeVol();
+			}
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
@@ -375,8 +392,6 @@ public abstract class Vol {
 				// l'ecart n'est pas suffisant, il faut alors décaler les heures des vols arrivée + départ
 				//mais d'abord on regarde que le départ ne dépasse pas 23h59
 				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
-					// on stocke l'index du passage dans la liste des passage du parking
-					//int indexDuPassageDansParking=monVol.getLePassage().getLeParking().getLesPassages().indexOf(monVol.getLePassage());
 					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
 					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
 					//On regarde si le parking est toujours OK
@@ -432,5 +447,14 @@ public abstract class Vol {
 	 */
 	public static Vol getLeVol(String num){
 		return lesVols.get(num);
+	}
+	
+	/**
+	 * Passe l'état d'un vol comme annulé
+	 * @version 1.0 - 06/06/2016
+	 * @author np
+	 */
+	public void annulerLeVol(){
+		this.estAnnule=true;
 	}
 }

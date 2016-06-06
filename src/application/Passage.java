@@ -202,4 +202,23 @@ public class Passage {
 			}
 		}
 	}
+	
+	/**
+	 * Supprime le passage de l'arrayList, puis supprime le passage en lui -meme
+	 * @author np
+	 * @throws Throwable
+	 * @version - 1.0 - 06/06/2016
+	 */
+	public void supprimerLePassage() throws Throwable{
+		int index;
+		System.out.println(this+"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+		//suprimer de l'arraylist
+		index=lesPassages.indexOf(this);
+		lesPassages.remove(index);
+		//ordonner/décaler cette araylist
+		//TODO
+		//suppression du passage
+		this.finalize();
+		
+	}
 }
