@@ -56,7 +56,7 @@ public class EcranMenu extends JFrame{
 		ActionMenuModifier ecouteurModifier = new ActionMenuModifier(this);
 		boutonModifier.addActionListener(ecouteurModifier);
 		
-		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare(), this.application.getEcranHall1(),this.application.getEcranHall2(),this.application.getEcranHall3(),this.application.getEcranHall4());
+		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare(), this.application.getEcranHall1(),this.application.getEcranHall2(),this.application.getEcranHall3(),this.application.getEcranHall4(), this.application.getEcranAerogare2());
 		boutonRefresh.addActionListener(ecouteurRefresh);
 		
 		//instancie le panel "Que voulez-vous faire ?" 

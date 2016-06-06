@@ -1,6 +1,7 @@
 package application;
 
 import graphiques.EcranAerogare;
+import graphiques.EcranAerogare2;
 import graphiques.EcranHall1;
 import graphiques.EcranHall2;
 import graphiques.EcranHall3;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 public class App {
 
 	private EcranAerogare ecranAerogare;
+	private EcranAerogare2 ecranAerogare2;
 	private EcranHall1 ecranhall1;
 	private EcranHall2 ecranhall2;
 	private EcranHall3 ecranhall3;
@@ -51,12 +53,11 @@ public class App {
 	
 		
 		//Gestion de l'ecran de l'aerogare
-		this.ecranAerogare = new EcranAerogare(this);
+		/*this.ecranAerogare = new EcranAerogare(this);
 		this.ecranAerogare.setSize(700,700);
 		this.ecranAerogare.setLocationRelativeTo(null);
 		this.ecranAerogare.setTitle("Ecran Aerogare");
-		this.ecranAerogare.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-		this.ecranAerogare.setVisible(true);
+		this.ecranAerogare.setVisible(true);*/
 		
 		this.ecranhall1 = new EcranHall1(this);
 		this.ecranhall1.setVisible(true);
@@ -82,6 +83,12 @@ public class App {
 		this.ecranMenu.setLocationRelativeTo(null);
 		this.ecranMenu.setTitle("Menu");
 		this.ecranMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.ecranAerogare2 = new EcranAerogare2(this);
+		this.ecranAerogare2.setSize(700,700);
+		this.ecranAerogare2.setLocationRelativeTo(null);
+		this.ecranAerogare2.setTitle("Ecran Aerogare 2");
+		this.ecranAerogare2.setVisible(true);
 	}
 
 	
@@ -140,5 +147,16 @@ public class App {
 	 */
 	public EcranHall4 getEcranHall4() {
 		return this.ecranhall4;
+	}
+	
+	/**
+	 * Méthode getEcranAerogare2()
+	 * Retourne l'ecran du hall4
+	 * @author lb
+	 * @version 1.0 - 04/06/2016
+	 * 
+	 */
+	public EcranAerogare2 getEcranAerogare2() {
+		return this.ecranAerogare2;
 	}
 }

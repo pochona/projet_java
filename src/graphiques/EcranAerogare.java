@@ -1,23 +1,10 @@
 package graphiques;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.RootPaneContainer;
-
 import application.App;
-import application.Vol;
 import application.VolArrivee;
 import application.VolDepart;
 
@@ -216,7 +203,7 @@ public class EcranAerogare extends JFrame{
 			tabModelD = new TabModel(tableVolsD, titresD);
 			this.tableauD = new JTable(tabModelD);
 			
-			this.setLayout(new GridLayout(1,1));
+			
 			//ajout de contentPane dans un scroll
 			
 			this.scrollPaneA = new JScrollPane(tableauA);
