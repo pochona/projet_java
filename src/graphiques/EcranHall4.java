@@ -4,8 +4,6 @@ import application.App;
 
 
 public class EcranHall4 extends EcranHall {
-
-	private App application;
 	
 	/**
 	 * Constructeur ecranHall3.
@@ -15,8 +13,7 @@ public class EcranHall4 extends EcranHall {
 	 * @version 2.0 - 25/05/2016 - reprise du constructeur avec la classe mère
 	 */
 	public EcranHall4(App a){
-		this.application = a;
 		this.leHall = "4";
-		super.init();
+		super.init(a);
 	}
 }

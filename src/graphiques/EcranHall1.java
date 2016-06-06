@@ -5,8 +5,6 @@ import application.App;
 
 public class EcranHall1 extends EcranHall{
 
-	private App application;
-
 	/**
 	 * Constructeur ecranHall1.
 	 * Ce constructeur appel la méthode init()
@@ -16,9 +14,8 @@ public class EcranHall1 extends EcranHall{
 	 * 
 	 */
 	public EcranHall1(App a){
-		this.application = a;
 		this.leHall = "1";
-		super.init();
+		super.init(a);
 		
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import application.App;
 import application.Vol;
 
 public class EcranHall extends JFrame{
@@ -16,6 +17,7 @@ public class EcranHall extends JFrame{
 	private TabModel tabModel;
 	private JScrollPane scrollPane;
 	private JTable tableau;
+	private App application;
 	
 	/**
 	 * Méthode qui initialise
@@ -27,7 +29,9 @@ public class EcranHall extends JFrame{
 	 * et changement du foreach par un iterator 
 	 * @
 	 */
-	public void init() {
+	public void init(App a) {
+		this.application = a;
+		
 		this.lesVols = Vol.getVolsByHall(this.leHall);
 
 		Object[][] tableHall = new Object[this.lesVols.keySet().size()][4];
