@@ -3,6 +3,7 @@ package graphiques;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,12 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import application.Vol;
+import application.VolArrivee;
 import application.VolDepart;
 
 public class EcranModifDepart extends EcranModif {
 
 	private VolDepart leVol;
-	private JButton boutonAnnuler, boutonRetarder, boutonAnnulerTout;
+	private JButton boutonAnnuler, boutonRetarder, boutonAnnulerTout, boutonArrivee;
 	private EcranAerogare ecranAerogare;
 	
 	public EcranModifDepart(String n, EcranAerogare ae){
@@ -78,6 +80,8 @@ public class EcranModifDepart extends EcranModif {
 			this.boutonRetarder.setIcon(new ImageIcon(getClass().getResource("/images/clock.png")));
 			this.boutonAnnulerTout = new JButton("Annuler tout le passage");
 			this.boutonAnnulerTout.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
+			this.boutonArrivee = new JButton("Vol arrivée");
+			this.boutonArrivee.setIcon(new ImageIcon(getClass().getResource("/images/airplane.png")));
 			
 			ActionSupprimer ecouteurSupp = new ActionSupprimer(this.leVol, this);
 			this.boutonAnnuler.addActionListener(ecouteurSupp);
@@ -88,11 +92,16 @@ public class EcranModifDepart extends EcranModif {
 			ActionSupprimer ecouteurSuppTout = new ActionSupprimer(this.leVol, this, true);
 			this.boutonAnnulerTout.addActionListener(ecouteurSuppTout);
 			
+			ActionArrivee ecouteurArrivee = new ActionArrivee(this, this.ecranAerogare);
+			this.boutonArrivee.addActionListener(ecouteurArrivee);
+			
 			panel_1.add(boutonAnnuler);
 	
 			panel_1.add(boutonRetarder);
 		
 			panel_1.add(boutonAnnulerTout);
+			
+			panel_1.add(boutonArrivee);
 		}
 		this.setVisible(true);
 	}
@@ -101,6 +110,19 @@ public class EcranModifDepart extends EcranModif {
 		this.getContentPane().removeAll();
 		this.init();
 		this.ecranAerogare.actualiserListe();
+	}
+
+	
+	/**
+	 * Getter getLeVolArrivee().
+	 * @author lb
+	 * @return le vol arrivée associé
+	 * @version 1.0 - 06/06/2016
+	 */
+	public String  getLeVolArrivee() {
+		// TODO Auto-generated method stub
+		
+		return this.leVol.getLePassage().getMonVolArrivee().getNumVol();
 	}
 	
 }

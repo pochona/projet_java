@@ -1,5 +1,6 @@
 package graphiques;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -49,7 +50,10 @@ public class EcranHall extends JFrame{
 
 
 			index++;
+			
 		}
+		
+		
 
 		//Les titres des colonnes
 		String  titre[] = {"Porte","Avion","Type","heure"};

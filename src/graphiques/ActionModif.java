@@ -32,7 +32,7 @@ public class ActionModif extends AbstractAction{
 
 	//Declaration
 	EcranAerogare ecranAerogare;
-	
+
 	/**
 	 * Constructeur ActionModif.
 	 * @author lb
@@ -56,19 +56,24 @@ public class ActionModif extends AbstractAction{
 	 * @version 1.4 - 06/06/2016 - ap : Modif du traitement : affichage d'une frame pour les options 
 	 */
 	public void actionPerformed(ActionEvent act) {
+		//récupère la colonne
+		//int col=ecr.getTab().getSelectedColumn();
 
-			//récupère la colonne
-			//int col=ecr.getTab().getSelectedColumn();
+		try {
 			int col = 0;//ecr.getCol();
 			//récupère la ligne
+	
 			int row = ecranAerogare.getLine();
 			//affiche la valeur de la cellule selectionnée par l'utilisateur avec en param la ligne et la colonne récupérées avec les getter
 			Object key = ecranAerogare.getTabSelected().getValueAt(row,col);
-
+	
 			if(Vol.getLeVol((String) key).getClass().equals(VolDepart.class)){
 				EcranModifDepart ecran = new EcranModifDepart((String) key, this.ecranAerogare);
 			} else if(Vol.getLeVol((String) key).getClass().equals(VolArrivee.class)){
 				EcranModifArrivee ecran = new EcranModifArrivee((String) key, this.ecranAerogare);
 			}
+		}
+		catch(ArrayIndexOutOfBoundsException e) {System.out.println("aucune ligne sélectionnée");}
+		catch(NullPointerException e){System.out.println("Selectionnez un vol.");}
 	}
 }
