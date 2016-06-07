@@ -70,8 +70,8 @@ public class ZzzEcranAerogare2 extends JFrame{
 				tablePassage[index][3] = p.getMonVolDepart().getNumVol();
 				tablePassage[index][4] = p.getMonVolDepart().getDestination();
 				tablePassage[index][5] = p.getMonVolDepart().getHoraire();
-				tablePassage[index][6] = p.getMonVolDepart().getLeNomDeLaPorte();
-				tablePassage[index][7] = p.getMonVolDepart().getLeNomDuHall();
+			//	tablePassage[index][6] = p.getMonVolDepart().getLeNomDeLaPorte();
+			//	tablePassage[index][7] = p.getMonVolDepart().getLeNomDuHall();
 
 				index ++;
 				
@@ -134,9 +134,7 @@ public class ZzzEcranAerogare2 extends JFrame{
 		public JTable getTabP(){
 			return tableau;
 		}
-	
-		
-		
+
 }
 
 

@@ -1,6 +1,10 @@
 package application;
 
 @SuppressWarnings("serial")
+/**
+ * Cette exception est levée si un vol est modifié, et qu'un parking n'est disponible pour lui
+ *
+ */
 public class ParkingIndispoException extends Exception {
 	
 	/**

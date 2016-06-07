@@ -22,11 +22,13 @@ public class VolDepart extends Vol {
 	
 	/**
 	 * Constructeur 
+	 * @author np
 	 * @param num : string numéro du vol
 	 * @param v : string ville de destination
 	 * @param h : int heures
 	 * @param m : int minutes
 	 * @param avion : string numéro de l'avion
+	 * @version 1.0 - 24/05/2016
 	 */
 	public VolDepart(String num, Horaire ho, String v, Avion avion){
 		super(num, avion);
@@ -35,9 +37,13 @@ public class VolDepart extends Vol {
 		VolDepart.ajouterOrdre(this);
 		Vol.ajouterOrdre(this);
 	}
+	
 	/**
-	 * Cette méthode permet de retourner sous forme de string les vols de départ pour les afficher.
-	 * @return
+	 * Méthode builtChaineVolsDepart
+	 * Cette méthode construit une chaine pour l'affichage de tous les vols de départ
+	 * @author np
+	 * @return String : la chaine a afficher
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static String builtChaineVolsDepart(){
 		Iterator<VolDepart> val = lesVolsDepart.values().iterator();
@@ -45,33 +51,47 @@ public class VolDepart extends Vol {
 		while(val.hasNext()){
 			VolDepart monVolDepart = val.next();
 			if (monVolDepart.isAnnule()) {
-				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";
+				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLaPorte().getNom()+", Parking : " + monVolDepart.getLeParking().getNom()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";}
+				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLaPorte().getNom()+", Parking : " + monVolDepart.getLeParking().getNom()+". \n";}
 		}	
 		return str;
 	}
+	
 	/**
-	 * @todo 20/05/2016 : Remettre la bon affichage
-	 * return la chaine qui contient l'affichage d'un vol arrivée
+	 * Méthode toString
+	 * Méthode d'affichage d'un vol de départ
+	 * @author np
+	 * @return String : la chaine a afficher
+	 * @version 1.0 - 24/05/2016
 	 */
 	public String toString(){
-		//return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHoraire() + (this.getVolAnnule()==true?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() +". \n";
-		return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHoraire() + (this.isAnnule()?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+		return  "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getDestination() + ", Heure de départ : " + this.getHoraire() + (this.isAnnule()?", vol Annulé : non":", vol Annulé : oui") + ", Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLaPorte().getNom()+", Parking : " + this.getLeParking().getNom()+". \n";
 	}
 	
 	/**
-	 * Affiche tout les vols départ.
+	 * Méthode afficherLesVolsDepart
+	 * Méthode permettant d'afficher tous les vols de départ directement (sysout)
+	 * @author np
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static void afficherLesVolsDepart(){System.out.println(VolDepart.builtChaineVolsDepart());}
+
 	/**
-	 * 
-	 * @return l'heure de départ
+	 * Méthode getHoraire
+	 * Méthode permettant de retourner l'horaire de départ du vol
+	 * @author np
+	 * @return Horaire: l'horaire du vol
+	 * @version 1.0 - 25/05/2016
 	 */
 	public Horaire getHoraire(){return this.heureDepart;}
+
 	/**
-	 * 
-	 * @return la destination
+	 * Méthode getDestination
+	 * Méthode permettant de retourner la destination du vol.
+	 * @author np
+	 * @return String: la destination
+	 * @version 1.0 - 25/05/2016
 	 */
 	public String getDestination(){return this.destination;}
 

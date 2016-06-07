@@ -43,14 +43,14 @@ public abstract class Vol {
 	 */
 	private static LinkedHashMap<String, Vol> lesVols = new LinkedHashMap<String, Vol>();
 
-	private static BufferedReader entree;
-
 	/**
 	 * Constructeur de vol 
+	 * @author np
 	 * @param num : string numero du vol
 	 * @param p : porte
 	 * @param ha : hall
 	 * @param avion : string numéro de l'avion
+	 * @version 1.0 - 24/05/2016
 	 */
 	public Vol(String num, Avion avion){
 		this.numVol =num;
@@ -70,7 +70,7 @@ public abstract class Vol {
 	 */
 	public static void initialise() throws IOException, ErreurLignesSuccessivesVolsException{
 		try {
-			entree = new BufferedReader(new FileReader("src\\fichiers\\vols.txt"));
+			BufferedReader entree = new BufferedReader(new FileReader("src\\fichiers\\vols.txt"));
 			String line;
 			String numVol;
 			String numAvion="";
@@ -197,44 +197,46 @@ public abstract class Vol {
 		}
 		return str;
 	}
+
 	/**
-	 * Retourne la chaine qui contient l'affichage d'un vol
+	 * Méthode toString.
+	 * Cette méthode va afficher un vol
+	 * @return String : la chaine à afficher
+	 * @author np
+	 * @version 1.0 - 22/05/2016
 	 */
 	public String toString(){
-		return  "Numéro du vol : " + this.getNumVol() + (this.isAnnule()?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking()+". \n";
+		return  "Numéro du vol : " + this.getNumVol() + (this.isAnnule()?"vol Annulé : non":"vol Annulé : oui") + " , Numéro de l'avion : " + this.getLAvion().getImmat() +", Type : "+(this.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ this.getLaPorte().getNom()+", Parking : " + this.getLeParking().getNom()+". \n";
 
 	}
 
 
 	/**
-	 * Cette méthode affiche la chaine de caractères qui contient la liste des vols.
+	 * Méthode afficherLesVols.
+	 * Cette méthode va afficher les vols actuellement connus.
+	 * @author np
+	 * @version 1.0 - 22/05/2016
 	 */
 	public static void afficherLesVols(){System.out.println(Vol.builtChaineVols());}
 
 	/**
-	 * 
-	 * @return le parking associé au passage 
+	 * Méthode getLaPorte.
+	 * Cette méthode récupère la porte associé au vol (et donc au passage)
+	 * @return le parking associée au vol
+	 * @author np
+	 * @version 1.0 - 22/05/2016
 	 */
 	public Parking getLeParking(){return this.getLePassage().getLeParking();}
 
-	/***
-	 * 
-	 * @return String le nom du parking associé au passage
-	 */
-	public String getLeNomDuParking(){return this.getLeParking().getNom();}
 
 	/**
-	 * 
+	 * Méthode getLaPorte.
+	 * Cette méthode récupère la porte associé au vol
 	 * @return la porte associée au vol
+	 * @author np
+	 * @version 1.0 - 22/05/2016
 	 */
 	public Porte getLaPorte(){return this.getLeParking().getLaPorte();}
-
-	/**
-	 * 
-	 * @return le nom associé à la porte
-	 */
-	public String getLeNomDeLaPorte(){return this.getLaPorte().getNom();}
-
 
 
 	/**
@@ -245,15 +247,6 @@ public abstract class Vol {
 	 * @version 1.0 - 23/05/2016
 	 */
 	public Hall getLeHall(){return this.getLaPorte().getLeHall();}
-
-	/**
-	 * Méthode getLeNomDuHall.
-	 * Cette méthode récupère le nom du hall
-	 * @return le nom du hall associé à la porte
-	 * @author lb
-	 * @version 1.0 - 23/05/2016
-	 */
-	public String getLeNomDuHall(){return this.getLeHall().getNom();}
 
 	/**
 	 * Methode getlesVols

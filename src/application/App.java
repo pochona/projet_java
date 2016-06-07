@@ -10,15 +10,46 @@ import graphiques.EcranParking;
 
 import java.io.IOException;
 
-
+/**
+ * La classe App est la classe qui lance l'application
+ * Elle initialise les objets via les fichiers, et elle connait tous les écrans
+ *
+ */
 public class App {
 
+	/**
+	 * L'écran aerogare de l'application
+	 */
 	private EcranAerogare ecranAerogare;
+	
+	/**
+	 * L'ecran contenant les infos du Hall numéro 1
+	 */
 	private EcranHall1 ecranhall1;
+	
+	/**
+	 * L'ecran contenant les infos du Hall numéro 2
+	 */
 	private EcranHall2 ecranhall2;
+	
+	/**
+	 * L'ecran contenant les infos du Hall numéro 3
+	 */
 	private EcranHall3 ecranhall3;
+	
+	/**
+	 * L'ecran contenant les infos du Hall numéro 4
+	 */
 	private EcranHall4 ecranhall4;
+	
+	/**
+	 * L'ecran contenant les infos des parkings
+	 */
 	private EcranParking ecranParking;
+	
+	/**
+	 * L'ecran de modification et de consultation
+	 */
 	private EcranModif ecranModif;
 	
 	/**

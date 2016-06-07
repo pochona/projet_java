@@ -368,8 +368,12 @@ public class Parking {
 	
 
 	/**
-	 * @todo : la doc
-	 * @return
+	 * Méthode getLaPorte.
+	 * Cette méthode retourne la porte associé à un parking.
+	 * 
+	 * @return Porte : la porte associé au parking
+	 * @author np
+	 * @version 1.0 - 22/05/2016
 	 */
 	public Porte getLaPorte(){return this.porte;}
 
@@ -439,36 +443,27 @@ public class Parking {
 					// je suis dans le bon créneaux, donc même si j'arrive pas a caser mon parking
 					// , je peux arreter ma boucle
 					stop = true;
-//System.out.println("if 1");
 					// Si je le trouve, je fais une tranche horaire entre la départ du last, et l'arrivée du courant
 
 					// Pour ca, je regade d'abord si mon dernier passage est bien rempli
 					if(lastPassage != null){
-//System.out.println("if 2");
 						Horaire monHoraireDepartLastPassage = lastPassage.getMonVolDepart()==null?lastPassage.getHeureArrivee().ajout(Passage.getDuree()):lastPassage.getHeureDepart();
 						maTh = new TrancheHoraire(monHoraireDepartLastPassage, monPassage.getHeureArrivee());
 						// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
 						// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
 						if(maTh.contient(th)){
-//							System.out.println(maTh);
-//							System.out.println(th);
-//							System.out.println("if 3");
 							ok = true;
 						}
 					} else {
-//						System.out.println("else 2");
 						// S'il est nul c'est que le premier passage a au moins l'arrivé après le départ du courant
 						// Je regarde donc si l'arrivée de mon courant est avant l'arrivé de ce passage
 						if(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()) <= 0){
-//							System.out.println("if 4");
 							ok = true;
 						}
 					}
 				} else {
-//					System.out.println("else 1");
 					// Je n'ai rien ensuite: ce n'est pas sensé arrivé avec la verif de l'index, on sait jamais
 					if(!it.hasNext()){
-//						System.out.println("if 5");
 						ok = true;
 					}
 				}
@@ -476,7 +471,6 @@ public class Parking {
 				lastPassage = monPassage;
 			}
 		}
-//		System.out.println(ok);
 		return ok;
 	}
 	
@@ -492,10 +486,14 @@ public class Parking {
 		return lesParkings;
 	}
 	
-/**
- * Supprime le passage de la liste des passages
- * @param p : Passage à supprimer
- */
+	/**
+	 * Méthode supprimerPassage.
+	 * Cette méthode de supprimer un passage de la liste des passages du parking
+	 * 
+	 * @author np, lb
+	 * @param Passage p : le passage à enlever
+	 * @version 1.0 - 04/06/2016
+	 */
 	public void supprimerPassage(Passage p){
 		this.lesPassages.remove(p);
 	}
@@ -519,6 +517,5 @@ public class Parking {
 			}
 		}
 		return tab;
-		
 	}
 }

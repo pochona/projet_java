@@ -1,6 +1,12 @@
 package application;
 
 @SuppressWarnings("serial")
+/**
+ * Cette exception est levée si la valeur saisie pour retarder le vol est mauvaise : inferieur à zero ou supérieur à 1 jour
+ * Cette exception ne prend pas en compte les erreurs de format
+ * @see java.lang.NumberFormatException
+ *
+ */
 public class ValeurRetardException extends Exception {
 	
 	/**

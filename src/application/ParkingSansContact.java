@@ -5,6 +5,9 @@ import java.util.Iterator;
 
 public class ParkingSansContact extends Parking {
 
+	/**
+	 * Liste static contenant les parkings sans contact
+	 */
 	private static ArrayList<ParkingSansContact> lesParkingsSansContact = new ArrayList<ParkingSansContact>();
 
 	/**

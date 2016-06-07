@@ -74,8 +74,8 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][0] = volA.getNumVol();
 				tableVolsA[index][1] = volA.getProvenance();
 				tableVolsA[index][2] = volA.getHoraire();
-				tableVolsA[index][3] = volA.getLeNomDeLaPorte();
-				tableVolsA[index][4] = volA.getLeNomDuHall();
+				tableVolsA[index][3] = volA.getLaPorte().getNom();
+				tableVolsA[index][4] = volA.getLeParking().getNom();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
 				tableVolsA[index][6] = volA.getLeParking().getNom();
 				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":(volA.getRetard()==0)?"A l'heure":volA.getRetard();
@@ -104,8 +104,8 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][0] = volD.getNumVol();
 				tableVolsD[indexD][1] = volD.getDestination();
 				tableVolsD[indexD][2] = volD.getHoraire();
-				tableVolsD[indexD][3] = volD.getLeNomDeLaPorte();
-				tableVolsD[indexD][4] = volD.getLeNomDuHall();
+				tableVolsD[indexD][3] = volD.getLaPorte().getNom();
+				tableVolsD[indexD][4] = volD.getLeParking().getNom();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
 				tableVolsD[indexD][6] = volD.getLeParking().getNom();
 				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":(volD.getRetard()==0)?"A l'heure":volD.getRetard();
@@ -334,8 +334,8 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][0] = volA.getNumVol();
 				tableVolsA[index][1] = volA.getProvenance();
 				tableVolsA[index][2] = volA.getHoraire();
-				tableVolsA[index][3] = volA.getLeNomDeLaPorte();
-				tableVolsA[index][4] = volA.getLeNomDuHall();
+				tableVolsA[index][3] = volA.getLaPorte().getNom();
+				tableVolsA[index][4] = volA.getLeHall().getNom();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
 				tableVolsA[index][6] = volA.getLeParking().getNom();
 				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":(volA.getRetard()==0)?"A l'heure":volA.getRetard();
@@ -360,8 +360,8 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][0] = volD.getNumVol();
 				tableVolsD[indexD][1] = volD.getDestination();
 				tableVolsD[indexD][2] = volD.getHoraire();
-				tableVolsD[indexD][3] = volD.getLeNomDeLaPorte();
-				tableVolsD[indexD][4] = volD.getLeNomDuHall();
+				tableVolsD[indexD][3] = volD.getLaPorte().getNom();
+				tableVolsD[indexD][4] = volD.getLeHall().getNom();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
 				tableVolsD[indexD][6] = volD.getLeParking().getNom();
 				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":(volD.getRetard()==0)?"A l'heure":volD.getRetard();

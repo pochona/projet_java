@@ -136,7 +136,7 @@ public class Hall {
 	public static ArrayList<String> getNomsDesHalls(){
 		Iterator<Hall> it = lesHalls.iterator();
 		Hall leHall;
-		ArrayList<String> tab = new ArrayList();
+		ArrayList<String> tab = new ArrayList<String>();
 		//String[] tab = new String[lesHalls.size()];
 		//int cpt = 0;
 		while(it.hasNext()){

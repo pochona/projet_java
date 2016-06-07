@@ -1,6 +1,10 @@
 package application;
 
 @SuppressWarnings("serial")
+/**
+ * Cette erreur est levée si les différentes lignes du fichier vol ne se suivent pas correctement
+ *
+ */
 public class ErreurLignesSuccessivesVolsException extends Exception {
 	
 	/**

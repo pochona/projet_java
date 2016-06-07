@@ -1,6 +1,10 @@
 package application;
 
 @SuppressWarnings("serial")
+/**
+ * Cette exception est levée lorsqu'un vol est retardé trop tard, et qu'i ldepasse sur le lendemain
+ *
+ */
 public class RetardTropTardException extends Exception {
 
 	/**

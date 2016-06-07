@@ -11,21 +11,26 @@ public class VolArrivee extends Vol {
 	 * Ville de provenance du vol
 	 */
 	private String provenance;
+	
 	/**
 	 * Heure d'arrivée du vol
 	 */
 	private Horaire heureArrivee;
+	
 	/**
 	 * Toutes les instances des vols d'arrivée
 	 */
 	private static LinkedHashMap<String, VolArrivee> lesVolsArrivee = new LinkedHashMap<String, VolArrivee>();
+	
 	/**
 	 * Constructeur
+	 * @author np
 	 * @param num : string numéro du vol
 	 * @param v : string ville de provenance
 	 * @param h : int heures
 	 * @param m : int minutes
 	 * @param avion : string numéro de l'avion
+	 * @version 1.0 - 24/05/2016
 	 */
 	public VolArrivee(String num, Horaire ho, String v, Avion avion){
 		super(num, avion);
@@ -34,9 +39,13 @@ public class VolArrivee extends Vol {
 		VolArrivee.ajouterOrdre(this);
 		Vol.ajouterOrdre(this);
 	}
+	
 	/**
-	 * Cette méthode retourne une chaine de caractères pour permettre d'afficher la liste des vols d'arrivée
-	 * @return
+	 * Méthode builtChaineVolsArrivee
+	 * Cette méthode construit une chaine pour l'affichage de tous les vols d'arrivée
+	 * @author np
+	 * @return String : la chaine a afficher
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static String builtChaineVolsArrivee(){
 		Iterator<VolArrivee> val = lesVolsArrivee.values().iterator();
@@ -44,33 +53,49 @@ public class VolArrivee extends Vol {
 		while(val.hasNext()){
 			VolArrivee monVolArrivee = val.next();
 			if (monVolArrivee.isAnnule()) {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : oui, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLaPorte().getNom()+", Parking : " + monVolArrivee.getLeParking().getNom()+". \n";
 			} else {
-				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLeNomDeLaPorte()+", Parking : " + monVolArrivee.getLeNomDuParking()+". \n";}
+				str += "Numéro du vol : " + monVolArrivee.getNumVol() + ", Destination : " + monVolArrivee.getProvenance() + ", Heure d'arrivée : " + monVolArrivee.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolArrivee.getLAvion().getImmat() + " Porte : "+ monVolArrivee.getLaPorte().getNom()+", Parking : " + monVolArrivee.getLeParking().getNom()+". \n";}
 		}
 		return str;
 	}
+	
+
 	/**
-	 * @todo 20/05/2016 : Remettre la bon affichage
-	 * return la chaine qui contient l'affichage d'un vol arrivée
+	 * Méthode toString
+	 * Méthode d'affichage d'un vol d'arrivé
+	 * @author np
+	 * @return String : la chaine a afficher
+	 * @version 1.0 - 24/05/2016
 	 */
 	public String toString(){
-		return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHoraire() + (this.isAnnule()?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLeNomDeLaPorte()+", Parking : " + this.getLeNomDuParking() + ". \n";
+		return "Numéro du vol : " + this.getNumVol() + ", Destination : " + this.getProvenance() + ", Heure d'arrivée : " + this.getHoraire() + (this.isAnnule()?", vol Annulé : non":", vol Annulé : oui") +" Numéro de l'avion : "+ this.getLAvion().getImmat() + " Porte : "+ this.getLaPorte().getNom()+", Parking : " + this.getLeParking().getNom() + ". \n";
 
 	}
 
 	/**
-	 * Affiche tout les vols arrivé.
+	 * Méthode afficherLesVolsArrivee
+	 * Méthode permettant d'afficher tous les vols d'arrivé directement (sysout)
+	 * @author np
+	 * @version 1.0 - 24/05/2016
 	 */
 	public static void afficherLesVolsArrivee(){System.out.println(VolArrivee.builtChaineVolsArrivee());}
+	
 	/**
-	 * 
-	 * @return l'heure d'arrivée du vol.
+	 * Méthode getHoraire
+	 * Méthode permettant de retourner l'horaire d'arrivé du vol
+	 * @author np
+	 * @return Horaire: l'horaire du vol
+	 * @version 1.0 - 25/05/2016
 	 */
 	public Horaire getHoraire(){return this.heureArrivee;}
+
 	/**
-	 * 
-	 * @return la provenance du vol
+	 * Méthode getProvenance
+	 * Méthode permettant de retourner la provenance du vol.
+	 * @author np
+	 * @return String: la provenance
+	 * @version 1.0 - 25/05/2016
 	 */
 	public String getProvenance(){return this.provenance;}
 
