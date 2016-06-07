@@ -45,6 +45,7 @@ public class ActionSupprimer extends AbstractAction{
 	 * @params ActionEvent arg0 : l'action de cliquer
 	 * @version 1.0 - 27/05/2016
 	 * @version 1.1 - 06/06/2016 by ap : Modification de l'action, refonte totale a cause des nouvelles interfaces
+	 * @version 1.2 - 07/06/2016 by ap : Modif de l'action, beug sur la suppression avec deleteAll corrigé
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		int option;
@@ -54,12 +55,13 @@ public class ActionSupprimer extends AbstractAction{
 		} else {
 			option = JOptionPane.showConfirmDialog(null, "Etes-vous sûr de vouloir supprimer le vol numéro: "+this.leVol.getNumVol(), "Supprimer vol", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);       
 		}
-		
 		if(option == JOptionPane.OK_OPTION){
+			// deleteAll = je suis dans un vol départ, et je supprime le passage
 			if(this.deleteAll){
-				Vol.supprimerVol(leVol.getNumVol());
+				// je supprime donc direct le vol d'arrivée, ca va me supprimer tout
 				Vol.supprimerVol(leVol.getLePassage().getMonVolArrivee().getNumVol());
 			} else {
+				// sinon, je suis dans un vol départ ou arrivé, et la, l'algo supprimerVol fera la suite du travail
 				Vol.supprimerVol(leVol.getNumVol());
 			}
 			//appel de la methode recharge de la classe ecranSupprimer

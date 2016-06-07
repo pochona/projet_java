@@ -42,7 +42,7 @@ public class App {
 			Parking.initialise();
 			
 			Vol.initialise();
-			//Passage.afficherLesPassages();
+			Passage.afficherLesPassages();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
