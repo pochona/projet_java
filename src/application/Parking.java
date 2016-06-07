@@ -264,14 +264,15 @@ public class Parking {
 		}
 
 		// Je continue tant que j'ai pas prouvé que le parking était dispo, et que j'ai des passages suivant
-		while (dispo == false && it.hasNext() && stop == false){
+		while (!dispo && it.hasNext() && !stop){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
 			//System.out.println(monPassage.getHeureDepart());
 			//System.out.println(th.getDebutTrancheHoraire());
 			//System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
 			// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
-			if(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()) >= 0){
+			Horaire monHoraireDepart = monPassage.getMonVolDepart()==null?monPassage.getHeureArrivee().ajout(Passage.getDuree()):monPassage.getHeureDepart();
+			if(monHoraireDepart.compareTo(th.getDebutTrancheHoraire()) >= 0){
 				// je suis dans le bon créneaux, donc même si j'arrive pas a caser mon parking
 				// , je peux arreter ma boucle
 				stop = true;
@@ -281,7 +282,9 @@ public class Parking {
 				// Pour ca, je regade d'abord si mon dernier passage est bien rempli
 				if(lastPassage != null){
 					//System.out.println("if 2");
-					maTh = new TrancheHoraire(lastPassage.getHeureDepart(), monPassage.getHeureArrivee());
+					Horaire monHoraireDepartLastPassage = lastPassage.getMonVolDepart()==null?lastPassage.getHeureArrivee().ajout(Passage.getDuree()):lastPassage.getHeureDepart();
+					maTh = new TrancheHoraire(monHoraireDepartLastPassage, monPassage.getHeureArrivee());
+					//System.out.println(maTh);
 					// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
 					// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
 					//System.out.println("maTh : " + maTh);
@@ -396,22 +399,76 @@ public class Parking {
 	 * @return boolean : Ce booléen indique si, après avoir modifié les horaires d'un passage, il n'y a pas de conflits avec le passage suivant du parking
 	 * @author np
 	 * @version 1.0 - 25/05/2016
+	 * @version 2.0 - 07/06/2016 by ap : amélioration de l'algo
 	 */
-	public boolean parkingTjrsOk(Passage monPassage){
-		boolean ok=true;
-		int position, temp=0;
-		position=lesPassages.indexOf(monPassage);
-		if (lesPassages.size()>position+1){
-			//alors ce n'est pas le dernier passage du parking, il faut donc vérifier
-			//sinon c'etait le dernier passage, donc pas de soucis 
-			Passage passageSuivant=lesPassages.get(position+1);
-			Horaire heureArriveDuSuivant=passageSuivant.getMonVolArrivee().getHoraire();
-			temp = heureArriveDuSuivant.horaireEnMinutes()-monPassage.getMonVolDepart().getHoraire().horaireEnMinutes();
-			if (temp<=0){
-				//l'horaire du vol départ est après l'heure d'arrivée du suivant --> Parking n'est plus OK !
-				ok = false;
-			} 
+	public boolean parkingTjrsOk(Passage monPassage, Horaire newHA, Horaire newHD){
+//		System.out.println(newHA);
+//		System.out.println(newHD);
+		boolean ok=false;
+		int position=0;
+		position=this.lesPassages.indexOf(monPassage);
+		Passage lastPassage = null;
+		TrancheHoraire maTh;
+		
+		if (lesPassages.size()-1==position){
+			// Mon passage est le dernier du parking, donc le parking est encore dispo (car on ne peut faire que retarder)
+			ok = true;
+		} else {
+			//alors ce n'est pas le dernier passage du parking, il faut donc vérifier si la plage est dispo
+			// Je retire deja le parking actuelle de la liste pour pouvoir faire la verif
+			this.lesPassages.remove(monPassage);
+			// Je me déplace jusqu'a trouver la bonne plage horaire
+			TrancheHoraire th = new TrancheHoraire(newHA, newHD);
+			// je vais iterer sur mes passages
+			Iterator<Passage> it = lesPassages.iterator();
+			boolean stop = false;
+			while (!ok && it.hasNext() && !stop){
+				// Je recupere la trancheHoraire de mon passage courant
+				monPassage = (Passage) it.next();
+				// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
+				Horaire monHoraireDepart = monPassage.getMonVolDepart()==null?monPassage.getHeureArrivee().ajout(Passage.getDuree()):monPassage.getHeureDepart();
+				if(monHoraireDepart.compareTo(th.getDebutTrancheHoraire()) >= 0){
+					// je suis dans le bon créneaux, donc même si j'arrive pas a caser mon parking
+					// , je peux arreter ma boucle
+					stop = true;
+//System.out.println("if 1");
+					// Si je le trouve, je fais une tranche horaire entre la départ du last, et l'arrivée du courant
+
+					// Pour ca, je regade d'abord si mon dernier passage est bien rempli
+					if(lastPassage != null){
+//System.out.println("if 2");
+						Horaire monHoraireDepartLastPassage = lastPassage.getMonVolDepart()==null?lastPassage.getHeureArrivee().ajout(Passage.getDuree()):lastPassage.getHeureDepart();
+						maTh = new TrancheHoraire(monHoraireDepartLastPassage, monPassage.getHeureArrivee());
+						// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
+						// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
+						if(maTh.contient(th)){
+//							System.out.println(maTh);
+//							System.out.println(th);
+//							System.out.println("if 3");
+							ok = true;
+						}
+					} else {
+//						System.out.println("else 2");
+						// S'il est nul c'est que le premier passage a au moins l'arrivé après le départ du courant
+						// Je regarde donc si l'arrivée de mon courant est avant l'arrivé de ce passage
+						if(th.getFinTrancheHoraire().compareTo(monPassage.getHeureArrivee()) <= 0){
+//							System.out.println("if 4");
+							ok = true;
+						}
+					}
+				} else {
+//					System.out.println("else 1");
+					// Je n'ai rien ensuite: ce n'est pas sensé arrivé avec la verif de l'index, on sait jamais
+					if(!it.hasNext()){
+//						System.out.println("if 5");
+						ok = true;
+					}
+				}
+				// Je sauvegarde le dernier passage pour pouvoir le manipuler ensuite
+				lastPassage = monPassage;
+			}
 		}
+//		System.out.println(ok);
 		return ok;
 	}
 	

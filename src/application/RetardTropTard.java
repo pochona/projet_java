@@ -42,9 +42,9 @@ public class RetardTropTard extends Exception {
 	 */
 	public String toString(){
 		if(this.mode==VOL_DEPART){
-			return "Le retard de ce vol départ ne peux pas dépasser 23h59!";
+			return "Le retard de ce vol départ ne peut pas dépasser 23h59!";
 		} else {
-			return "Le retard de ce vol arrivée est trop grand, car le vol départ ne peux pas partir de l'aéroport après 23h59!";
+			return "Le retard de ce vol arrivée est trop grand, car le vol départ ne peut pas partir de l'aéroport après 23h59!";
 		}
 	}
 	

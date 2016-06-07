@@ -197,7 +197,11 @@ public class Passage {
 				Passage pa = itPassage.next();
 				System.out.println("-- " + pa.getHeureArrivee() + " -- " + pa.getMonVolArrivee().getNumVol());
 				System.out.println("-->");
-				System.out.println("-- " + pa.getHeureDepart() + " -- " + pa.getMonVolDepart().getNumVol());
+				if(pa.getMonVolDepart() != null){
+					System.out.println("-- " + pa.getHeureDepart() + " -- " + pa.getMonVolDepart().getNumVol());
+				} else {
+					System.out.println("-- Vol de départ annulé/inconnu --");
+				}
 				System.out.println('\n');
 			}
 		}
@@ -206,7 +210,6 @@ public class Passage {
 	/**
 	 * Supprime le passage de l'arrayList, puis supprime le passage en lui -meme
 	 * @author np
-	 * @throws Throwable
 	 * @version - 1.0 - 06/06/2016
 	 */
 	public void supprimerLePassage() {
@@ -214,13 +217,16 @@ public class Passage {
 		//suprimer de l'arraylist
 		index=lesPassages.indexOf(this);
 		lesPassages.remove(index);
-		//ordonner/décaler cette araylist
-		try {
-			this.finalize();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		//System.out.println(lesPassages);
+	}
+	
+	/**
+	 * Méthode annulerDepart.
+	 * Cette méthode va supprimer le vol de départ lorque le vol de départ est annulé.
+	 * @author ap
+	 * @version 1.0 - 06/06/2016
+	 */
+	public void annulerDepart(){
+		this.volDepart = null;
 	}
 }

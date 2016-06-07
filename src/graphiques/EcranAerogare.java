@@ -64,7 +64,7 @@ public class EcranAerogare extends JFrame{
 		public void init() {
 
 			//On crée l'objet tableVolsA (vols d'arrivées)
-			Object[][] tableVolsA = new Object[VolArrivee.getlesVolsA().keySet().size()][7];
+			Object[][] tableVolsA = new Object[VolArrivee.getlesVolsA().keySet().size()][8];
 
 			//parcours de la HashMap lesVolsArrivee de la classe VolArrivee et affectation des valeurs dans chaque colonne de chaque ligne de vol d'arrivée.
 			int index = 0;
@@ -77,12 +77,13 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][3] = volA.getLeNomDeLaPorte();
 				tableVolsA[index][4] = volA.getLeNomDuHall();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
-				tableVolsA[index][6] = volA.isAnnule()?"Vol annulé":volA.getRetard();
+				tableVolsA[index][6] = volA.getLeParking().getNom();
+				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":volA.getRetard();
 				index++;
 			}
 
 			//Les titres des colonnes
-			String  titresA[] = {"Vol", "Provenance","Heure","Porte","Hall","Avion","Retard"};
+			String  titresA[] = {"Vol", "Provenance","Heure","Porte","Hall","Avion", "Parking" ,"Retard"};
 		
 			
 			tabModelA = new TabModel(tableVolsA, titresA);
@@ -93,7 +94,7 @@ public class EcranAerogare extends JFrame{
 			
 			
 			//On crée l'objet tableVolsD (vols de départ)
-			Object[][] tableVolsD = new Object[VolDepart.getlesVolsD().keySet().size()][7];
+			Object[][] tableVolsD = new Object[VolDepart.getlesVolsD().keySet().size()][8];
 
 			//parcours de la HashMap lesVolsDepart de la classe VolDepart et affectation des valeurs dans chaque colonne de chaque ligne de vol de départ.
 			int indexD = 0;
@@ -106,12 +107,13 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][3] = volD.getLeNomDeLaPorte();
 				tableVolsD[indexD][4] = volD.getLeNomDuHall();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
-				tableVolsD[indexD][6] = volD.isAnnule()?"Vol annulé":volD.getRetard();
+				tableVolsD[indexD][6] = volD.getLeParking().getNom();
+				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":volD.getRetard();
 				indexD++;
 			}
 
 			//Les titres des colonnes
-			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion", "Retard"};
+			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion", "Parking" ,"Retard"};
 			tabModelD = new TabModel(tableVolsD, titresD);
 			//tabModel.isCellEditable(0,0);
 			this.tableauD = new JTable(tabModelD);
@@ -307,7 +309,7 @@ public class EcranAerogare extends JFrame{
 			this.tableauSelected = null;
 			this.tabSelected = null;
 			//On crée l'objet tableVolsA (vols d'arrivées)
-			Object[][] tableVolsA = new Object[VolArrivee.getlesVolsA().keySet().size()][7];
+			Object[][] tableVolsA = new Object[VolArrivee.getlesVolsA().keySet().size()][8];
 
 			//parcours de la HashMap lesVolsArrivee de la classe VolArrivee et affectation des valeurs dans chaque colonne de chaque ligne de vol d'arrivée.
 			int index = 0;
@@ -320,19 +322,20 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][3] = volA.getLeNomDeLaPorte();
 				tableVolsA[index][4] = volA.getLeNomDuHall();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
-				tableVolsA[index][6] = volA.isAnnule()?"Vol annulé":volA.getRetard();
+				tableVolsA[index][6] = volA.getLeParking().getNom();
+				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":volA.getRetard();
 				index++;
 			}
 
 			//Les titres des colonnes
-			String  titresA[] = {"Vol", "Provenance","Heure","Porte","Hall","Avion","Retard"};
+			String  titresA[] = {"Vol", "Provenance","Heure","Porte","Hall","Avion", "Parking" ,"Retard"};
 		
 			tabModelA = new TabModel(tableVolsA, titresA);
 			//tabModel.isCellEditable(0,0);
 			this.tableauA = new JTable(tabModelA);
 			
 			//On crée l'objet tableVolsD (vols de départ)
-			Object[][] tableVolsD = new Object[VolDepart.getlesVolsD().keySet().size()][7];
+			Object[][] tableVolsD = new Object[VolDepart.getlesVolsD().keySet().size()][8];
 
 			//parcours de la HashMap lesVolsDepart de la classe VolDepart et affectation des valeurs dans chaque colonne de chaque ligne de vol de départ.
 			int indexD = 0;
@@ -345,12 +348,13 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][3] = volD.getLeNomDeLaPorte();
 				tableVolsD[indexD][4] = volD.getLeNomDuHall();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
-				tableVolsD[indexD][6] = volD.isAnnule()?"Vol annulé":volD.getRetard();
+				tableVolsD[indexD][6] = volD.getLeParking().getNom();
+				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":volD.getRetard();
 				indexD++;
 			}
 
 			//Les titres des colonnes
-			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion", "Retard"};
+			String  titresD[] = {"Vol", "Destination","Heure","Porte","Hall","Avion", "Parking" ,"Retard"};
 			tabModelD = new TabModel(tableVolsD, titresD);
 			//tabModel.isCellEditable(0,0);
 			this.tableauD = new JTable(tabModelD);

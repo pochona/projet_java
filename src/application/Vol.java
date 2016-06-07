@@ -11,6 +11,7 @@ import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import utilitaires.Duree;
 import utilitaires.Horaire;
+import utilitaires.TrancheHoraire;
 
 public abstract class Vol {
 	/**
@@ -37,6 +38,8 @@ public abstract class Vol {
 	 * Nombre de minute de retard
 	 */
 	private int retard;
+
+	private Object monVol;
 	
 	/**
 	 * Toutes les instances des vols 
@@ -329,6 +332,7 @@ public abstract class Vol {
 	 * @params Object key : la clé du vol à supprimer
 	 * @version 1.0 - 27/05/2016
 	 * @version 2.0 - 06/06/2016 by np : Suppresion d'un vol - 2 cas : arrivée ou départ, si on annule juste un vol départ, on met l'avion dans un hangar
+	 * @version 3.0 - 07/06/2016 by ap : Modification pour coller avec les modifs 
 	 */
 	public static void supprimerVol(Object key) {
 		
@@ -348,7 +352,9 @@ public abstract class Vol {
 			} else {
 				//if vol départ on met just le vol départ à annulé, 
 				monVol.annulerLeVol();
+				monVol.getLePassage().annulerDepart();
 			}
+			//Passage.afficherLesPassages();
 			
 	}
 
@@ -373,88 +379,90 @@ public abstract class Vol {
 	 * @author np
 	 * @version 1.0 - 28/05/2016
 	 * @version 1.1 - 29/05/2016 by np : changement des paramètres pris en compte pour le graphique
+	 * @version 2.0 - 07/06/2016 by ap : reprise de la méthode
 	 * @throws ParkingIndispo 
 	 */
 	public static void retarder(String min, Object key) throws RetardTropTard, ParkingIndispo{
-		int m;
-		Parking parkingLibre;
 		int minutes = Integer.parseInt(min);
-		
-		String numVol = (String) key;
-		Vol monVol = Vol.getLeVol(numVol);
-		monVol.ajouterRetard(minutes);
+		Vol monVol = Vol.getLeVol((String) key);
 		Duree temps = new Duree(minutes);
-	//	System.out.println(monVol.getClass().equals(VolArrivee.class));
-		
-		
-		
-		
-		
-		if(monVol.getClass().equals(VolArrivee.class)==true){
-			System.out.println(monVol.getClass().equals(VolArrivee.class));
-			// c'est un vol d'arrivée
-			Horaire monHeureDepart = monVol.getLePassage().getMonVolDepart().getHoraire();
-			Horaire monHeureArrivee = monVol.getLePassage().getMonVolArrivee().getHoraire();
-			Horaire nouvelleHArrivee=monHeureArrivee.ajout(temps);
-			Duree ecartnew = nouvelleHArrivee.retrait(monHeureDepart);
-			m=monHeureDepart.horaireEnMinutes()-nouvelleHArrivee.horaireEnMinutes();
+		int minuteDepart = 0;
 
-			if (m>=monVol.getLePassage().getEcart().dureeEnMinutes()){
-				//l'écart est suffisant (VOIR AVEC LAURA ET AMAURY si on dit que c'est ok si ecart = 0)
-				// on décale juste l'heure d'arrivee
-				monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
+	//	System.out.println(monVol.getClass().equals(VolArrivee.class));
+		// Je recupere mes horaires actuels
+		Horaire monHD = monVol.getLePassage().getHeureDepart();
+		Horaire monHA = monVol.getLePassage().getHeureArrivee();
+		Horaire newHA, newHD;
+		// Je suis dans un vol d'arrivée
+		if(monVol.getClass().equals(VolArrivee.class)==true){
+			// Je commence par calculer mes nouveaux horaires
+			newHA = monHA.ajout(temps);
+			// Je verifie si j'ai pas sauté un jour avec la durée rentrée 
+			if(newHA.compareTo(monHA) < 0){
+				throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
 			} else {
-				// l'ecart n'est pas suffisant, il faut alors décaler les heures des vols arrivée + départ
-				//mais d'abord on regarde que le départ ne dépasse pas 23h59
-				if (nouvelleHArrivee.compareTo(nouvelleHArrivee.ajout(temps))<0){
-					monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(nouvelleHArrivee);
-					int tempInt = m + monVol.getLePassage().getEcart().dureeEnMinutes();
-					Duree tempDuree=new Duree(tempInt);
-					monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monVol.getLePassage().getMonVolDepart().getHoraire().ajout(tempDuree));
-					//monVol.getLePassage().getMonVolDepart().decalerHeureDepart(nouvelleHArrivee.ajout(temps));
-					//On regarde si le parking est toujours OK
-					if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
-						//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-						parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
-						//on supprime le passage de la liste des passages de l'ancien parking 
-						monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
-						//On met ce parking dans le passage
-						monVol.getLePassage().setLeParking(parkingLibre);
-						//on stocke le passage sur ce parking
-						parkingLibre.addPassage(monVol.getLePassage());
-						}
+				// ok je peux continuer
+				// je regarde si mon nouvel horaire d'arrivé est après mon ancien horaire de départ
+				if(monHD.compareTo(newHA) <= Passage.getEcart().dureeEnMinutes()){
+					// ici, mon équart est insuffisant, donc je dois repousser le vol de départ
+					// Mon nouvel horaire de départ sera : 
+					newHD = newHA.ajout(Passage.getEcart());
+					// Je recup le nombre de minutes de décalle que je viens de provoquer sur le vol de départ
+					minuteDepart = newHD.compareTo(monHD);
 				} else {
-					//sinon on déclanche l'exception qui dit que le vol depart est trop tard
-					throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
+					// Pas de soucis, l'horaire de départ peut rester le même
+					newHD = monHD;
 				}
 			}
+		// Je suis dans un vol de départ
 		} else {
-			//c'est un vol départ
-			Horaire monHeureDepart = monVol.getLePassage().getMonVolDepart().getHoraire();
-			Horaire nouvelleHDepart=monHeureDepart.ajout(temps);
-			if (monVol.getLePassage().getMonVolArrivee().getHoraire().compareTo(nouvelleHDepart)<0){
-				monVol.getLePassage().getMonVolDepart().decalerHeureDepart(monHeureDepart.ajout(temps));
-				//On regarde si le parking est toujours OK
-				if (monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage())==false){
-					Parking parkTemp=monVol.getLePassage().getLeParking();
-					//Il y a un problème d'horaire avec le parking suivant, il faut donc trouver un nouveau parking pour ce passage.
-					parkingLibre = Parking.getParkingDispo(monVol.getLePassage().getTrancheHoraire(), monVol.getLAvion());
-					//on supprime le passage de la liste des passages de l'ancien parking 
-					monVol.getLePassage().getLeParking().supprimerPassage(monVol.getLePassage());
-					//On met ce parking dans le passage
-					monVol.getLePassage().setLeParking(parkingLibre);
-					if(parkingLibre != null){
-						//on stocke le passage sur ce parking
-						parkingLibre.addPassage(monVol.getLePassage());
-					} else {
-						throw new ParkingIndispo(monVol);
-					}
-				}
-			} else {
-				//sinon on déclanche l'exception qui dit que le vol depart est trop tard
-				throw new RetardTropTard(RetardTropTard.VOL_DEPART);
+			// Je dois juste modifier l'horaire de départ
+			newHD = monVol.getLePassage().getHeureDepart().ajout(temps);
+			// celui la ne change pas
+			newHA = monVol.getLePassage().getHeureArrivee();
+		}
+		// Je regarde maintenant si j'ai pas sauté une journée sur le vol de départ aussi
+		if(newHD.compareTo(monHD) < 0){
+			throw new RetardTropTard(RetardTropTard.VOL_DEPART);
+		} 
+		// Je vais maintenant chercher un parking disponible pour ces nouveaux horaires
+		boolean find = false;
+		if(monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage(), newHA, newHD)){
+			System.out.println("tjrs dispo");
+			find = true;
+			// Je rajoute mon passage dans l'ordre du coup : il a ete suppr de l'arraylist dans parkingTjrsDispo
+				// mais le lien dans l'autre sens n'a pas été rompu
+			monVol.getLePassage().getLeParking().addPassage(monVol.getLePassage());
+		} else {
+			System.out.println("non, plus dispo !");
+			// Je cherche un parking de libre
+			Parking parkingLibre = Parking.getParkingDispo(new TrancheHoraire(newHA, newHD), monVol.getLAvion());
+			System.out.println("le nouveau sera " + parkingLibre);
+			if(parkingLibre != null){
+				find = true;
+				parkingLibre.addPassage(monVol.getLePassage());
+				monVol.getLePassage().setLeParking(parkingLibre);
 			}
 		}
+		
+		
+		// Si j'ai trouvé mon nouveau parking, bingo, je peux changer mes horaires, sinon, je leve une exception
+		if(find){
+			monVol.getLePassage().getMonVolArrivee().decalerHeureArrivee(newHA);
+			monVol.getLePassage().getMonVolDepart().decalerHeureDepart(newHD);
+			
+			// je peux mettre les retards aussi
+			monVol.ajouterRetard(minutes);
+			// Je regarde si minuteDepart != 0 : dans ce cas, je suis dans un vol d'arrivée, et j'ai du aussi poussée mon vol de départ, donc j'ajoute le retard
+			if(minuteDepart != 0){
+				monVol.getLePassage().getMonVolDepart().ajouterRetard(minuteDepart);
+			}
+		} else {
+			// Je lève une exception, mais je ne touche pas a mon passage : je garantie l'intégrité de mes données
+			throw new ParkingIndispo(monVol);
+		}
+		
+		//Passage.afficherLesPassages();
 	}
 
 
