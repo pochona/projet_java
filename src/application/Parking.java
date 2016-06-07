@@ -498,7 +498,27 @@ public class Parking {
  */
 	public void supprimerPassage(Passage p){
 		this.lesPassages.remove(p);
-		//TODO : réordonner
 	}
 
+	/**
+	 * Méthode getLesParkings.
+	 * Cette méthode permet de retourner tous les parkings connus, associé a un hall
+	 * 
+	 * @author ap
+	 * @return ArrayList<String> : liste des parkings noms associé a hall passé en paramètre
+	 * @version 1.0 - 07/06/2016
+	 */
+	public static ArrayList<String> getLesParkings(Hall leHall){
+		Iterator<Parking> it = lesParkings.iterator();
+		Parking leParking;
+		ArrayList<String> tab = new ArrayList<String>();
+		while(it.hasNext()){
+			leParking = it.next();
+			if(leParking.getLaPorte().getLeHall().equals(leHall)){
+				tab.add(leParking.getNom());
+			}
+		}
+		return tab;
+		
+	}
 }

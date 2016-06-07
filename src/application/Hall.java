@@ -121,10 +121,29 @@ public class Hall {
 	 * @author ap
 	 * @return : la chaine de caractère a afficher
 	 * @version 1.0 - 01/05/2016
-	 * @return String
 	 */
 	public String toString(){
 		return "Le hall " + this.getNom();
+	}
+	
+	/**
+	 * Méthode getNomsDesHalls.
+	 * Cette méthode permet de retourner un array avec les noms des halls
+	 * @author ap
+	 * @return : ArrayList<String> avec les noms
+	 * @version 1.0 - 07/06/2016
+	 */
+	public static ArrayList<String> getNomsDesHalls(){
+		Iterator<Hall> it = lesHalls.iterator();
+		Hall leHall;
+		ArrayList<String> tab = new ArrayList();
+		//String[] tab = new String[lesHalls.size()];
+		//int cpt = 0;
+		while(it.hasNext()){
+			leHall = it.next();
+			tab.add(leHall.getNom());
+		}
+		return tab;
 	}
 	
 }

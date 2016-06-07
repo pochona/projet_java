@@ -5,6 +5,7 @@ import graphiques.EcranHall1;
 import graphiques.EcranHall2;
 import graphiques.EcranHall3;
 import graphiques.EcranHall4;
+import graphiques.EcranParking;
 
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ public class App {
 	private EcranHall2 ecranhall2;
 	private EcranHall3 ecranhall3;
 	private EcranHall4 ecranhall4;
+	private EcranParking ecranParking;
 		
 	/**
 	 * Constructeur app.
@@ -58,6 +60,7 @@ public class App {
 		
 		this.ecranhall4 = new EcranHall4(this);
 		
+		this.ecranParking = new EcranParking(this);
 	}
 
 	
