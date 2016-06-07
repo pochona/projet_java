@@ -1,6 +1,5 @@
 package graphiques;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -11,6 +10,7 @@ import javax.swing.JTable;
 import application.App;
 import application.Vol;
 
+@SuppressWarnings("serial")
 public class EcranHall extends JFrame{
 
 	protected String leHall;
@@ -37,7 +37,7 @@ public class EcranHall extends JFrame{
 
 		Object[][] tableHall = new Object[this.lesVols.keySet().size()][4];
 
-		Iterator it = this.lesVols.keySet().iterator();
+		Iterator<String> it = this.lesVols.keySet().iterator();
 
 		int index = 0;
 		while(it.hasNext()){
@@ -87,7 +87,7 @@ public class EcranHall extends JFrame{
 
 		Object[][] tableHall = new Object[this.lesVols.keySet().size()][4];
 
-		Iterator it = this.lesVols.keySet().iterator();
+		Iterator<String> it = this.lesVols.keySet().iterator();
 
 		int index = 0;
 		while(it.hasNext()){

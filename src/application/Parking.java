@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -146,6 +145,17 @@ public class Parking {
 	public String getNom(){
 		return this.nom;
 	}
+	
+	/**
+	 * Méthode getZone.
+	 * Cette méthode permet de retourner lea zone du parking courant
+	 * @author ap
+	 * @version 1.0 - 30/04/2016
+	 * @return Zone, la ton associé
+	 */
+	public Zone getZone(){
+		return this.zone;
+	}
 
 	/**
 	 * Méthode find.
@@ -198,7 +208,7 @@ public class Parking {
 			lesParkingsTries = Parking.getParkingContactFirst();
 		}
 		
-		Iterator it = lesParkingsTries.iterator();
+		Iterator<Parking> it = lesParkingsTries.iterator();
 		while(it.hasNext() && leParking == null){
 			Parking monParking = (Parking) it.next();
 			if(monParking.isDispo(th)){
@@ -256,7 +266,7 @@ public class Parking {
 		Passage monPassage, lastPassage = null;
 		TrancheHoraire maTh;
 		// Je vais devoir parcourir la liste des passages du parking
-		Iterator it = this.lesPassages.iterator();
+		Iterator<Passage> it = this.lesPassages.iterator();
 		// si la liste de mes passages est vide, je peux directement prendre le parking
 		if(!it.hasNext()){
 			//System.out.println("dispo direct");
@@ -337,7 +347,7 @@ public class Parking {
 		int cpt = 0;
 		boolean find = false;
 
-		Iterator it = this.lesPassages.iterator();
+		Iterator<Passage> it = this.lesPassages.iterator();
 		Horaire monHoraire = p.getHeureArrivee();
 		Passage lePassage;
 		Horaire testHoraire;
@@ -354,8 +364,6 @@ public class Parking {
 			}
 		}
 		this.lesPassages.add(cpt, p);
-		//System.out.println("Apres tri : ");
-		this.afficherLesPassages();
 	}
 	
 
@@ -374,11 +382,11 @@ public class Parking {
 	 */
 	public void afficherLesPassages(){
 		//System.out.println("Parking : " + this.getNom());
-		Iterator it = this.lesPassages.iterator();
+		Iterator<Passage> it = this.lesPassages.iterator();
 		Passage monPassage;
 		while(it.hasNext()){
 			monPassage = (Passage) it.next();
-			//System.out.println(monPassage);
+			System.out.println(monPassage);
 		}
 	}
 

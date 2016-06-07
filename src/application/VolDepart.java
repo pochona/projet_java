@@ -2,6 +2,8 @@ package application;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+
 import utilitaires.Horaire;
 
 public class VolDepart extends Vol {
@@ -16,7 +18,8 @@ public class VolDepart extends Vol {
 	/**
 	 * Toutes les instances des vols d'arrivée
 	 */
-	private static HashMap<String, VolDepart> lesVolsDepart = new HashMap<String, VolDepart>();
+	private static LinkedHashMap<String, VolDepart> lesVolsDepart = new LinkedHashMap<String, VolDepart>();
+	
 	/**
 	 * Constructeur 
 	 * @param num : string numéro du vol
@@ -29,7 +32,8 @@ public class VolDepart extends Vol {
 		super(num, avion);
 		this.heureDepart=ho;
 		this.destination=v;
-		lesVolsDepart.put(num, this);
+		VolDepart.ajouterOrdre(this);
+		Vol.ajouterOrdre(this);
 	}
 	/**
 	 * Cette méthode permet de retourner sous forme de string les vols de départ pour les afficher.
@@ -45,11 +49,6 @@ public class VolDepart extends Vol {
 			} else {
 				str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : non, Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";}
 		}	
-		/*if (monVolDepart.getVolAnnule()==true) {
-			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : oui, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";
-			} else {
-			str += "Numéro du vol : " + monVolDepart.getNumVol() + ", Destination : " + monVolDepart.getDestination() + ", Heure de départ : " + monVolDepart.getHoraire() + ", Vol Annulé : non, Parking :"+ monVolDepart.getLeParking() + ", Hall : "+monVolDepart.getLeHall() + ", Numéro de l'avion : "+monVolDepart.getLAvion().getImmat() + " Porte : "+ monVolDepart.getLeNomDeLaPorte()+", Parking : " + monVolDepart.getLeNomDuParking()+". \n";}
-			}	*/
 		return str;
 	}
 	/**
@@ -96,5 +95,52 @@ public class VolDepart extends Vol {
 	 */
 	public void decalerHeureDepart(Horaire newHeureDep){
 		this.heureDepart=newHeureDep;
+		// je le réinsere dans la hashmap pour conserver l'ordre
+		VolDepart.lesVolsDepart.remove(this.getNumVol());
+		VolDepart.ajouterOrdre(this);
+	}
+	
+	/**
+	 * méthode ajouterOrdre.
+	 * Cette méthode va ajouter dans l'ordre le vol, dans la hashmap
+	 * (static void).
+	 * @author ap
+	 * @param VolDepart v: le vol a ajouter
+	 * @version 1.0 - 07/06/2016
+	 */
+	public static void ajouterOrdre(VolDepart v){
+		boolean find = false;
+		int cpt = 0;
+		Horaire monHoraire = v.getHoraire();
+		Horaire horaireCourant= null;
+		// Je cherche l'indice ou ajouter mon vol avant de l'ajouter
+		Iterator<String> it = lesVolsDepart.keySet().iterator();
+		while(it.hasNext() && !find){
+			String key = it.next();
+			horaireCourant = lesVolsDepart.get(key).getHoraire();
+			if(horaireCourant.compareTo(monHoraire) > 0){
+				find = true;
+			} else {
+				cpt++;
+			}
+		}
+		int cptControl = 0;
+		//System.out.println("2 :" + copieHashMap);
+		HashMap<String, VolDepart> copieHashMap = (HashMap<String, VolDepart>) lesVolsDepart.clone();
+		lesVolsDepart.clear();
+		Iterator<String> itInsert = copieHashMap.keySet().iterator();
+		// j'insere les premiers vols
+		while(itInsert.hasNext() && cptControl < cpt){
+			String key = itInsert.next();
+			lesVolsDepart.put(key, copieHashMap.get(key));
+			cptControl++;
+		}
+		// J'insere mon nouveau vol
+		lesVolsDepart.put(v.getNumVol(), v);
+		// j'insere le reste de mes vols
+		while(itInsert.hasNext()){
+			String key = itInsert.next();
+			lesVolsDepart.put(key, copieHashMap.get(key));
+		}
 	}
 }

@@ -22,7 +22,7 @@ import application.Parking;
 import application.Passage;
 
 
-public class EcranAerogare2 extends JFrame{
+public class ZzzEcranAerogare2 extends JFrame{
 
 		//declaration
 		private App application;
@@ -39,7 +39,7 @@ public class EcranAerogare2 extends JFrame{
 		 * @version 1.0 - 24/05/2016
 		 * @
 		 */
-		public EcranAerogare2(App a){
+		public ZzzEcranAerogare2(App a){
 			this.application = a;
 			init();
 		}

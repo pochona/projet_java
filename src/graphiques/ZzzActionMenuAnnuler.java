@@ -3,12 +3,12 @@ package graphiques;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 
-public class ActionMenuAnnuler extends AbstractAction{
+@SuppressWarnings("serial")
+public class ZzzActionMenuAnnuler extends AbstractAction{
 
 	//Declaration
-	EcranMenu ecranMenu;
+	ZzzEcranMenu ecranMenu;
 	
 	/**
 	 * Constructeur ActionMenuAnnuler.
@@ -16,7 +16,7 @@ public class ActionMenuAnnuler extends AbstractAction{
 	 * @params EcranMenu ecranMenu
 	 * @version 1.0 - 27/05/2016
 	 */
-	public ActionMenuAnnuler(EcranMenu ecranMenu) {
+	public ZzzActionMenuAnnuler(ZzzEcranMenu ecranMenu) {
 		this.ecranMenu=ecranMenu;
 	}
 

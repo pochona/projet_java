@@ -1,7 +1,6 @@
 package application;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class Avion {
 	 */
 	private static HashMap<String, Avion> lesAvions = new HashMap<String, Avion>();
 
+	@SuppressWarnings("serial")
 	private static ArrayList<String> grandeTaille = new ArrayList<String>(){{
 		add("AIRBUS-A380");
 	}};

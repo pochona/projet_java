@@ -1,26 +1,21 @@
 package application;
 
 import graphiques.EcranAerogare;
-import graphiques.EcranAerogare2;
 import graphiques.EcranHall1;
 import graphiques.EcranHall2;
 import graphiques.EcranHall3;
 import graphiques.EcranHall4;
-import graphiques.EcranMenu;
 
 import java.io.IOException;
 
-import javax.swing.JFrame;
 
 public class App {
 
 	private EcranAerogare ecranAerogare;
-	private EcranAerogare2 ecranAerogare2;
 	private EcranHall1 ecranhall1;
 	private EcranHall2 ecranhall2;
 	private EcranHall3 ecranhall3;
 	private EcranHall4 ecranhall4;
-	private EcranMenu ecranMenu;
 		
 	/**
 	 * Constructeur app.
@@ -42,7 +37,7 @@ public class App {
 			Parking.initialise();
 			
 			Vol.initialise();
-			Passage.afficherLesPassages();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,14 +118,4 @@ public class App {
 		return this.ecranhall4;
 	}
 	
-	/**
-	 * Méthode getEcranAerogare2()
-	 * Retourne l'ecran du hall4
-	 * @author lb
-	 * @version 1.0 - 04/06/2016
-	 * 
-	 */
-	public EcranAerogare2 getEcranAerogare2() {
-		return this.ecranAerogare2;
-	}
 }

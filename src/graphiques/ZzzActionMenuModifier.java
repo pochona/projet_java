@@ -3,12 +3,12 @@ package graphiques;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 
-public class ActionMenuModifier extends AbstractAction{
+@SuppressWarnings("serial")
+public class ZzzActionMenuModifier extends AbstractAction{
 
 	//Declaration
-	EcranMenu ecranMenu;
+	ZzzEcranMenu ecranMenu;
 
 
 	/**
@@ -17,7 +17,7 @@ public class ActionMenuModifier extends AbstractAction{
 	 * @params EcranMenu ecranMenu
 	 * @version 1.0 - 27/05/2016
 	 */
-	public ActionMenuModifier(EcranMenu ecranMenu) {
+	public ZzzActionMenuModifier(ZzzEcranMenu ecranMenu) {
 		this.ecranMenu=ecranMenu;
 	}
 

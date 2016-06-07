@@ -1,9 +1,11 @@
 package graphiques;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 
 
+@SuppressWarnings("serial")
 public class ActionArrivee extends AbstractAction {
 
 	//Declaration
@@ -32,12 +34,8 @@ public class ActionArrivee extends AbstractAction {
 		 * @version 1.0 - 06/06/2016
 		 */
 		public void actionPerformed(ActionEvent e) {
-			EcranModifArrivee ecranModifArrivee = new EcranModifArrivee(ecrModifDepart.getLeVolArrivee(),ecrAerogare);
-			ecranModifArrivee.setVisible(true);
-			ecranModifArrivee.setSize(700,700);
-			ecranModifArrivee.setLocationRelativeTo(null);
-			ecranModifArrivee.setTitle("Modifier un vol: ");
-			
+			new EcranModifArrivee(ecrModifDepart.getLeVolArrivee(),ecrAerogare);
+			this.ecrModifDepart.dispose();
 		}
 
 		

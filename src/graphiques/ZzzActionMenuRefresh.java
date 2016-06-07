@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-public class ActionMenuRefresh extends AbstractAction{
+@SuppressWarnings("serial")
+public class ZzzActionMenuRefresh extends AbstractAction{
 
 	//Declaration
-	EcranMenu ecranMenu;
+	ZzzEcranMenu ecranMenu;
 	EcranAerogare ecranAerogare;
-	EcranAerogare2 ecranAerogare2;
+	ZzzEcranAerogare2 ecranAerogare2;
 	EcranHall1 ecranHall1;
 	EcranHall2 ecranHall2;
 	EcranHall3 ecranHall3;
@@ -23,7 +24,7 @@ public class ActionMenuRefresh extends AbstractAction{
 	 * @params EcranMenu ecranMenu
 	 * @version 1.0 - 27/05/2016
 	 */
-	public ActionMenuRefresh(EcranMenu ecranMenu, EcranAerogare ecranAerogare,EcranHall1 ecranHall1, EcranHall2 ecranHall2, EcranHall3 ecranHall3, EcranHall4 ecranHall4, EcranAerogare2 ecranAerogare2) {
+	public ZzzActionMenuRefresh(ZzzEcranMenu ecranMenu, EcranAerogare ecranAerogare,EcranHall1 ecranHall1, EcranHall2 ecranHall2, EcranHall3 ecranHall3, EcranHall4 ecranHall4, ZzzEcranAerogare2 ecranAerogare2) {
 		this.ecranMenu=ecranMenu;
 		this.ecranAerogare=ecranAerogare;
 		this.ecranAerogare2=ecranAerogare2;

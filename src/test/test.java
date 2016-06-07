@@ -1,22 +1,15 @@
 package test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import utilitaires.Duree;
 import utilitaires.Horaire;
-import utilitaires.TrancheHoraire;
 import application.Avion;
 import application.ErreurLignesSuccessivesVols;
 import application.Parking;
-import application.ParkingContact;
-import application.ParkingSansContact;
+import application.ParkingIndispo;
 import application.Passage;
-import application.PorteContact;
-import application.PorteSansContact;
+import application.RetardTropTard;
 import application.Vol;
-import application.VolArrivee;
-import application.VolDepart;
 import application.Zone;
 import application.Hall;
 import application.Porte;
@@ -24,6 +17,8 @@ import application.Porte;
 public class test {
 	/**
 	 * @param args
+	 * @throws ParkingIndispo 
+	 * @throws RetardTropTard 
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -72,7 +67,25 @@ public class test {
 
 			System.out.println(mathparam.getFinTrancheHoraire().compareTo(math2.getDebutTrancheHoraire()));
 			*/
+			Vol monVol = Vol.getLeVol("TWA019");
+			Duree temps = new Duree(300);
+			Horaire monHA = monVol.getLePassage().getHeureArrivee();
+			System.out.println("monHA : " + monHA);
+			Horaire monHD = monVol.getLePassage().getHeureDepart();
+			System.out.println("monHD : " + monHD);
+
+			Horaire newHA = monHA.ajout(temps);
+			System.out.println("newHA : " +newHA);
+			if(monHD.compareTo(newHA) <= Passage.getEcart().dureeEnMinutes()){
+				Horaire newHD = newHA.ajout(Passage.getEcart());
+				System.out.println("pas bien");
+				System.out.println("newHD : " + newHA.ajout(Passage.getEcart()));
+			} else {
+				System.out.println("newHD : " + monHD);
+			}
+			//System.out.println(newHA.compareTo(monHA));
 			
+			Vol.retarder("300", "TWA019");
 			
 			
 			System.out.println("breakpoint");
@@ -80,6 +93,12 @@ public class test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ErreurLignesSuccessivesVols e){
+			System.out.println(e);
+		} catch (RetardTropTard e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+		} catch (ParkingIndispo e) {
+			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
 	}

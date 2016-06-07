@@ -3,6 +3,7 @@ package graphiques;
 import application.App;
 
 
+@SuppressWarnings("serial")
 public class EcranHall2 extends EcranHall{
 
 

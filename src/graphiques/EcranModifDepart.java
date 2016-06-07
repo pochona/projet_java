@@ -3,31 +3,55 @@ package graphiques;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import application.Vol;
-import application.VolArrivee;
 import application.VolDepart;
 
+@SuppressWarnings("serial")
 public class EcranModifDepart extends EcranModif {
 
+	/**
+	 * Vol de départ qui sera ouvert sur la frame
+	 */
 	private VolDepart leVol;
+	
+	/**
+	 * Les différents boutons de la frame
+	 */
 	private JButton boutonAnnuler, boutonRetarder, boutonAnnulerTout, boutonArrivee;
+	
+	/**
+	 * L'ecran aerogare, dont est issu la frame
+	 */
 	private EcranAerogare ecranAerogare;
 	
+	/**
+	 * Méthode EcranModifDepart
+	 * Constructeur de EcranModifDepart.
+	 * 
+	 * @author ap
+	 * @param String n : String du nom de l'avion
+	 * @param EcranAerogare ae : ecran aerogare lié à la frame
+	 * @version 1.0 - 07/06/2016 
+	 */
 	public EcranModifDepart(String n, EcranAerogare ae){
 		this.leVol = (VolDepart) Vol.getLeVol(n);
 		this.ecranAerogare = ae;
 		this.init();
 	}
 	
+	/**
+	 * Méthode init
+	 * Cette méthode va initialiser la frame
+	 * 
+	 * @author ap
+	 * @version 1.0 - 06/06/2016 
+	 */
 	private void init(){
 		this.setBounds(100, 100, 608, 474);
 		this.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -103,9 +127,17 @@ public class EcranModifDepart extends EcranModif {
 			
 			panel_1.add(boutonArrivee);
 		}
+		this.setTitle("Vol de départ " + this.leVol.getNumVol());
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Méthode actualiser
+	 * Cette méthode actualiser la frame
+	 * 
+	 * @author ap
+	 * @version 1.0 - 06/06/2016 
+	 */
 	public void actualiser(){
 		this.getContentPane().removeAll();
 		this.init();

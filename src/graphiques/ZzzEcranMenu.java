@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import application.App;
 
-public class EcranMenu extends JFrame{
+public class ZzzEcranMenu extends JFrame{
 	
 	
 	//Declarations
@@ -26,7 +26,7 @@ public class EcranMenu extends JFrame{
 	EcranHall2 ecranHall2;
 
 
-	public EcranMenu(App a){
+	public ZzzEcranMenu(App a){
 		this.application = a;
 		init();
 	}
@@ -50,15 +50,15 @@ public class EcranMenu extends JFrame{
 		boutonRefresh.setIcon(new ImageIcon(getClass().getResource("/images/refresh.png")));
 		
 		
-		ActionMenuAnnuler ecouteurAnnuler = new ActionMenuAnnuler(this);
+		ZzzActionMenuAnnuler ecouteurAnnuler = new ZzzActionMenuAnnuler(this);
 		boutonAnnuler.addActionListener(ecouteurAnnuler);
 		
-		ActionMenuModifier ecouteurModifier = new ActionMenuModifier(this);
+		ZzzActionMenuModifier ecouteurModifier = new ZzzActionMenuModifier(this);
 		boutonModifier.addActionListener(ecouteurModifier);
 		
-		ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare(), this.application.getEcranHall1(),this.application.getEcranHall2(),this.application.getEcranHall3(),this.application.getEcranHall4(), this.application.getEcranAerogare2());
+		/*ActionMenuRefresh ecouteurRefresh = new ActionMenuRefresh(this, this.application.getEcranAerogare(), this.application.getEcranHall1(),this.application.getEcranHall2(),this.application.getEcranHall3(),this.application.getEcranHall4(), this.application.getEcranAerogare2());
 		boutonRefresh.addActionListener(ecouteurRefresh);
-		
+		*/
 		//instancie le panel "Que voulez-vous faire ?" 
 		Font font = new Font("Arial",Font.BOLD,16);
 		Label texte= new Label("Que voulez-vous faire ?");

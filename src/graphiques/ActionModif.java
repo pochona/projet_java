@@ -1,33 +1,15 @@
 package graphiques;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.TableModel;
 
-import application.Passage;
-import application.RetardTropTard;
 import application.Vol;
 import application.VolArrivee;
 import application.VolDepart;
 
 
+@SuppressWarnings("serial")
 public class ActionModif extends AbstractAction{
 
 	//Declaration
@@ -68,9 +50,9 @@ public class ActionModif extends AbstractAction{
 			Object key = ecranAerogare.getTabSelected().getValueAt(row,col);
 	
 			if(Vol.getLeVol((String) key).getClass().equals(VolDepart.class)){
-				EcranModifDepart ecran = new EcranModifDepart((String) key, this.ecranAerogare);
+				new EcranModifDepart((String) key, this.ecranAerogare);
 			} else if(Vol.getLeVol((String) key).getClass().equals(VolArrivee.class)){
-				EcranModifArrivee ecran = new EcranModifArrivee((String) key, this.ecranAerogare);
+				new EcranModifArrivee((String) key, this.ecranAerogare);
 			}
 		}
 		catch(ArrayIndexOutOfBoundsException e) {System.out.println("aucune ligne sélectionnée");}

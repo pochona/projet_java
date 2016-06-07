@@ -35,11 +35,6 @@ public class Passage {
 	private static Duree ecart=new Duree(20);
 	
 	/**
-	 * int compteur de passage (ap : principalement utilisé pour des tests)
-	 */
-	private static int nbPassage = 0;
-	
-	/**
 	 * Constructeur de Passage.
 	 * Construit le passage et trouve un parking dispo
 	 * 
@@ -51,8 +46,7 @@ public class Passage {
 	public Passage(VolArrivee a, VolDepart d){
 		this.volDepart = d;
 		this.volArrivee = a;
-		nbPassage++;
-	//	System.out.println(nbPassage);
+		//	System.out.println(nbPassage);
 		this.parking = Parking.getParkingDispo(this.getTrancheHoraire(), this.getMonVolArrivee().getLAvion());
 		this.parking.addPassage(this);
 		lesPassages.add(this);

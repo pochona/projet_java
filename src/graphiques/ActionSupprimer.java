@@ -9,6 +9,7 @@ import application.Vol;
 import application.VolArrivee;
 
 
+@SuppressWarnings("serial")
 public class ActionSupprimer extends AbstractAction{
 	private Vol leVol;
 	private EcranModif ecranModif;
@@ -55,6 +56,7 @@ public class ActionSupprimer extends AbstractAction{
 		} else {
 			option = JOptionPane.showConfirmDialog(null, "Etes-vous sûr de vouloir supprimer le vol numéro: "+this.leVol.getNumVol(), "Supprimer vol", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);       
 		}
+		
 		if(option == JOptionPane.OK_OPTION){
 			// deleteAll = je suis dans un vol départ, et je supprime le passage
 			if(this.deleteAll){

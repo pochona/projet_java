@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.StringTokenizer;
 
 public class Hall {
 	/**
@@ -45,7 +44,6 @@ public class Hall {
 		try {
 			BufferedReader entree = new BufferedReader(new FileReader("src\\fichiers\\halls.txt"));
 			String line;
-			StringTokenizer st;
 			// je parcours chaque ligne de mon fichier
 			while ((line = entree.readLine()) != null) {
 				new Hall(line);

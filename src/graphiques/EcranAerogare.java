@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -21,6 +20,7 @@ import application.VolArrivee;
 import application.VolDepart;
 
 
+@SuppressWarnings("serial")
 public class EcranAerogare extends JFrame{
 
 		//declaration
@@ -40,7 +40,7 @@ public class EcranAerogare extends JFrame{
 		 * Ce constructeur appel la méthode init()
 		 * @author lb
 		 * @version 1.0 - 24/05/2016
-		 * @
+		 * @version 2.0 - 06/06/2016 - by ap : changement de la fenetre aerogare
 		 */
 		public EcranAerogare(App a){
 			this.application = a;

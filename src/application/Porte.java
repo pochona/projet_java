@@ -201,6 +201,17 @@ public class Porte {
 	}
 	
 	/**
+	 * Méthode ajouterParking.
+	 * Cette méthode permet de retourner le parking associé
+	 * @author ap
+	 * @return parking p : le parking associé a la porte
+	 * @version 1.0 - 01/05/2016
+	 */
+	public Parking getParking(){
+		return(this.parking);
+	}
+	
+	/**
 	 * Méthode getLeHall.
 	 * Cette méthode récupère le hall associé à la porte courante
 	 * @return le hall associé à la porte

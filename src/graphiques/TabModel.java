@@ -2,6 +2,7 @@ package graphiques;
 
 import javax.swing.table.AbstractTableModel;
 
+@SuppressWarnings("serial")
 public class TabModel extends AbstractTableModel{
 
 	private Object[][] data;

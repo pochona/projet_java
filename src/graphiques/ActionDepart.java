@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+@SuppressWarnings("serial")
 public class ActionDepart extends AbstractAction {
 
 	//Declaration
@@ -32,12 +33,9 @@ public class ActionDepart extends AbstractAction {
 		 * @version 1.0 - 06/06/2016
 		 */
 		public void actionPerformed(ActionEvent e) {
-			EcranModifDepart ecrModifDepart = new EcranModifDepart(ecrModifArrivee.getLeVolDepart(),ecrAerogare);
-			ecrModifDepart.setVisible(true);
-			ecrModifDepart.setSize(700,700);
-			ecrModifDepart.setLocationRelativeTo(null);
-			ecrModifDepart.setTitle("Modifier un vol: ");
-			
+			new EcranModifDepart(ecrModifArrivee.getLeVolDepart(),ecrAerogare);
+			this.ecrModifArrivee.dispose();
+
 		}
 
 		

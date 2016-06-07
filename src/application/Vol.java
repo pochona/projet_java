@@ -5,9 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.StringTokenizer;
-
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import utilitaires.Duree;
 import utilitaires.Horaire;
@@ -39,12 +38,12 @@ public abstract class Vol {
 	 */
 	private int retard;
 
-	private Object monVol;
-	
 	/**
 	 * Toutes les instances des vols 
 	 */
-	private static HashMap<String, Vol> lesVols = new HashMap<String, Vol>();
+	private static LinkedHashMap<String, Vol> lesVols = new LinkedHashMap<String, Vol>();
+
+	private static BufferedReader entree;
 
 	/**
 	 * Constructeur de vol 
@@ -57,8 +56,8 @@ public abstract class Vol {
 		this.numVol =num;
 		this.estAnnule=false;
 		this.lAvion=avion;
-		this.retard=0;
-		lesVols.put(num, this);
+		this.retard=0;	
+		// On ajoutera a la fin dans la hashmap, car actuellement les horaires ne sont pas renseignes, car elles sont dans les classes spécialisées
 	}
 
 	/**
@@ -71,8 +70,7 @@ public abstract class Vol {
 	 */
 	public static void initialise() throws IOException, ErreurLignesSuccessivesVols{
 		try {
-			BufferedReader entree = new BufferedReader(new FileReader("src\\fichiers\\vols.txt"));
-			int compteurVols=0;
+			entree = new BufferedReader(new FileReader("src\\fichiers\\vols.txt"));
 			String line;
 			String numVol;
 			String numAvion="";
@@ -189,22 +187,13 @@ public abstract class Vol {
 		String str = "------ Les vols  ------" + " \n";
 		while(val.hasNext()){
 			Vol monVol = val.next();
-			/* 20/05/2016 by ap : version valide à remettre lorsque la méthode d'attribution du parking sera ok
-			if (monVol.getVolAnnule()==true){
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
-			} else {
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
-			}*/
+
 			if (monVol.isAnnule()){
 				str += " Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+". \n";
 			} else {
 				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+". \n";
 			}
-			/*if (monVol.getVolAnnule()==true){
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : oui, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?", vol arrivé.":", vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
-			} else {
-				str += "Numéro du vol : " + monVol.getNumVol() +  ", Vol Annulé : non, Porte :"+ monVol.getLeParking() + ", Hall : "+monVol.getLeHall() + ", Numéro de l'avion : " + monVol.getLAvion().getImmat() +", Type : "+(monVol.getClass().equals(VolArrivee.class)?"vol arrivé.":"vol départ.")+ " Porte : "+ monVol.getLeNomDeLaPorte()+", Parking : " + monVol.getLeNomDuParking()+". \n";
-			}*/
+
 		}
 		return str;
 	}
@@ -298,12 +287,12 @@ public abstract class Vol {
 	 * @return : la map des vols filtrés
 	 * @version 1.0 - 24/05/2016
 	 */
-	public static HashMap<String, Vol> getVolsByHall(Hall h){
-		HashMap maHashMap = new HashMap<String, Vol>();
-		Iterator it = lesVols.keySet().iterator();
+	public static LinkedHashMap<String, Vol> getVolsByHall(Hall h){
+		LinkedHashMap<String, Vol> maHashMap = new LinkedHashMap<String, Vol>();
+		Iterator<String> it = lesVols.keySet().iterator();
 		Vol monVol;
 		while(it.hasNext()){
-			Object key = it.next();
+			String key = (String) it.next();
 			monVol = lesVols.get(key);
 			if(monVol.getLeHall().equals(h)){
 				maHashMap.put(key, monVol);
@@ -312,17 +301,15 @@ public abstract class Vol {
 		return maHashMap;
 	}
 
+	/**
+	 * Méthode getHoraire.
+	 * Cette méthode retourner l'horaire du vol.
+	 * @author ap
+	 * @return Horaire h : l'horaire du vol actuel
+	 * @version 1.0 - 24/05/2016
+	 */
 	public Horaire getHoraire() {
-		Horaire h = null;
-		if(this.getClass().equals(VolArrivee.class)){
-			VolArrivee v = (VolArrivee) this;
-			h = v.getHoraire();
-		} else {
-			VolDepart v = (VolDepart) this;
-			h = v.getHoraire();
-		}
-		return h;
-
+		return this.getHoraire();
 	}
 
 	/**
@@ -358,19 +345,6 @@ public abstract class Vol {
 			
 	}
 
-
-	/**
-	 * Méthode modifierHeure.
-	 * Cette méthode retarde le vol par la clé passée en parametre
-	 * @author lb
-	 * @params String m les minutes de retard, Object key la clé du vol a retarder
-	 * @version 1.0 - 27/05/2016
-	 */
-	public static void modifierHeure(String m, Object key){
-		int minutes = Integer.parseInt(m);
-		//System.out.println("Minutes: "+minutes+" Clé: "+key);
-		//TODO 
-	}
 
 	/**
 	 * 
@@ -428,16 +402,16 @@ public abstract class Vol {
 		// Je vais maintenant chercher un parking disponible pour ces nouveaux horaires
 		boolean find = false;
 		if(monVol.getLePassage().getLeParking().parkingTjrsOk(monVol.getLePassage(), newHA, newHD)){
-			System.out.println("tjrs dispo");
+//			System.out.println("tjrs dispo");
 			find = true;
 			// Je rajoute mon passage dans l'ordre du coup : il a ete suppr de l'arraylist dans parkingTjrsDispo
 				// mais le lien dans l'autre sens n'a pas été rompu
 			monVol.getLePassage().getLeParking().addPassage(monVol.getLePassage());
 		} else {
-			System.out.println("non, plus dispo !");
+//			System.out.println("non, plus dispo !");
 			// Je cherche un parking de libre
 			Parking parkingLibre = Parking.getParkingDispo(new TrancheHoraire(newHA, newHD), monVol.getLAvion());
-			System.out.println("le nouveau sera " + parkingLibre);
+//			System.out.println("le nouveau sera " + parkingLibre);
 			if(parkingLibre != null){
 				find = true;
 				parkingLibre.addPassage(monVol.getLePassage());
@@ -461,8 +435,6 @@ public abstract class Vol {
 			// Je lève une exception, mais je ne touche pas a mon passage : je garantie l'intégrité de mes données
 			throw new ParkingIndispo(monVol);
 		}
-		
-		//Passage.afficherLesPassages();
 	}
 
 
@@ -504,5 +476,48 @@ public abstract class Vol {
 	 */
 	public void ajouterRetard(int m) {
 		this.retard = this.retard + m;
+	}
+	
+	/**
+	 * méthode ajouterOrdre.
+	 * Cette méthode va ajouter dans l'ordre le vol, dans la hashmap
+	 * (static void).
+	 * @author ap
+	 * @param Vol v: le vol a ajouter
+	 * @version 1.0 - 07/06/2016
+	 */
+	public static void ajouterOrdre(Vol v){
+		boolean find = false;
+		int cpt = 0;
+		Horaire monHoraire = v.getHoraire();
+		Horaire horaireCourant= null;
+		// Je cherche l'indice ou ajouter mon vol avant de l'ajouter
+		Iterator<String> it = lesVols.keySet().iterator();
+		while(it.hasNext() && !find){
+			String key = it.next();
+			 horaireCourant = lesVols.get(key).getHoraire();
+			if(horaireCourant.compareTo(monHoraire) > 0){
+				find = true;
+			} else {
+				cpt++;
+			}
+		}
+		int cptControl = 0;
+		HashMap<String, Vol> copieHashMap = (HashMap<String, Vol>) lesVols.clone();
+		lesVols.clear();
+		Iterator<String> itInsert = copieHashMap.keySet().iterator();
+		// j'insere les premiers vols
+		while(itInsert.hasNext() && cptControl < cpt){
+			String key = itInsert.next();
+			lesVols.put(key, copieHashMap.get(key));
+			cptControl++;
+		}
+		// J'insere mon nouveau vol
+		lesVols.put(v.getNumVol(), v);
+		// j'insere le reste de mes vols
+		while(itInsert.hasNext()){
+			String key = itInsert.next();
+			lesVols.put(key, copieHashMap.get(key));
+		}
 	}
 }
