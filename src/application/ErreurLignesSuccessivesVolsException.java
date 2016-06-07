@@ -1,7 +1,7 @@
 package application;
 
 @SuppressWarnings("serial")
-public class ErreurLignesSuccessivesVols extends Exception {
+public class ErreurLignesSuccessivesVolsException extends Exception {
 	
 	/**
 	 * constante de l'erreur du vol de départ
@@ -31,7 +31,7 @@ public class ErreurLignesSuccessivesVols extends Exception {
 	 * @version 1.0 - 09/05/2016
 	 * @version 2.0 - 18/05/2016 by ap : correction du constructeur
 	 */
-	public ErreurLignesSuccessivesVols (int mode, String numAvion) {
+	public ErreurLignesSuccessivesVolsException (int mode, String numAvion) {
 		this.mode = mode;
 		this.numAvion = numAvion;
 	}

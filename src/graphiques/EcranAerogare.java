@@ -45,7 +45,7 @@ public class EcranAerogare extends JFrame{
 		public EcranAerogare(App a){
 			this.application = a;
 			init();
-			this.setSize(700,700);
+			this.setSize(1200, 850);
 			this.setLocationRelativeTo(null);
 			this.setTitle("Ecran Aerogare");
 			this.setVisible(true);
@@ -78,7 +78,7 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][4] = volA.getLeNomDuHall();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
 				tableVolsA[index][6] = volA.getLeParking().getNom();
-				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":volA.getRetard();
+				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":(volA.getRetard()==0)?"A l'heure":volA.getRetard();
 				index++;
 			}
 
@@ -108,7 +108,7 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][4] = volD.getLeNomDuHall();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
 				tableVolsD[indexD][6] = volD.getLeParking().getNom();
-				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":volD.getRetard();
+				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":(volD.getRetard()==0)?"A l'heure":volD.getRetard();
 				indexD++;
 			}
 
@@ -145,11 +145,26 @@ public class EcranAerogare extends JFrame{
 				}
 			}.init(this));
 			
+			JPanel panel_titre = new JPanel();
+			
 			Font font = new Font("Arial",Font.BOLD,16);
 			Label texte= new Label("Choisir un vol à modifier :");
 			texte.setFont(font);
-			texte.setBackground(Color.WHITE);
 			
+			panel_titre.setLayout(new BorderLayout());
+			
+			font = new Font("Arial",Font.BOLD,14);
+			Label texteDep= new Label("Vol de départ :");
+			texteDep.setFont(font);
+
+			Label texteAr= new Label("Vol d'arrivée :");
+			texteAr.setFont(font);
+			
+			panel_titre.setBackground(Color.WHITE);
+			
+			panel_titre.add(texte, BorderLayout.NORTH);
+			panel_titre.add(texteAr, BorderLayout.WEST);
+			panel_titre.add(texteDep, BorderLayout.EAST);
 			
 			this.setLayout(new GridLayout(1,1));
 			//ajout de contentPane dans un scroll
@@ -181,7 +196,7 @@ public class EcranAerogare extends JFrame{
 			panel_scroll.add(this.scrollPaneD);
 			
 			panel_base.add(this.boutonModifier, BorderLayout.SOUTH);
-			panel_base.add(texte, BorderLayout.NORTH);
+			panel_base.add(panel_titre, BorderLayout.NORTH);
 		}   
 
 		/**
@@ -323,7 +338,7 @@ public class EcranAerogare extends JFrame{
 				tableVolsA[index][4] = volA.getLeNomDuHall();
 				tableVolsA[index][5] = volA.getLAvion().getImmat();
 				tableVolsA[index][6] = volA.getLeParking().getNom();
-				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":volA.getRetard();
+				tableVolsA[index][7] = volA.isAnnule()?"Vol annulé":(volA.getRetard()==0)?"A l'heure":volA.getRetard();
 				index++;
 			}
 
@@ -349,7 +364,7 @@ public class EcranAerogare extends JFrame{
 				tableVolsD[indexD][4] = volD.getLeNomDuHall();
 				tableVolsD[indexD][5] = volD.getLAvion().getImmat();
 				tableVolsD[indexD][6] = volD.getLeParking().getNom();
-				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":volD.getRetard();
+				tableVolsD[indexD][7] = volD.isAnnule()?"Vol annulé":(volD.getRetard()==0)?"A l'heure":volD.getRetard();
 				indexD++;
 			}
 
@@ -386,10 +401,26 @@ public class EcranAerogare extends JFrame{
 				}
 			}.init(this));
 			
+			JPanel panel_titre = new JPanel();
+			
 			Font font = new Font("Arial",Font.BOLD,16);
 			Label texte= new Label("Choisir un vol à modifier :");
 			texte.setFont(font);
-			texte.setBackground(Color.WHITE);
+			
+			panel_titre.setLayout(new BorderLayout());
+			
+			font = new Font("Arial",Font.BOLD,14);
+			Label texteDep= new Label("Vol de départ :");
+			texteDep.setFont(font);
+
+			Label texteAr= new Label("Vol d'arrivée :");
+			texteAr.setFont(font);
+			
+			panel_titre.setBackground(Color.WHITE);
+			
+			panel_titre.add(texte, BorderLayout.NORTH);
+			panel_titre.add(texteAr, BorderLayout.WEST);
+			panel_titre.add(texteDep, BorderLayout.EAST);
 			
 			
 			this.setLayout(new GridLayout(1,1));
@@ -422,12 +453,38 @@ public class EcranAerogare extends JFrame{
 			panel_scroll.add(this.scrollPaneD);
 			
 			panel_base.add(this.boutonModifier, BorderLayout.SOUTH);
-			panel_base.add(texte, BorderLayout.NORTH);
+			panel_base.add(panel_titre, BorderLayout.NORTH);
 			
 			this.getContentPane().revalidate();
 	
 		}
-
+		
+		/**
+		 * Méthode actualiserListe()
+		 * Méthode qui d'actualiser toutes les frames 
+		 * @author ap
+		 * @version 1.0 - 07/06/2016
+		 * 
+		 */
+		public void actualiserTout(){
+			this.actualiserListe();
+			this.application.getEcranHall1().actualiserListe();
+			this.application.getEcranHall2().actualiserListe();
+			this.application.getEcranHall3().actualiserListe();
+			this.application.getEcranHall4().actualiserListe();
+			this.application.getEcranParking().editTable();
+		}
+		
+		/**
+		 * Méthode getAppli()
+		 * Méthode qui retourne l'application courante
+		 * @author ap
+		 * @version 1.0 - 07/06/2016
+		 * 
+		 */
+		public App getAppli(){
+			return this.application;
+		}
 }
 
 

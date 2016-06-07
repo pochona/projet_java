@@ -63,12 +63,12 @@ public abstract class Vol {
 	/**
 	 * Cette méthode static permet d'ouvrir le fichier des volset d'initialiser les vols, volsdeparts et volsArrivé.
 	 * @throws IOException
-	 * @throws ErreurLignesSuccessivesVols
+	 * @throws ErreurLignesSuccessivesVolsException
 	 * 
 	 * @author np
 	 * @version 1.0 - 24/05/2016
 	 */
-	public static void initialise() throws IOException, ErreurLignesSuccessivesVols{
+	public static void initialise() throws IOException, ErreurLignesSuccessivesVolsException{
 		try {
 			entree = new BufferedReader(new FileReader("src\\fichiers\\vols.txt"));
 			String line;
@@ -128,12 +128,12 @@ public abstract class Vol {
 								}
 							} else {
 								//il manque le départ de l'avion 
-								throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
+								throw new ErreurLignesSuccessivesVolsException(ErreurLignesSuccessivesVolsException.VOL_DEPART, numAvion);
 							}
 						}
 					} else {
 						//il manque le départ du dernier avion
-						throw new ErreurLignesSuccessivesVols(ErreurLignesSuccessivesVols.VOL_DEPART, numAvion);
+						throw new ErreurLignesSuccessivesVolsException(ErreurLignesSuccessivesVolsException.VOL_DEPART, numAvion);
 					}
 
 				}
@@ -334,8 +334,10 @@ public abstract class Vol {
 				monVol.getLePassage().supprimerLePassage();
 				//annuler vol arrivée
 				monVol.annulerLeVol();
-				//annuler vol départ
-				monVol.getLePassage().getMonVolDepart().annulerLeVol();
+				//annuler vol départ s'il existe encore
+				if(monVol.getLePassage() .getMonVolDepart()!= null){
+					monVol.getLePassage().getMonVolDepart().annulerLeVol();
+				}
 			} else {
 				//if vol départ on met just le vol départ à annulé, 
 				monVol.annulerLeVol();
@@ -349,15 +351,18 @@ public abstract class Vol {
 	/**
 	 * 
 	 * @param temps : Duree de retard du vol
-	 * @throws RetardTropTard (indique un msg d'erreur qui dit qu'un avion ne peux pas partir apres 23h59
+	 * @throws RetardTropTardException (indique un msg d'erreur qui dit qu'un avion ne peux pas partir apres 23h59
 	 * @author np
 	 * @version 1.0 - 28/05/2016
 	 * @version 1.1 - 29/05/2016 by np : changement des paramètres pris en compte pour le graphique
 	 * @version 2.0 - 07/06/2016 by ap : reprise de la méthode
-	 * @throws ParkingIndispo 
+	 * @throws ParkingIndispoException 
 	 */
-	public static void retarder(String min, Object key) throws RetardTropTard, ParkingIndispo{
+	public static void retarder(String min, Object key) throws RetardTropTardException, ParkingIndispoException, ValeurRetardException, NumberFormatException{
 		int minutes = Integer.parseInt(min);
+		if(minutes > 1440 || minutes < 0){
+			throw new ValeurRetardException(minutes);
+		}
 		Vol monVol = Vol.getLeVol((String) key);
 		Duree temps = new Duree(minutes);
 		int minuteDepart = 0;
@@ -373,7 +378,7 @@ public abstract class Vol {
 			newHA = monHA.ajout(temps);
 			// Je verifie si j'ai pas sauté un jour avec la durée rentrée 
 			if(newHA.compareTo(monHA) < 0){
-				throw new RetardTropTard(RetardTropTard.VOL_ARRIVEE);
+				throw new RetardTropTardException(RetardTropTardException.VOL_ARRIVEE);
 			} else {
 				// ok je peux continuer
 				// je regarde si mon nouvel horaire d'arrivé est après mon ancien horaire de départ
@@ -397,7 +402,7 @@ public abstract class Vol {
 		}
 		// Je regarde maintenant si j'ai pas sauté une journée sur le vol de départ aussi
 		if(newHD.compareTo(monHD) < 0){
-			throw new RetardTropTard(RetardTropTard.VOL_DEPART);
+			throw new RetardTropTardException(RetardTropTardException.VOL_DEPART);
 		} 
 		// Je vais maintenant chercher un parking disponible pour ces nouveaux horaires
 		boolean find = false;
@@ -433,7 +438,7 @@ public abstract class Vol {
 			}
 		} else {
 			// Je lève une exception, mais je ne touche pas a mon passage : je garantie l'intégrité de mes données
-			throw new ParkingIndispo(monVol);
+			throw new ParkingIndispoException(monVol);
 		}
 	}
 

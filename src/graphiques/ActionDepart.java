@@ -33,8 +33,7 @@ public class ActionDepart extends AbstractAction {
 		 * @version 1.0 - 06/06/2016
 		 */
 		public void actionPerformed(ActionEvent e) {
-			new EcranModifDepart(ecrModifArrivee.getLeVolDepart(),ecrAerogare);
-			this.ecrModifArrivee.dispose();
+			this.ecrAerogare.getAppli().setEcranModif(new EcranModifDepart(ecrModifArrivee.getLeVolDepart(),ecrAerogare));
 
 		}
 

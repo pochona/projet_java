@@ -1,7 +1,7 @@
 package application;
 
 @SuppressWarnings("serial")
-public class RetardTropTard extends Exception {
+public class RetardTropTardException extends Exception {
 
 	/**
 	 * @author np
@@ -30,7 +30,7 @@ public class RetardTropTard extends Exception {
 	 * @param mode : mode de l'erreur (voir les int constantes)
 	 * @version 1.0 - 28/05/2016
 	 */
-	public RetardTropTard (int mode) {
+	public RetardTropTardException (int mode) {
 		this.mode = mode;
 	}
 	

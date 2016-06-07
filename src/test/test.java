@@ -1,14 +1,16 @@
 package test;
 
 import java.io.IOException;
+
 import utilitaires.Duree;
 import utilitaires.Horaire;
 import application.Avion;
-import application.ErreurLignesSuccessivesVols;
+import application.ErreurLignesSuccessivesVolsException;
 import application.Parking;
-import application.ParkingIndispo;
+import application.ParkingIndispoException;
 import application.Passage;
-import application.RetardTropTard;
+import application.RetardTropTardException;
+import application.ValeurRetardException;
 import application.Vol;
 import application.Zone;
 import application.Hall;
@@ -17,8 +19,8 @@ import application.Porte;
 public class test {
 	/**
 	 * @param args
-	 * @throws ParkingIndispo 
-	 * @throws RetardTropTard 
+	 * @throws ParkingIndispoException 
+	 * @throws RetardTropTardException 
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -92,14 +94,20 @@ public class test {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ErreurLignesSuccessivesVols e){
+		} catch (ErreurLignesSuccessivesVolsException e){
 			System.out.println(e);
-		} catch (RetardTropTard e) {
+		} catch (RetardTropTardException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-		} catch (ParkingIndispo e) {
+		} catch (ParkingIndispoException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ValeurRetardException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

@@ -5,8 +5,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
-import application.ParkingIndispo;
-import application.RetardTropTard;
+import application.ParkingIndispoException;
+import application.RetardTropTardException;
+import application.ValeurRetardException;
 import application.Vol;
 
 
@@ -38,8 +39,8 @@ public class ActionRetarder extends AbstractAction{
 	 * @version 1.0 - 06/06/2016
 	 */
 	public void actionPerformed(ActionEvent arg0) {
+		String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard :");
 		try {
-			String minutes = JOptionPane.showInputDialog(null, "Saisir les minutes de retard :");
 			if(minutes != null && !minutes.equals("")){
 				//Vol.ModifierHeure(minutes, key);
 				Vol.retarder(minutes, this.leVol.getNumVol());
@@ -47,9 +48,13 @@ public class ActionRetarder extends AbstractAction{
 				JOptionPane.showMessageDialog(null, "Vol "+this.leVol.getNumVol()+" modifié!", "InfoBox: " + "Modification", JOptionPane.INFORMATION_MESSAGE);
 				this.ecranModif.actualiser();
 			}
-		} catch (RetardTropTard e){
+		} catch (RetardTropTardException e){
 			System.out.println(e);
-		} catch (ParkingIndispo e) {
+		} catch (ParkingIndispoException e) {
+			System.out.println(e);
+		} catch (NumberFormatException e){
+			System.out.println(minutes + " n'est pas un entier.");
+		} catch (ValeurRetardException e) {
 			System.out.println(e);
 		}
 	}

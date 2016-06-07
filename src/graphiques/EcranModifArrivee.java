@@ -53,7 +53,7 @@ public class EcranModifArrivee extends EcranModif {
 	 * @version 1.0 - 06/06/2016 
 	 */
 	private void init(){
-		this.setBounds(100, 100, 608, 474);
+		this.setSize(608, 474);
 		this.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblVol = new JLabel("Vol d'arrivée n°= " + this.leVol.getNumVol());
@@ -88,13 +88,18 @@ public class EcranModifArrivee extends EcranModif {
 			
 			JLabel lblParking = new JLabel("Parking : " + this.leVol.getLeParking().getNom());
 			panel.add(lblParking);
+
+			JLabel lblPassage;
+			if(this.leVol.getLePassage().getMonVolDepart() != null){
+				lblPassage = new JLabel("Ce vol est associé au vol de départ : " + this.leVol.getLePassage().getMonVolDepart().getNumVol()
+						 + ", qui partira à " + this.leVol.getLePassage().getHeureDepart());
+				
+			}else{
+				lblPassage = new JLabel("Le vol associé est annulé");
+			}
 			
-			
-			JLabel lblPassage = new JLabel("Ce vol est associé vol de départ : " + this.leVol.getLePassage().getMonVolDepart().getNumVol()
-					 + ", qui partira à " + this.leVol.getLePassage().getHeureDepart());
 			lblPassage.setFont(new Font("Tahoma", Font.BOLD, 16));
 			panel.add(lblPassage);
-			
 			
 			JPanel panel_1 = new JPanel();
 			this.getContentPane().add(panel_1, BorderLayout.SOUTH);
@@ -102,26 +107,26 @@ public class EcranModifArrivee extends EcranModif {
 	
 			this.boutonAnnuler = new JButton("Annuler tout le passage");
 			this.boutonAnnuler.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
-			this.boutonRetarder = new JButton("Retarder le vol");
-			this.boutonRetarder.setIcon(new ImageIcon(getClass().getResource("/images/clock.png")));
-			this.boutonDepart = new JButton("Vol départ");
-			this.boutonDepart.setIcon(new ImageIcon(getClass().getResource("/images/airplane.png")));
-			
-			
 			ActionSupprimer ecouteurSupp = new ActionSupprimer(this.leVol, this);
 			this.boutonAnnuler.addActionListener(ecouteurSupp);
+			panel_1.add(boutonAnnuler);
 			
+			this.boutonRetarder = new JButton("Retarder le vol");
+			this.boutonRetarder.setIcon(new ImageIcon(getClass().getResource("/images/clock.png")));
 			ActionRetarder ecouteurModifier = new ActionRetarder(this.leVol, this);
 			this.boutonRetarder.addActionListener(ecouteurModifier);
-			
-			ActionDepart ecouteurDepart = new ActionDepart(this, this.ecranAerogare);
-			this.boutonDepart.addActionListener(ecouteurDepart);
-			
-			panel_1.add(boutonAnnuler);
-	
 			panel_1.add(boutonRetarder);
 			
-			panel_1.add(boutonDepart);
+			// si je vol correspondant existe pas, j'ai pas besoin de ces boutons
+			if(this.leVol.getLePassage().getMonVolDepart() != null){
+				this.boutonDepart = new JButton("Vol départ");
+				this.boutonDepart.setIcon(new ImageIcon(getClass().getResource("/images/airplane.png")));
+				
+				ActionDepart ecouteurDepart = new ActionDepart(this, this.ecranAerogare);
+				this.boutonDepart.addActionListener(ecouteurDepart);
+				
+				panel_1.add(boutonDepart);
+			}
 		}
 		this.setTitle("Vol d'arrivée " + this.leVol.getNumVol());
 		this.setVisible(true);
@@ -137,7 +142,7 @@ public class EcranModifArrivee extends EcranModif {
 	public void actualiser(){
 		this.getContentPane().removeAll();
 		this.init();
-		this.ecranAerogare.actualiserListe();
+		this.ecranAerogare.actualiserTout();
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 package application;
 
 @SuppressWarnings("serial")
-public class ParkingIndispo extends Exception {
+public class ParkingIndispoException extends Exception {
 	
 	/**
 	 * Numéro du vol en erreur
@@ -15,7 +15,7 @@ public class ParkingIndispo extends Exception {
 	 * @param Vol v : vol en erreur
 	 * @version 1.0 - 06/06/2016
 	 */
-	public ParkingIndispo (Vol v) {
+	public ParkingIndispoException (Vol v) {
 		this.leVol = v;
 	}
 	

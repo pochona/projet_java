@@ -50,9 +50,12 @@ public class ActionSupprimer extends AbstractAction{
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		int option;
- 
+
 		if(this.deleteAll || this.leVol.getClass().equals(VolArrivee.class)){
-			option = JOptionPane.showConfirmDialog(null, "Etes-vous sûr de vouloir supprimer les vols numéro: "+this.leVol.getNumVol()+ " et, " +this.leVol.getLePassage().getMonVolDepart().getNumVol(), "Supprimer vol", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);       
+			String text = "Etes-vous sûr de vouloir supprimer les vols numéro: " +this.leVol.getLePassage().getMonVolArrivee().getNumVol();
+			text+= this.leVol.getLePassage().getMonVolDepart()!=null?" et, " +this.leVol.getLePassage().getMonVolDepart().getNumVol():"";
+			text+= " ?";
+			option = JOptionPane.showConfirmDialog(null, text, "Supprimer vol", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);       
 		} else {
 			option = JOptionPane.showConfirmDialog(null, "Etes-vous sûr de vouloir supprimer le vol numéro: "+this.leVol.getNumVol(), "Supprimer vol", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);       
 		}

@@ -96,6 +96,10 @@ public class VolArrivee extends Vol {
 		// je le réinsere dans la hashmap pour conserver l'ordre
 		VolArrivee.lesVolsArrivee.remove(this.getNumVol());
 		VolArrivee.ajouterOrdre(this);
+		
+		// ca doit aussi le déplacer dans les Vol
+		Vol.getlesVols().remove(this.getNumVol());
+		Vol.ajouterOrdre(this);
 	}
 	
 	/**

@@ -84,7 +84,6 @@ public class EcranHall extends JFrame{
 		this.tableau= null;
 
 		this.lesVols = Vol.getVolsByHall(this.leHall);
-
 		Object[][] tableHall = new Object[this.lesVols.keySet().size()][4];
 
 		Iterator<String> it = this.lesVols.keySet().iterator();

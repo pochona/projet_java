@@ -5,6 +5,7 @@ import graphiques.EcranHall1;
 import graphiques.EcranHall2;
 import graphiques.EcranHall3;
 import graphiques.EcranHall4;
+import graphiques.EcranModif;
 import graphiques.EcranParking;
 
 import java.io.IOException;
@@ -18,7 +19,8 @@ public class App {
 	private EcranHall3 ecranhall3;
 	private EcranHall4 ecranhall4;
 	private EcranParking ecranParking;
-		
+	private EcranModif ecranModif;
+	
 	/**
 	 * Constructeur app.
 	 * Constructeur de la classe App
@@ -43,7 +45,7 @@ public class App {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ErreurLignesSuccessivesVols e) {
+		} catch (ErreurLignesSuccessivesVolsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -119,6 +121,31 @@ public class App {
 	 */
 	public EcranHall4 getEcranHall4() {
 		return this.ecranhall4;
+	}
+	
+	/**
+	 * Méthode setEcranModif
+	 * Actualise l'ecran de modif, et supprime l'ancien s'il en existe un ouvert
+	 * @author ap
+	 * @param em : le nouveau ecranModif
+	 * @version 1.0 - 07/06/2016
+	 */
+	public void setEcranModif(EcranModif em){
+		if(this.ecranModif != null){
+			this.ecranModif.dispose();
+		}
+		this.ecranModif = em;
+	}
+	
+	/**
+	 * Méthode getEcranParking
+	 * retourne l'ecran des parkings.
+	 * @author ap
+	 * @return EcranParking : l'ecran des parkings
+	 * @version 1.0 - 07/06/2016
+	 */
+	public EcranParking getEcranParking(){
+		return this.ecranParking;
 	}
 	
 }

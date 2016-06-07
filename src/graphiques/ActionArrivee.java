@@ -34,8 +34,7 @@ public class ActionArrivee extends AbstractAction {
 		 * @version 1.0 - 06/06/2016
 		 */
 		public void actionPerformed(ActionEvent e) {
-			new EcranModifArrivee(ecrModifDepart.getLeVolArrivee(),ecrAerogare);
-			this.ecrModifDepart.dispose();
+			this.ecrAerogare.getAppli().setEcranModif(new EcranModifArrivee(ecrModifDepart.getLeVolArrivee(),ecrAerogare));
 		}
 
 		

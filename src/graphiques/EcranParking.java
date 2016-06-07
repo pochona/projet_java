@@ -75,7 +75,7 @@ public class EcranParking extends JFrame {
 	 * @version 1.0 - 07/06/2016 
 	 */
 	private void init(){
-		this.setBounds(100, 100, 808, 474);
+		this.setBounds(100, 100, 500, 300);
 
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
 		
@@ -200,6 +200,7 @@ public class EcranParking extends JFrame {
 	 * Méthode editTable.
 	 * Cette méthode est appelé pour recharger la table au changement de parking
 	 * 
+	 * @param Parking p : le parking selectionné
 	 * @author ap
 	 * @version 1.0 - 07/06/2016 
 	 */
@@ -228,7 +229,7 @@ public class EcranParking extends JFrame {
 			index++;
 		}
 		//Les titres des colonnes
-		String  titres[] = {"Horaires", "Vol arrivée","Vol départ","Avion"};
+		String  titres[] = {"Horaires", "Vol arrivée", "Vol départ", "Avion"};
 
 	
 		
@@ -243,5 +244,14 @@ public class EcranParking extends JFrame {
 		this.revalidate();
 	}
 	
-	
+	/**
+	 * Méthode editTable.
+	 * Cette méthode est appelé pour recharger la table, lors d'une actualisation de frame
+	 * 
+	 * @author ap
+	 * @version 1.0 - 07/06/2016 
+	 */
+	public void editTable(){
+		this.editTable(Parking.find((String)boxParking.getSelectedItem()));
+	}
 }
