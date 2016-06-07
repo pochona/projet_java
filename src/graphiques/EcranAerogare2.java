@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
@@ -73,7 +74,9 @@ public class EcranAerogare2 extends JFrame{
 				tablePassage[index][7] = p.getMonVolDepart().getLeNomDuHall();
 
 				index ++;
+				
 			}
+			
 
 			//Les titres des colonnes
 			String titres[] = {"Vol arrivée", "Provenance","Heure","Vol départ","Destination","Heure","Porte","Hall"};

@@ -17,7 +17,7 @@ import application.VolArrivee;
 public class EcranModifArrivee extends EcranModif {
 
 	private VolArrivee leVol;
-	private JButton boutonAnnuler, boutonRetarder;
+	private JButton boutonAnnuler, boutonRetarder, boutonDepart;
 	private EcranAerogare ecranAerogare;
 	
 	public EcranModifArrivee(String n, EcranAerogare ae){
@@ -79,6 +79,8 @@ public class EcranModifArrivee extends EcranModif {
 			this.boutonAnnuler.setIcon(new ImageIcon(getClass().getResource("/images/back.png")));
 			this.boutonRetarder = new JButton("Retarder le vol");
 			this.boutonRetarder.setIcon(new ImageIcon(getClass().getResource("/images/clock.png")));
+			this.boutonDepart = new JButton("Vol départ");
+			this.boutonDepart.setIcon(new ImageIcon(getClass().getResource("/images/airplane.png")));
 			
 			
 			ActionSupprimer ecouteurSupp = new ActionSupprimer(this.leVol, this);
@@ -87,9 +89,14 @@ public class EcranModifArrivee extends EcranModif {
 			ActionRetarder ecouteurModifier = new ActionRetarder(this.leVol, this);
 			this.boutonRetarder.addActionListener(ecouteurModifier);
 			
+			ActionDepart ecouteurDepart = new ActionDepart(this, this.ecranAerogare);
+			this.boutonDepart.addActionListener(ecouteurDepart);
+			
 			panel_1.add(boutonAnnuler);
 	
 			panel_1.add(boutonRetarder);
+			
+			panel_1.add(boutonDepart);
 		}
 		this.setVisible(true);
 	}
@@ -98,6 +105,18 @@ public class EcranModifArrivee extends EcranModif {
 		this.getContentPane().removeAll();
 		this.init();
 		this.ecranAerogare.actualiserListe();
+	}
+	
+	/**
+	 * Getter getLeVolDepart().
+	 * @author lb
+	 * @return le vol depart associé
+	 * @version 1.0 - 06/06/2016
+	 */
+	public String  getLeVolDepart() {
+		// TODO Auto-generated method stub
+		
+		return this.leVol.getLePassage().getMonVolDepart().getNumVol();
 	}
 	
 }
