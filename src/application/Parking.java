@@ -277,9 +277,6 @@ public class Parking {
 		while (!dispo && it.hasNext() && !stop){
 			// Je recupere la trancheHoraire de mon passage courant
 			monPassage = (Passage) it.next();
-			//System.out.println(monPassage.getHeureDepart());
-			//System.out.println(th.getDebutTrancheHoraire());
-			//System.out.println(monPassage.getHeureDepart().compareTo(th.getDebutTrancheHoraire()));
 			// J'avance jusqu'a trouver le moment ou le départ de mon passage sera plus grand que l'arrivée du courant
 			Horaire monHoraireDepart = monPassage.getMonVolDepart()==null?monPassage.getHeureArrivee().ajout(Passage.getDuree()):monPassage.getHeureDepart();
 			if(monHoraireDepart.compareTo(th.getDebutTrancheHoraire()) >= 0){
@@ -297,9 +294,6 @@ public class Parking {
 					//System.out.println(maTh);
 					// maTh contient la tranche Horaire dispo la plus grande avec au moins le départ de mon vol dedans
 					// je regarde maintenant si mon horaire rentre en entier dans maTh ou non
-					//System.out.println("maTh : " + maTh);
-					//System.out.println("th : " + th);
-					//System.out.println("contient : " + maTh.contient(th));
 					if(maTh.contient(th)){
 						//System.out.println("if 3");
 						dispo = true;

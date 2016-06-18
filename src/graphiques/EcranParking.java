@@ -203,6 +203,7 @@ public class EcranParking extends JFrame {
 	 * @param Parking p : le parking selectionné
 	 * @author ap
 	 * @version 1.0 - 07/06/2016 
+	 * @version 1.1 - 18/06/2016 : correction du beug en cas de suppression du vol de départ
 	 */
 	private void editTable(Parking p) {
 
@@ -222,9 +223,9 @@ public class EcranParking extends JFrame {
 		{
 			monPassage = itTable.next();
 			
-			maTable[index][0] = monPassage.getHeureArrivee() + " - " + monPassage.getHeureDepart();
+			maTable[index][0] = monPassage.getHeureArrivee() + " - " + (monPassage.getMonVolDepart() != null?monPassage.getHeureDepart():(monPassage.getHeureArrivee().ajout(Passage.getEcart())+ "*"));
 			maTable[index][1] = monPassage.getMonVolArrivee().getNumVol();
-			maTable[index][2] = monPassage.getMonVolDepart().getNumVol();
+			maTable[index][2] = (monPassage.getMonVolDepart() != null? monPassage.getMonVolDepart().getNumVol():"* Annulé");
 			maTable[index][3] = monPassage.getMonVolArrivee().getLAvion().getImmat();
 			index++;
 		}
